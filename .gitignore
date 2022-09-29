@@ -64,21 +64,21 @@ buck-out/
 /vendor/bundle/
 
 
-__tests__
-.bundle
-android
-ios
-.buckconfig
-.eslintrc.js
-.flowconfig
-.node-version
-.ruby-version
-.prettierrc.js
-.watchmanconfig
-app.json
+# __tests__
+# .bundle
+# android
+# ios
+# .buckconfig
+# .eslintrc.js
+# .flowconfig
+# .node-version
+# .ruby-version
+# .prettierrc.js
+# .watchmanconfig
+# app.json
 babel.config.js
-Gemfile
-metro.config.js
-package-lock.json
-yarn.lock
+# Gemfile
+# metro.config.js
+# package-lock.json
+# yarn.lock
 

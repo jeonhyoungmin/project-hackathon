@@ -1,117 +1,43 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import Setting from './src/views/setting/Setting';
+import ApplicationInfo from './src/views/setting/ApplicationInfo/ApplicationInfo';
+import Authentication from './src/views/setting/Authentication/Authentication';
+import Authority from './src/views/setting/Authority/Authority';
+import DataManagement from './src/views/setting/DataManagement/DataManagement';
+import InterFaceSetting from './src/views/setting/InterfaceSetting/InterFaceSetting';
+import MyInfo from './src/views/setting/MyInfo/MyInfo';
+import Notification from './src/views/setting/Notification/Notification';
+import PrivacyPolicy from './src/views/setting/PrivacyPolicy/PrivacyPolicy';
+import SignOut from './src/views/setting/SignOut/SignOut';
+import SuggestionQuestion from './src/views/setting/SuggestionQuestion/SuggestionQuestion';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+    <SafeAreaView style={styles.root}>
+      
+      <Setting />
+      {/* <ApplicationInfo />
+      <Authentication />
+      <Authority />
+      <DataManagement />
+      <InterFaceSetting />
+      <MyInfo />
+      <Notification />
+      <PrivacyPolicy />
+      <SignOut />
+      <SuggestionQuestion /> */}
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  root: {
+    flex: 1,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+  },  
 });
 
 export default App;

@@ -77,6 +77,7 @@ buck-out/
 # .watchmanconfig
 # app.json
 babel.config.js
+node_moduels
 # Gemfile
 # metro.config.js
 # package-lock.json

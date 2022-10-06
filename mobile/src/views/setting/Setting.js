@@ -3,50 +3,44 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 // 컴포넌트 파일 불러오기
 import CustomButton from '../../components/customButton/CustomButton';
+import {useNavigation} from '@react-navigation/native';
 
-// 버튼을 눌렀을 때 ('') 메세지를 띄우는 함수
-const onMyInfoPressed = () => {
-  console.warn('내 정보');
-};
-
-const onAuthenticationPressed = () => {
-  console.warn('인증 수단');
-};
-
-const onAuthorityPressed = () => {
-  console.warn('권한');
-};
-
-const onDataManagementPressed = () => {
-  console.warn('데이터 관리');
-};
-
-const onInterfaceSettingPressed = () => {
-  console.warn('인터페이스 설정');
-};
-
-const onNotificationPressed = () => {
-  console.warn('알림');
-};
-
-const onApplicationInfoPressed = () => {
-  console.warn('C＇lock 정보');
-};
-
-const onPrivacyPolicyPressed = () => {
-  console.warn('개인정보 처리방침');
-};
-
-const onSuggestionQuestionPressed = () => {
-  console.warn('건의/문의');
-};
-
-const onSignOutPressed = () => {
-  console.warn('로그아웃');
-};
 
 // Setting 스크린
 const Setting = () => {
+
+  const navigation = useNavigation();
+
+  const onApplicationInfoPressed = () => {
+    navigation.navigate('ApplicationInfo');
+  };
+  const onAuthenticationPressed = () => {
+    navigation.navigate('Authentication');
+  };
+  const onAuthorityPressed = () => {
+    navigation.navigate('Authority');
+  };
+  const onDataManagementPressed = () => {
+    navigation.navigate('DataManagement');
+  };
+  const onInterfaceSettingPressed = () => {
+    navigation.navigate('InterfaceSetting');
+  };
+  const onMyInfoPressed = () => {
+    navigation.navigate('MyInfo');
+  };
+  const onNotificationPressed = () => {
+    navigation.navigate('Notification');
+  };
+  const onPrivacyPolicyPressed = () => {
+    navigation.navigate('PrivacyPolicy');
+  };
+  const onSignOutPressed = () => {
+    navigation.navigate('Home');
+  };
+  const onSuggestionQuestionPressed = () => {
+    navigation.navigate('SuggestionQuestion');
+  };
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>

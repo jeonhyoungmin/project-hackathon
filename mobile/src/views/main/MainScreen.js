@@ -6,8 +6,13 @@ import {
   StyleSheet,
   FlatList,
   Alert,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
-import CustomButton from '../../components/main/CustomButton';
+import {PlusButton} from '../../components/main/CustomButton';
+import {SearchButton} from '../../components/main/CustomButton';
+import {SettingButton} from '../../components/main/CustomButton';
+import {HambergurButton} from '../../components/main/CustomButton';
 
 const DATA = [
   {
@@ -36,14 +41,22 @@ const DATA = [
   },
 ];
 
-const Item = ({title}) => (
-  <View style={styles.display}>
+const Item = ({title, onPress, style}) => (
+  <TouchableOpacity onPress={onPress} style={[styles.display, style]}>
     <Text style={styles.mainbox}>{title}</Text>
-    <CustomButton></CustomButton>
-  </View>
+    <PlusButton>
+      <Image
+        style={styles.img}
+        source={{
+          uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg==',
+        }}
+        resizeMode="cover"
+      />
+    </PlusButton>
+  </TouchableOpacity>
 );
 
-const MainScreen = () => {
+const MainScreen = ({onPress, style}) => {
   return (
     <SafeAreaView>
       <FlatList
@@ -52,13 +65,28 @@ const MainScreen = () => {
         keyExtractor={item => item.id}
         data={DATA}
         renderItem={Item}></FlatList>
+      <TouchableOpacity onPress={onPress} style={[styles.display, style]}>
+        <View style={styles.Searchposition}>
+          <SearchButton />
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={onPress} style={[styles.display, style]}>
+        <View style={styles.Settingposition}>
+          <SettingButton />
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={onPress} style={[styles.display, style]}>
+        <View style={styles.Hambergurposition}>
+          <HambergurButton />
+        </View>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   mainbox: {
-    width: 100,
+    width: 150,
     height: 100,
     backgroundColor: 'lightgray',
     borderRadius: 5,
@@ -73,6 +101,26 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  Searchposition: {
+    position: 'absolute',
+    bottom: 400,
+    left: 300,
+  },
+  Settingposition: {
+    position: 'absolute',
+    bottom: 400,
+    left: 340,
+  },
+  Hambergurposition: {
+    position: 'absolute',
+    bottom: 470,
+    left: 40,
+  },
+  img: {
+    width: '50%',
+    height: '50%',
+    position: 'absolute',
   },
 });
 

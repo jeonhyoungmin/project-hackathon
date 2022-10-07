@@ -3,14 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 
 const AuthorityScreen = () => {
   return (
-    <View style={styles.root}>
+    <View style={styles.container}>
       <Text>Authority</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  root: {
+  container: {
     flex: 1,
     alignItems: 'center',
     justifyContent:'center',

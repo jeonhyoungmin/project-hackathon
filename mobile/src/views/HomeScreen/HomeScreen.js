@@ -3,17 +3,17 @@ import { StyleSheet, Text, View } from 'react-native';
 
 const HomeScreen = () => {
   return (
-    <View style={styles.root}>
+    <View style={styles.container}>
       <Text>HomeScreen</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  root: {
+  container: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent:'center',
   }
 });
 

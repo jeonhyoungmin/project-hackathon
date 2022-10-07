@@ -11,7 +11,6 @@ const CustomButton = ({ onPress, type="", bgColor, fgColor, text }) => {
       이 기능은 hover, blur, focus 등으로 확장될 수 있다.
 
       onPress 라는 props는 버튼을 눌렀을 때 어떤 함수를 실행할지 결정하는 기능을 한다.
-      Setting.js에 있는 const onMyInfoPressed 함수를 보면 알겠지만 해당 버튼을 눌렀을 때 경고창이 뜨도록 설정했다.
     */
     <Pressable onPress = {onPress} style={[styles.container, styles[`container_${type}`], bgColor ? {backgroundColor: bgColor} : {}]}>
       <Text style={[styles.text, styles[`text_${type}`, fgColor ? {color: fgColor}: {}]]}>

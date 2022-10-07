@@ -1,22 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import Setting from './src/views/setting/Setting';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Navigation from './src/routes/index';
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.root}>
-      
-      {/* <Setting /> */}
-      <Navigation />
-
-    </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <Navigation />
+      </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  root: {
+  container: {
     flex: 1,
+    
   },  
 });
 

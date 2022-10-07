@@ -1,20 +1,13 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
-
-import MainScreen from './src/views/main/MainScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import RootScreen from './src/views/main/RootScreen';
 
 const App = () => {
   return (
-    <SafeAreaView style={Styles.display}>
-      <MainScreen></MainScreen>
-    </SafeAreaView>
+    <NavigationContainer>
+      <RootScreen />
+    </NavigationContainer>
   );
 };
 
-const Styles = StyleSheet.create({
-  display: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
 export default App;

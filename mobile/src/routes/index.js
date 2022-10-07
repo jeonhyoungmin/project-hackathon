@@ -12,8 +12,8 @@ import InterfaceSettingScreen from '../views/setting/InterfaceSettingScreen/Inte
 import MyInfoScreen from '../views/setting/MyInfoScreen/MyInfoScreen';
 import NotificationScreen from '../views/setting/NotificationScreen/NotificationScreen';
 import PrivacyPolicyScreen from '../views/setting/PrivacyPolicyScreen/PrivacyPolicyScreen';
-import HomeScreen from '../views/HomeScreen/HomeScreen';
 import SuggestionQuestionScreen from '../views/setting/SuggestionQuestionScreen/SuggestionQuestionScreen';
+import SignInScreen from '../views/SignInScreen/SignInScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -31,7 +31,7 @@ const Navigation = () => {
         <Stack.Screen name="MyInfo" component={MyInfoScreen} />
         <Stack.Screen name="Notification" component={NotificationScreen} />
         <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SuggestionQuestion" component={SuggestionQuestionScreen} />
       </Stack.Navigator>
     </NavigationContainer>

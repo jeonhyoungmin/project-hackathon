@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput, StyleSheet, Text, View} from 'react-native';
+import {TextInput, StyleSheet, Text, View, Pressable} from 'react-native';
 
 const SearchBar = props => {
   return (
@@ -11,6 +11,8 @@ const SearchBar = props => {
         onChangeText={text => props.setSrearchText(text)}
         onSubmitEditing={props.onSubmit}
       />
+      <Pressable
+        style={({pressed}) => [styles.button && {opacity: 0.5}]}></Pressable>
     </View>
   );
 };
@@ -31,6 +33,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 375,
     left: 100,
+  },
+  button: {
+    marginLeft: 8,
   },
 });
 // 검색바에 쓰이는 스타일 값

@@ -6,10 +6,15 @@ import Icon from 'react-native-vector-icons/Ionicons'
 // 변경: bgColor && {backgroundColor: bgColor}
 
 const AddBoxButton = ({bgColor, widthSize, heightSize}) => {
+
+  const buttonCheck = () => {
+    console.warn('ㅎㅇ')
+  }
+  
   return (
-    <View style={[styles.container, bgColor && {backgroundColor: bgColor}, widthSize && {width: widthSize}, heightSize && {height: heightSize}]}>
-        <Icon name="add-circle-outline" size={20} color="#333" />
-    </View>
+    <Pressable style={[styles.container, bgColor && {backgroundColor: bgColor}, widthSize && {width: widthSize}, heightSize && {height: heightSize}]}>
+        <Icon onPress={buttonCheck} name="add-circle-outline" size={20} color="#333" />
+    </Pressable>
   )
 }
 

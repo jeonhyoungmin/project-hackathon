@@ -1,23 +1,26 @@
 import { View, Text, Alert, Modal, StyleSheet, Pressable } from 'react-native'
 import React, { useState } from 'react'
+import { Transition } from 'react-native-reanimated';
 
 const RegistraionModal = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <View style={styles.container}>
       <Modal 
-      animationType='fade'
+      animationType='slide'
       transparent={true}
-      visible={modalVisible}
+      // visible={modalVisible}
       onRequestClose={() => {
         setModalVisible(!modalVisible);
       }}
       >
-        <Text>registraionModal</Text>
+        <View style={styles.container}>
+          <View style={styles.modalStyle}>
+            <Text>registraionModal</Text>
+          </View>
+        </View>
       </Modal>
-    </View>
   )
 }
 
@@ -25,8 +28,14 @@ const styles=StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalStyle: {
+    backgroundColor: 'blue',
+    justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute'
+    width: 300,
+    height: 200,
   }
 })
 

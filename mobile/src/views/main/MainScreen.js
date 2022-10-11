@@ -13,6 +13,7 @@ import {SearchButton} from '../../components/main/CustomButton';
 import {SettingButton} from '../../components/main/CustomButton';
 import {HambergurButton} from '../../components/main/CustomButton';
 import SearchBar from '../../components/main/SearchBar';
+import {Icon} from 'react-native-vector-icons/icon';
 
 const DATA = [
   {

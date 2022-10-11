@@ -1,5 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, Pressable} from 'react-native';
+import Icons from 'react-native-vector-icons/Ionicons';
+import SearchScreen from '../../views/main/SearchScreen';
 
 const PlusButton = () => {
   return (
@@ -17,11 +19,9 @@ const PlusButton = () => {
 const SearchButton = () => {
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../../src/assets/searchicon.png')}
-        style={styles.img}
-        resizeMode="center"
-      />
+      <Pressable onPress={SearchScreen}>
+        <Icons name="md-search-circle-outline" size={32} color="#333" />
+      </Pressable>
     </View>
   );
 };
@@ -29,11 +29,7 @@ const SearchButton = () => {
 const SettingButton = () => {
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../../src/assets/setting.png')}
-        style={styles.img}
-        resizeMode="cover"
-      />
+      <Icons name="md-settings-outline" size={30} color="#333" />
     </View>
   );
 };
@@ -42,11 +38,7 @@ const SettingButton = () => {
 const HambergurButton = () => {
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../../src/assets/HambergurIcon.png')}
-        style={styles.img}
-        resizeMode="stretch"
-      />
+      <Icons name="md-menu-sharp" size={30} color="#333" />
     </View>
   );
 };
@@ -55,9 +47,6 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 30,
-    height: 30,
-    backgroundColor: '#dedede',
     borderRadius: 24,
     position: 'absolute',
   },

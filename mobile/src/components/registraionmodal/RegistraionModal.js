@@ -10,7 +10,7 @@ const RegistraionModal = () => {
       <Modal 
       animationType='slide'
       transparent={true}
-      // visible={modalVisible}
+      visible={modalVisible}
       onRequestClose={() => {
         setModalVisible(!modalVisible);
       }}

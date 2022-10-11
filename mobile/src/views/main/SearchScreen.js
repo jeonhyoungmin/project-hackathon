@@ -1,17 +1,17 @@
-import React, {useState} from 'react';
-import SearchBar from '../../components/main/SearchBar';
-import {View, Text} from 'react-native';
+import React, {useContext} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import SearchContext from '../../components/main/SearchContext';
 
-const SearchScreen = () => {
-  const [searchText, setSearchText] = useState('');
+const SearchScreen = ({navigation}) => {
+  const {keyword} = useContext(SearchContext);
   return (
-    <View>
-      <SearchBar
-        searchText={searchText}
-        setSearchText={setSearchText}></SearchBar>
-      <Text>{searchText}</Text>
+    <View style={styles.flex}>
+      <Text>{keyword}</Text>
     </View>
   );
 };
-// 검색창 (아직 구현중)
+const styles = StyleSheet.create({
+  flex: {},
+});
+
 export default SearchScreen;

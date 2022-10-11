@@ -1,3 +1,5 @@
+// 지영빈
+
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,15 +15,19 @@ import MyInfoScreen from '../views/setting/MyInfoScreen/MyInfoScreen';
 import NotificationScreen from '../views/setting/NotificationScreen/NotificationScreen';
 import PrivacyPolicyScreen from '../views/setting/PrivacyPolicyScreen/PrivacyPolicyScreen';
 import SuggestionQuestionScreen from '../views/setting/SuggestionQuestionScreen/SuggestionQuestionScreen';
-import SignInScreen from '../views/SignInScreen/SignInScreen';
+// import SignInScreen from '../views/SignInScreen/SignInScreen';
 
+//Main
+import MainScreen from '../views/main/MainScreen';
+import SearchScreen from '../views/main/SearchScreen';
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer>      
-      <Stack.Navigator initialRouteName="Setting" screenOptions={{headerShown: true}}>
+      <Stack.Navigator initialRouteName="Main" screenOptions={{headerShown: false}}>
+        {/* 세팅 */}
         <Stack.Screen name="Setting" component={Setting} />
         <Stack.Screen name="ApplicationInfo" component={ApplicationInfoScreen} />
         <Stack.Screen name="Authentication" component={AuthenticationScreen} />
@@ -31,8 +37,18 @@ const Navigation = () => {
         <Stack.Screen name="MyInfo" component={MyInfoScreen} />
         <Stack.Screen name="Notification" component={NotificationScreen} />
         <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
-        <Stack.Screen name="SignIn" component={SignInScreen} />
+        {/* <Stack.Screen name="SignIn" component={SignInScreen} /> */}
         <Stack.Screen name="SuggestionQuestion" component={SuggestionQuestionScreen} />
+
+        {/* 메인 */}
+        <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Search" component={SearchScreen} options={{headerShown: false}}/>
+
+
+
+
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );

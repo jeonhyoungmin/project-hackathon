@@ -56,7 +56,7 @@ const Setting = () => {
         <CustomButton text="C'lock 정보" onPress={() => navigation.navigate('ApplicationInfo')} type="" />
         <CustomButton text="개인정보 처리방침" onPress={() => navigation.navigate('PrivacyPolicy')} type="" />
         <CustomButton text="건의/문의" onPress={() => navigation.navigate('SuggestionQuestion')} type="" />
-        <CustomButton text="로그아웃" onPress={() => navigation.navigate('SignIn')} type="" />
+        <CustomButton text="로그아웃" type="" />
       </View>
     </ScrollView>
   );

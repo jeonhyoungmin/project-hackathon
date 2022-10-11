@@ -21,12 +21,28 @@ import SuggestionQuestionScreen from '../views/setting/SuggestionQuestionScreen/
 import MainScreen from '../views/main/MainScreen';
 import SearchScreen from '../views/main/SearchScreen';
 
+// 로그인 
+import SignInScreen from '../views/SignInScreen/SignInScreen';
+import SignUpScreen from '../views/SignUpScreen/SignUpScreen';
+import ConfirmEmailScreen from '../views/ConfirmEmailScreen/ConfirmEmailScreen';
+import ForgotPasswordScreen from '../views/ForgotPasswordScreen/ForgotPasswordScreen';
+import NewPasswordScreen from '../views/NewPasswordScreen/NewPasswordScreen';
+
+
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer>      
-      <Stack.Navigator initialRouteName="Main" screenOptions={{headerShown: false}}>
+      <Stack.Navigator initialRouteName="SignIn" screenOptions={{headerShown: false}}>
+
+        {/* 로그인 */}
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="C" component={ConfirmEmailScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+        <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
+        
         {/* 세팅 */}
         <Stack.Screen name="Setting" component={Setting} />
         <Stack.Screen name="ApplicationInfo" component={ApplicationInfoScreen} />

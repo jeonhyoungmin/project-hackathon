@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 
 const CustomInput = ({value, setValue, placeholder, secureTextEntry }) => {
   return (
@@ -13,20 +13,24 @@ const CustomInput = ({value, setValue, placeholder, secureTextEntry }) => {
       autoCapitalize='none'
       />
     </View>
-  )
-}
+
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#fff',
     width: '100%',
     borderColor: '#e8e8e8',
-    borderBottomWidth: 1,
-    backgroundColor: '#fff',
-  },
+    borderWidth: 1,
+    borderRadius: 5,
 
+    paddingHorizontal: 10,
+    marginVertical: 5,
+  },
   input: {
-    
-  }
+
+  },
 });
 
 export default CustomInput;

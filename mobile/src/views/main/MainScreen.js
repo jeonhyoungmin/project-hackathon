@@ -82,7 +82,7 @@ const MainScreen = ({onPress, style, navigation}) => {
           <SettingButton />
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={onPress} style={[styles.display, style]}>
+      <TouchableOpacity onPress={() => navigation.push('BookMark')} style={[styles.display, style]}>
         <View style={styles.Hambergurposition}>
           <HambergurButton />
         </View>

@@ -28,6 +28,8 @@ import ConfirmEmailScreen from '../views/ComfirmEmailScreen/ConfirmEmailScreen';
 import ForgotPasswordScreen from '../views/ForgotPasswordScreen/ForgotPasswordScreen';
 import NewPasswordScreen from '../views/NewPasswordScreen/NewPasswordScreen';
 
+// 북마크
+import BookMarkScreen from '../views/bookmark/BookMarkScreen'
 
 const Stack = createNativeStackNavigator();
 
@@ -60,8 +62,8 @@ const Navigation = () => {
         <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Search" component={SearchScreen} options={{headerShown: false}}/>
 
-
-
+        {/* 북마크 */}
+        <Stack.Screen name="BookMark" component={BookMarkScreen}/>
 
 
 

@@ -19,7 +19,6 @@ import SuggestionQuestionScreen from '../views/setting/SuggestionQuestionScreen/
 
 //Main
 import MainScreen from '../views/main/MainScreen';
-import SearchScreen from '../views/main/SearchScreen';
 import {SearchContextProvider} from '../components/main/SearchContext';
 
 const Stack = createNativeStackNavigator();
@@ -63,11 +62,6 @@ const Navigation = () => {
           <Stack.Screen
             name="Main"
             component={MainScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Search"
-            component={SearchScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

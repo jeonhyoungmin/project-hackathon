@@ -8,8 +8,11 @@ import Icons from 'react-native-vector-icons/Ionicons'
 
 import AddBoxButton from '../../components/addboxbutton/AddBoxButton'
 import RegistraionModal from '../../components/registraionmodal/RegistraionModal'
+import {useNavigation} from '@react-navigation/native'
 
 const BookMarkScreen = () => {
+
+  const navigation = useNavigation();
 
   const [visible, setVisible] = useState(false)
 
@@ -34,8 +37,8 @@ const BookMarkScreen = () => {
         {/* 뒤로가기, 검색, 카테고리 묶음 */}
         <View style={styles.topContainer}>
           {/* 뒤로 가기 컨테이너 */}
-          <View onPress={()=>navigation.navigate('Main')} style={styles.backPointer}>
-            <Icons name="chevron-back-sharp" size={32} color="#333" />
+          <View style={styles.backPointer}>
+            <Icons onPress={()=>navigation.navigate('Main')} name="chevron-back-sharp" size={32} color="#333" />
           </View>
           {/* 검색 창 및 돋보기 컨테이너 */}
           <View style={styles.searchButton}>

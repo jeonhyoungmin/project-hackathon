@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -62,6 +62,7 @@ const Item = ({title, onPress, style}) => (
 // FlatList의 Item 변수 설정
 
 const MainScreen = ({onPress, style, navigation}) => {
+  const [visible, setVisible] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -71,13 +72,18 @@ const MainScreen = ({onPress, style, navigation}) => {
         data={DATA}
         renderItem={Item}></FlatList>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Search')}
+        onPress={() => {
+          setVisible(!visible);
+        }}
         style={[styles.display, style]}>
         <View style={styles.Searchposition}>
           <SearchButton />
         </View>
+        {visible && <SearchBar />}
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Setting')} style={[styles.display, style]}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Setting')}
+        style={[styles.display, style]}>
         <View style={styles.Settingposition}>
           <SettingButton />
         </View>
@@ -87,7 +93,6 @@ const MainScreen = ({onPress, style, navigation}) => {
           <HambergurButton />
         </View>
       </TouchableOpacity>
-      <SearchBar></SearchBar>
     </SafeAreaView>
   );
 };

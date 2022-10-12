@@ -1,8 +1,8 @@
 // 지영빈
 
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 /* 네비게이션을 적용할 스크린들을 불러온다. */
 import Setting from '../views/setting/Setting';
@@ -19,7 +19,7 @@ import SuggestionQuestionScreen from '../views/setting/SuggestionQuestionScreen/
 
 //Main
 import MainScreen from '../views/main/MainScreen';
-import SearchScreen from '../views/main/SearchScreen';
+import {SearchContextProvider} from '../components/main/SearchContext';
 
 // 로그인 
 import SignInScreen from '../views/SignInScreen/SignInScreen';
@@ -60,7 +60,6 @@ const Navigation = () => {
 
         {/* 메인 */}
         <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="Search" component={SearchScreen} options={{headerShown: false}}/>
 
         {/* 북마크 */}
         <Stack.Screen name="BookMark" component={BookMarkScreen}/>

@@ -1,16 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Image, Pressable} from 'react-native';
 import Icons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SearchScreen from '../../views/main/SearchScreen';
+import SearchBar from '../main/SearchBar';
 
 const PlusButton = () => {
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../assets/button2.png')}
-        style={styles.img}
-        resizeMode="cover"
-      />
+      <Icon name="plus-circle-outline" size={30} color="#333" />
     </View>
   );
 };
@@ -19,9 +17,7 @@ const PlusButton = () => {
 const SearchButton = () => {
   return (
     <View style={styles.container}>
-      <Pressable onPress={SearchScreen}>
-        <Icons name="md-search-circle-outline" size={32} color="#333" />
-      </Pressable>
+      <Icons name="md-search-circle-outline" size={32} color="#333" />
     </View>
   );
 };
@@ -53,6 +49,9 @@ const styles = StyleSheet.create({
   img: {
     width: '70%',
     height: '70%',
+  },
+  display: {
+    display: 'flex',
   },
 });
 // 각 버튼들의 스타일

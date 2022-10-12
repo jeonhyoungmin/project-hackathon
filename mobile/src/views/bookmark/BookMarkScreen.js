@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, StyleSheet, StatusBar, Pressable, Animated } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, StyleSheet, StatusBar, Pressable, Animated, Modal } from 'react-native'
 import React, { useRef, useState }  from 'react'
 import { RadioButton, TextInput } from 'react-native-paper'
 import CustomRadioButton from '../../components/radiobutton/CustomRadioButton'
@@ -11,6 +11,8 @@ import RegistraionModal from '../../components/registraionmodal/RegistraionModal
 
 const BookMarkScreen = () => {
 
+  const [visible, setVisible] = useState(false)
+
   const  [search, setSearch] = React.useState(false)
   const searchButtonChange = () => {
     setSearch(!search);
@@ -22,7 +24,8 @@ const BookMarkScreen = () => {
     <StatusBar backgroundColor='white' />
     <SafeAreaView style={styles.container}>
 
-      <RegistraionModal />
+    {/* Modal 컴포넌트 */}
+    <RegistraionModal visible={visible}/>
 
       {/* 최상단 뒤로가기, 검색 , 카테고리 */}
       <View style={styles.viewTop}>
@@ -44,6 +47,9 @@ const BookMarkScreen = () => {
             <Pressable onPress={searchButtonChange}  >
               <Icons name="md-search-circle-outline" size={32} color="#333" />
             </Pressable>
+            <View>
+              <AddBoxButton onPress={() => setVisible(!visible)} iconSize={31} iconColor='#333'/>
+            </View>
           </View>
           {/* 카테고리 컨테이너 */}
           <View style={styles.categoryContainer}>
@@ -60,7 +66,7 @@ const BookMarkScreen = () => {
       {/* 가운데 서비스 등록 버튼 */}
       <View style={styles.scrollContainer}>
       <ScrollView style={styles.scroll}>
-        <AddBoxButton bgColor="#d9d9d9" widthSize="100%" heightSize={60}/>
+        {/* 추가된 계정 정보 */}
       </ScrollView>
       </View>
 
@@ -81,6 +87,9 @@ const BookMarkScreen = () => {
     </>
   )
 }
+
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -117,7 +126,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: "flex-end",
     alignItems: "center",
-    marginRight: "2%",
+    // marginRight: "2%",
   },
   searchBar: {
     marginRight: "5%",
@@ -139,6 +148,8 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flex: 4,
     width: "90%",
+    borderWidth: 0.5,
+    marginTop: "3%",
   },
   scroll: {
     // backgroundColor: 'red'
@@ -166,6 +177,21 @@ const styles = StyleSheet.create({
     // backgroundColor: "green",
     justifyContent: 'center',
     alignItems: 'center'
+  },
+
+
+
+
+  // Modal 스타일
+  modalStyle: {
+    borderWidth: 1,
+    borderColor: "#333",
+    backgroundColor: 'white',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: "70%",
+    height: "50%",
   }
 })
 

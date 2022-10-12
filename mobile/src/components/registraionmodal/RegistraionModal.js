@@ -1,19 +1,20 @@
 import { View, Text, Alert, Modal, StyleSheet, Pressable, Button, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { Transition } from 'react-native-reanimated';
+import { Colors } from 'react-native-paper';
 
-const RegistraionModal = ({visible}) => {
+const RegistraionModal = ({visible, setVisible}) => {
 
-  const [modalVisible, setModalVisible] = useState(visible);
+  // const [visible, setVisible] = useState(visible);
 
   return (
     <Modal
       animationType='slide'
       transparent={true}
-      visible={modalVisible}
-      onBackdropPress={() => setModalVisible(!modalVisible)}
+      visible={visible}
+      onBackdropPress={() => setVisible(!visible)}
       onRequestClose={() => {
-        setModalVisible(!modalVisible)
+        setVisible(!visible)
     }} 
     >
       <View style={styles.container}>
@@ -42,13 +43,13 @@ const RegistraionModal = ({visible}) => {
             {/* 하단: 등록, 닫기 컨테이너 */}
             <View style={styles.modalBottom}>
               <View style={styles.registContainer}>
-                <Pressable >
-                  <Text>등록</Text>
+                <Pressable style={styles.modalButton}>
+                  <Text style={styles.textStyle}>등록</Text>
                 </Pressable>
               </View>
               <View style={styles.closeContainer}>
-                <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                  <Text>닫기</Text>
+                <Pressable style={styles.modalButton} onPress={() => setVisible(!visible)}>
+                  <Text style={styles.textStyle}>닫기</Text>
                 </Pressable>
               </View>
             </View>
@@ -120,6 +121,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  modalButton: {
+    width: "50%",
+    height: "50%",
+    backgroundColor: "#0e1824",
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 3,
+  },
+  textStyle: {
+    color: 'white',
   }
 })
 

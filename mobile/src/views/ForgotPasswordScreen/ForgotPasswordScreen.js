@@ -10,14 +10,14 @@ import {useNavigation} from '@react-navigation/native'
 // 이메일을 입력하면 입력한 이메일로 인증 코드 발송
 
 const ForgotPasswordScreen = () => {
-  const [username, setUsername] = useState('');
+  const [useremail, setUserEmail] = useState('');
   
   const navigation = useNavigation();
 
-  // const onSendPressed = () => {
-  //   navigation.navigate('NewPassword');
-  //   // console.warn('onSendPressed');
-  // };
+  const onSendPressed = () => {
+    navigation.navigate('NewPassword');
+    alert('이메일로 인증 코드를 보냈습니다.  인증 코드를 입력해주세요.');
+  };
 
   // const onSignInPress = () => {
   //   navigation.navigate('SignIn');
@@ -25,15 +25,14 @@ const ForgotPasswordScreen = () => {
   // }
 
 
-
   return (
       <View style={styles.container}>
         <Text style={styles.title}>Reset your password</Text>
         {/* 비밀번호 초기화 */}
 
-        <CustomInput placeholder="Username" value={username} setValue={setUsername} />   
+        <CustomInput placeholder="email" value={useremail} setValue={setUserEmail} />   
 
-        <CustomButton text="Send" onPress={() => navigation.navigate('NewPassword')} />
+        <CustomButton text="Send" onPress={(onSendPressed)} />
 
         <CustomButton text="Back to Sign in" onPress={() => navigation.navigate('SignIn')} type="TERTIARY"/>
       </View>

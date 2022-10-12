@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useTransition} from 'react';
 import { View, Text, StyleSheet, ScrollView} from 'react-native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
@@ -19,12 +19,21 @@ const ConfirmEmailScreen = () => {
   
   const navigation = useNavigation();
 
+  const onConfirmPressed = () => {
+    navigation.push('SignIn');
+    alert('인증이 완료되었습니다. 로그인 화면으로 이동합니다.');
+  };
+
+  const onSignInPress = () => {
+    navigation.navigate('SignIn');
+  }
+
   const onResendPress = () => {
-    console.warn('onResendPress');
+    alert('이메일로 인증 코드를 다시 전송했습니다. 확인해주세요.');
   }
 
   return (
-      <View style={styles.container}>
+      <View style={styles.root}>
         <Text style={styles.title}>Confirm your email</Text>
         
         <CustomInput
@@ -33,17 +42,17 @@ const ConfirmEmailScreen = () => {
         setValue={setCode}
         />   
 
-        <CustomButton text="Confirm" onPress={() => navigation.navigate('Main')} />
+        <CustomButton text="Confirm" onPress={onConfirmPressed} />
 
         <CustomButton
         text="Resend code"
-        onPress={(onResendPress)}
+        onPress={onResendPress}
         type="SECONDARY"
         />
 
         <CustomButton
         text="Back to Sign in"
-        onPress={navigation.navigate('SignIn')}
+        onPress={onSignInPress}
         type="BACKTOSIGNIN"
         />
       </View>
@@ -51,7 +60,7 @@ const ConfirmEmailScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
     justifyContent:'center',
     alignItems: 'center',

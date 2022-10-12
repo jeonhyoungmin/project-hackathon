@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet, ScrollView} from 'react-native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
@@ -64,7 +64,7 @@ const SignUpScreen = () => {
         secureTextEntry
         />
 
-        <CustomButton text="회원가입" onPress={() => navigation.navigate('C')} />
+        <CustomButton text="회원가입" onPress={() => navigation.navigate('ConfirmEmail')} />
 
         <Text style={styles.text}>
           회원가입을 통해{' '}

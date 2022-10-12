@@ -45,18 +45,18 @@ const Setting = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
-        <CustomButton text="내 정보" onPress={() => navigation.navigate('MyInfo')} type="" />
-        <CustomButton text="인증 수단" onPress={() => navigation.navigate('Authentication')} type="" />
-        <CustomButton text="권한" onPress={() => navigation.navigate('Authority')} type="" />
-        <CustomButton text="데이터 관리" onPress={() => navigation.navigate('DataManagement')} type="" />
+        <CustomButton text="내 정보" onPress={() => navigation.navigate('MyInfo')} type="SECONDARY" />
+        <CustomButton text="인증 수단" onPress={() => navigation.navigate('Authentication')} type="SECONDARY" />
+        <CustomButton text="권한" onPress={() => navigation.navigate('Authority')} type="SECONDARY" />
+        <CustomButton text="데이터 관리" onPress={() => navigation.navigate('DataManagement')} type="SECONDARY" />
       </View>
       <View style={styles.container}>
-        <CustomButton text="인터페이스 설정" onPress={() => navigation.navigate('InterfaceSetting')} type="" />
-        <CustomButton text="알림" onPress={() => navigation.navigate('Notification')} type="" />
-        <CustomButton text="C'lock 정보" onPress={() => navigation.navigate('ApplicationInfo')} type="" />
-        <CustomButton text="개인정보 처리방침" onPress={() => navigation.navigate('PrivacyPolicy')} type="" />
-        <CustomButton text="건의/문의" onPress={() => navigation.navigate('SuggestionQuestion')} type="" />
-        <CustomButton text="로그아웃" type="" />
+        <CustomButton text="인터페이스 설정" onPress={() => navigation.navigate('InterfaceSetting')} type="SECONDARY" />
+        <CustomButton text="알림" onPress={() => navigation.navigate('Notification')} type="SECONDARY" />
+        <CustomButton text="C'lock 정보" onPress={() => navigation.navigate('ApplicationInfo')} type="SECONDARY" />
+        <CustomButton text="개인정보 처리방침" onPress={() => navigation.navigate('PrivacyPolicy')} type="SECONDARY" />
+        <CustomButton text="건의/문의" onPress={() => navigation.navigate('SuggestionQuestion')} type="SECONDARY" />
+        <CustomButton text="로그아웃" type="SECONDARY" />
       </View>
     </ScrollView>
   );
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     
   },
   text: {
-
+    
   },
 });
 

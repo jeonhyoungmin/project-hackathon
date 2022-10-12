@@ -64,7 +64,7 @@ const SignUpScreen = () => {
         secureTextEntry
         />
 
-        <CustomButton text="회원가입" onPress={() => navigation.navigate('C')} />
+        <CustomButton text="회원가입" onPress={() => navigation.navigate('ConfirmEmail')} />
 
         <Text style={styles.text}>
           회원가입을 통해{' '}

@@ -32,7 +32,7 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
                 <View style={styles.modalTop}>
                   <View style={styles.accountContainer}>
                     <ModalTextInput /* bgColor='greenyellow' */ placeholderText={'아이디를 입력해주세요'} />
-                    <ModalTextInput /* bgColor={'purple'} */ placeholderText={'비밀번호를 입력해주세요'} pw={true} />
+                    <ModalTextInput /* bgColor={'purple'} */ placeholderText={'비밀번호를 입력해주세요'}/>
                   </View>
                   <View style={styles.urlContainer}>
                     <ModalTextInput /* bgColor={'blue'} */ placeholderText={'url를 입력해주세요'} />

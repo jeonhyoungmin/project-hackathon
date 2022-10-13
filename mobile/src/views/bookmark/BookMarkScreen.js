@@ -28,7 +28,7 @@ const BookMarkScreen = () => {
     <SafeAreaView style={styles.container}>
 
     {/* Modal 컴포넌트 */}
-    <RegistraionModal visible={visible} setVisible={setVisible}/>
+    <RegistraionModal visible={visible} setVisible={setVisible} BookMark={true}/>
 
       {/* 최상단 뒤로가기, 검색 , 카테고리 */}
       <View style={styles.viewTop}>

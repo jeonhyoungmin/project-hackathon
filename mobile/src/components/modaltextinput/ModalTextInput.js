@@ -3,8 +3,13 @@ import React from 'react'
 
 const ModalTextInput = ({bgColor, placeholderText, containerWidth, containerHeight, textWidth, textHeight, pw}) => {
   return (
-    <View style={[styles.container, bgColor && {backgroundColor: bgColor}, containerWidth && {width: containerWidth}, containerHeight && {height: containerHeight}]}>
-      <TextInput style={[styles.textInput, textWidth && {width: textWidth}, textHeight && {height: textHeight}]} placeholder={placeholderText} secureTextEntry={pw}/>
+    <View style={[styles.container, bgColor 
+    && {backgroundColor: bgColor}, containerWidth 
+    && {width: containerWidth}, containerHeight 
+    && {height: containerHeight}]}>
+      <TextInput style={[styles.textInput, textWidth 
+        && {width: textWidth}, textHeight 
+        && {height: textHeight}]} placeholder={placeholderText} secureTextEntry={pw}/>
     </View>
   )
 }

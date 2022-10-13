@@ -36,6 +36,8 @@ const Stack = createNativeStackNavigator();
 const Navigation = () => {
   return (
     <NavigationContainer>      
+      <SearchContextProvider>
+
       <Stack.Navigator initialRouteName="SignIn" screenOptions={{headerShown: false}}>
 
         {/* 로그인 */}
@@ -65,8 +67,9 @@ const Navigation = () => {
         <Stack.Screen name="BookMark" component={BookMarkScreen}/>
 
 
-
       </Stack.Navigator>
+      </SearchContextProvider>
+
     </NavigationContainer>
   );
 };

@@ -6,15 +6,16 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import {PlusButton} from '../../components/main/CustomButton';
 import {SearchButton} from '../../components/main/CustomButton';
 import {SettingButton} from '../../components/main/CustomButton';
 import {HambergurButton} from '../../components/main/CustomButton';
 import SearchBar from '../../components/main/SearchBar';
+import {useNavigation} from '@react-navigation/native';
 import {Icon} from 'react-native-vector-icons/icon';
 import Setting from '../setting/Setting';
+import RegistraionModal from '../../components/registraionmodal/RegistraionModal';
 
 const DATA = [
   {
@@ -48,38 +49,40 @@ const DATA = [
 const Item = ({title, onPress, style}) => (
   <TouchableOpacity onPress={onPress} style={[styles.display, style]}>
     <Text style={styles.mainbox}>{title}</Text>
-    <PlusButton>
-      <Image
-        style={styles.img}
-        source={{
-          uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg==',
-        }}
-        resizeMode="cover"
-      />
-    </PlusButton>
+    <PlusButton></PlusButton>
   </TouchableOpacity>
 );
 // FlatList의 Item 변수 설정
 
-const MainScreen = ({onPress, style, navigation}) => {
+const MainScreen = ({title, style, navigation}) => {
   const [visible, setVisible] = useState(false);
+  const [search, setSearch] = React.useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
+      <RegistraionModal visible={visible} setVisible={setVisible} />
       <FlatList
         numColumns={2}
         columnWrapperStyle={styles.row}
         keyExtractor={item => item.id}
         data={DATA}
-        renderItem={Item}></FlatList>
+        renderItem={({item}) => (
+          <TouchableOpacity
+            onPress={() => setVisible(!visible)}
+            style={[styles.display, style]}>
+            <Text style={styles.mainbox}>{title}</Text>
+            <PlusButton></PlusButton>
+          </TouchableOpacity>
+        )}></FlatList>
       <TouchableOpacity
         onPress={() => {
-          setVisible(!visible);
+          setSearch(!search);
         }}
         style={[styles.display, style]}>
         <View style={styles.Searchposition}>
           <SearchButton />
         </View>
-        {visible && <SearchBar />}
+        {search && <SearchBar />}
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.navigate('Setting')}
@@ -88,7 +91,9 @@ const MainScreen = ({onPress, style, navigation}) => {
           <SettingButton />
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('BookMark')} style={[styles.display, style]}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('BookMark')}
+        style={[styles.display, style]}>
         <View style={styles.Hambergurposition}>
           <HambergurButton />
         </View>
@@ -97,7 +102,7 @@ const MainScreen = ({onPress, style, navigation}) => {
   );
 };
 //FlatList를 사용하여 메인화면 UI를 배치시킴, Touchable 명령어를 통해 각 버튼에 터치효과 부여
-//※ 아직 검색버튼은 손보는 중이라 터치하지 말것
+
 const styles = StyleSheet.create({
   mainbox: {
     width: 150,

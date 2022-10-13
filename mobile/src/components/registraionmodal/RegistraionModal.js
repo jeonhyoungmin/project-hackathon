@@ -2,7 +2,7 @@ import { View, Text, Alert, Modal, StyleSheet, Pressable, Button, TextInput, Key
 import React, { useState } from 'react';
 import ModalTextInput from '../modaltextinput/ModalTextInput';
 
-const RegistraionModal = ({ visible, setVisible }) => {
+const RegistraionModal = ({ visible, setVisible, BookMark }) => {
   // const [visible, setVisible] = useState(visible);
 
   const [isEnabled, setIsEnabled] = useState(false);
@@ -44,8 +44,10 @@ const RegistraionModal = ({ visible, setVisible }) => {
                   <View style={styles.MemoContainer}>
                     <ModalTextInput containerWidth={"95%"} textHeight={"100%"} textWidth={'100%'} placeholderText={'Memo'} />
                   </View>
+                  {/* BookMark가 true 시 즐겨찾기 토글 스위치 visible */}
+                  { BookMark && 
                   <View style={styles.toggleContainer}>
-                    <Text>즐겨찾기</Text>
+                    <Text>즐겨찾기</Text> 
                     <Switch
                       trackColor={{ false: '#767577', true: '#81b0ff' }}
                       // switch bar color
@@ -56,6 +58,7 @@ const RegistraionModal = ({ visible, setVisible }) => {
                       value={isEnabled}
                     />
                   </View>
+                  }
                 </View>
 
                 {/* 하단: 등록, 닫기 컨테이너 */}

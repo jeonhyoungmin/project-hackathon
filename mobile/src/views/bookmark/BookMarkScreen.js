@@ -14,8 +14,10 @@ const BookMarkScreen = () => {
 
   const navigation = useNavigation();
 
+  //modal 창 visible
   const [visible, setVisible] = useState(false)
 
+  // 검색 창 visible
   const  [search, setSearch] = React.useState(false)
   const searchButtonChange = () => {
     setSearch(!search);

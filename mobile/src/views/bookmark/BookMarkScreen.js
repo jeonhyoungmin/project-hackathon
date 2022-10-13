@@ -41,8 +41,8 @@ const BookMarkScreen = () => {
           <View style={styles.searchButton}>
             {/* 검색 창 visible */}
             {search && 
-            <View>
-              <TextInput style={styles.searchBar} />
+            <View style={styles.searchBar} >
+              <TextInput style={styles.searchBarTextInput} placeholder={'검색 내용을 입력해주세요'}/>
             </View>}
             <Pressable onPress={searchButtonChange}  >
               <Icons name="md-search-circle-outline" size={32} color="#333" />
@@ -130,9 +130,12 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     marginRight: "5%",
-    width: 250,
-    height: 30,
+    width: "60%",
+    borderWidth: 1,
     borderRadius: 5,
+  },
+  searchBarTextInput: {
+    height: 20,
   },
   categoryContainer: {
     flex: 1.5,

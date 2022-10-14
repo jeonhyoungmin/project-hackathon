@@ -82,7 +82,7 @@ const MainScreen = ({title, style, navigation}) => {
         <View style={styles.Searchposition}>
           <SearchButton />
         </View>
-        {search && <SearchBar />}
+        {search && <SearchBar visible={search} setSearch={setSearch} />}
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.navigate('Setting')}

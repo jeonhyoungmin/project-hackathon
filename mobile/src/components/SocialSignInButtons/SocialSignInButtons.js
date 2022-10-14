@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import CustomButton from '../CustomButton/CustomButton';
+import Googlelogin from '../googlelogin/Signin';
 
 const SocialSignInButtons = () => {
   const onSignInNaver = () => {
@@ -22,21 +23,21 @@ const SocialSignInButtons = () => {
         onPress={onSignInNaver}
         bgColor="#e7eaf4"
         fgColor="#12dc61"
-        />
-        <CustomButton
+      />
+      <CustomButton
         text="Sign In with Google"
-        onPress={onSignInGoogle}
+        onPress={Googlelogin}
         bgColor="#e7eaf4"
         fgColor="#4765a9"
-        />
-        <CustomButton
+      />
+      <CustomButton
         text="Sign In with Kakao"
         onPress={onSignInKakao}
         bgColor="#e7eaf4"
         // #fff880
         fgColor="#391b1b"
         // #391b1b
-        />
+      />
     </>
   );
 };

@@ -13,29 +13,52 @@ import {Modal} from 'react-native';
 
 const {width} = Dimensions.get('window');
 
-const SearchBar = (search, setSearch) => {
-  // const [search, setSearch] = useState(false);
+const SearchBar = ({search, setSearch}) => {
+  // const [search, setSearch] = React.useState(false);
+  const searchModal = () => {
+    setSearch(!search);
+  };
   const {keyword, onChangeText} = useContext(SearchContext);
 
   return (
-    <Modal animationType="slide" transparent={true} visible={search}>
-      <View style={styles.container}>
-        <View style={styles.modal}>
-          {/* <TextInput
-          style={[styles.searchInput, styles.searchbarPosition]}
-          placeholder="검색어를 입력해 주세요"
-          value={keyword}
-          onChangeText={onChangeText}
-          autoFocus
-        /> */}
-          <Pressable
-            style={({pressed}) => [styles.button, pressed && {opacity: 0.5}]}
-            onPress={() => setSearch(!search)}>
-            <Icon name="cancel" size={5} color="#9e9e9e" />
-          </Pressable>
-        </View>
-      </View>
-    </Modal>
+    <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={search}
+        onRequestClose={() => {
+          setSearch(!search);
+        }}>
+        <Pressable
+          style={styles.outside}
+          onPress={event => {
+            if (event.target === event.currentTarget) {
+              setSearch(false);
+            }
+          }}>
+          <View style={styles.modal}>
+            <View style={styles.input}>
+              <TextInput
+                style={[styles.searchInput]}
+                placeholder="검색어를 입력해 주세요"
+                value={keyword}
+                onChangeText={onChangeText}
+                autoFocus
+              />
+              <Pressable
+                style={({pressed}) => [
+                  styles.button,
+                  pressed && {opacity: 0.5},
+                ]}
+                onPress={() => onChangeText('')}>
+                <Icon name="cancel" size={20} color="#9e9e9e" />
+              </Pressable>
+            </View>
+            <Text style={styles.text}>{keyword}</Text>
+          </View>
+        </Pressable>
+      </Modal>
+    </View>
   );
 };
 // 검색창에 쓰일 검색바
@@ -43,9 +66,28 @@ const SearchBar = (search, setSearch) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
+  modal: {
+    borderWidth: 1,
+    borderColor: '#333',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width: '70%',
+    height: '50%',
+    position: 'absolute',
+  },
+  input: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginTop: 20,
+    marginLeft: 20,
+  },
+
   searchInput: {
     borderColor: 'black',
     borderWidth: 1,
@@ -54,26 +96,25 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 30,
     backgroundColor: 'white',
-    width: 200,
+    width: 250,
   },
   searchbarPosition: {
-    position: 'absolute',
-    bottom: 370,
-    left: -110,
+    bottom: 50,
   },
+
   button: {
     marginLeft: 8,
+    padding: 10,
+    position: 'absolute',
   },
-  modal: {
-    borderWidth: 1,
-    borderColor: '#333',
-    backgroundColor: 'white',
-    borderRadius: 10,
+  text: {
+    marginLeft: 30,
+  },
+  outside: {
+    backgroundColor: 'rgba(1,1,1,0.2)',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '70%',
-    height: '50%',
-    position: 'absolute',
   },
 });
 // 검색바에 쓰이는 스타일 값

@@ -1,8 +1,48 @@
 import { View, Text, Alert, Modal, StyleSheet, Pressable, Button, TextInput, KeyboardAvoidingView, Switch, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import React, { useState } from 'react';
-import ModalTextInput from '../modaltextinput/ModalTextInput';
+import {ModalTextInput, ModalTextInputTwo, ModalTextInputThree, ModalTextInputFour}from '../modaltextinput/ModalTextInput';
+
+const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
 const RegistraionModal = ({ visible, setVisible, BookMark }) => {
+
+  const serverTest = () => {
+    const test = {
+      id,
+      password,
+      url,
+      memo,
+    }
+    fetch(`${API_URL}/bookmark`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(test)
+    })
+    .then(res => {
+      try{
+        const jsonRes = res;
+        console.log(jsonRes)
+        if(res.status !== 200){
+          console.warn('안됨');
+        } else {
+          console.warn('됨')
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [url, setUrl] = useState('');
+  const [memo, setMemo] = useState('');
+  
   // const [visible, setVisible] = useState(visible);
 
   const [isEnabled, setIsEnabled] = useState(false);
@@ -31,18 +71,30 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
                 {/* 상단: 아이디, 비밀번호, url 컨테이너 */}
                 <View style={styles.modalTop}>
                   <View style={styles.accountContainer}>
-                    <ModalTextInput /* bgColor='greenyellow' */ placeholderText={'아이디를 입력해주세요'} />
-                    <ModalTextInput /* bgColor={'purple'} */ placeholderText={'비밀번호를 입력해주세요'}/>
+                    {/* <ModalTextInput setting={setId} placeholderText={'아이디를 입력해주세요'} /> */}
+                    <View style={styles.textcontainer}>
+                      <TextInput onChangeText={setId} style={styles.textInput} placeholder='아이디를 입력해주세요'></TextInput>
+                    </View>
+                    {/* <ModalTextInputTwo setting={setPassword} placeholderText={'비밀번호를 입력해주세요'}/> */}
+                    <View style={styles.textcontainer}>
+                      <TextInput onChangeText={setPassword} style={styles.textInput} placeholder='비밀번호를 입력해주세요'></TextInput>
+                    </View>
                   </View>
                   <View style={styles.urlContainer}>
-                    <ModalTextInput /* bgColor={'blue'} */ placeholderText={'url를 입력해주세요'} />
+                    {/* <ModalTextInputThree setting={setUrl}  placeholderText={'url를 입력해주세요'} /> */}
+                    <View style={styles.textcontainer}>
+                      <TextInput onChangeText={setUrl} style={styles.textInput} placeholder='url를 입력해주세요'></TextInput>
+                    </View>
                   </View>
                 </View>
 
                 {/* 중단: 메모, 즐겨찾기 컨테이너 */}
                 <View style={styles.modalMiddle}>
                   <View style={styles.MemoContainer}>
-                    <ModalTextInput containerWidth={"95%"} textHeight={"100%"} textWidth={'100%'} placeholderText={'Memo'} />
+                    {/* <ModalTextInputFour setting={setMemo} containerWidth={"95%"} textHeight={"100%"} textWidth={'100%'} placeholderText={'Memo'} /> */}
+                    <View style={styles.textcontainer}>
+                      <TextInput onChangeText={setMemo} style={styles.textInput} placeholder='Memo'></TextInput>
+                    </View>
                   </View>
                   {/* BookMark가 true 시 즐겨찾기 토글 스위치 visible */}
                   { BookMark && 
@@ -64,7 +116,10 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
                 {/* 하단: 등록, 닫기 컨테이너 */}
                 <View style={styles.modalBottom}>
                   <View style={styles.registContainer}>
-                    <Pressable style={styles.modalButton}>
+                    <Pressable 
+                      style={styles.modalButton}
+                      onPress={() => serverTest()} 
+                      >
                       <Text style={styles.textStyle}>등록</Text>
                     </Pressable>
                   </View>
@@ -179,6 +234,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  
+
+
+
+  textcontainer: {
+    flex: 1,
+    width: "95%",
+    // height: "95%",
+  },
+  textInput: {
+    // width: "100%",
+    // height: "80%",
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5
+  }
 });
 
 export default RegistraionModal;

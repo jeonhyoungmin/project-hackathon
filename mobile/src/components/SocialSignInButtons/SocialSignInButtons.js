@@ -1,9 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import CustomButton from '../CustomButton/CustomButton';
-import Googlelogin from '../googlelogin/Signin';
+import {useNavigation} from '@react-navigation/native';
 
 const SocialSignInButtons = () => {
+  const navigation = useNavigation();
   const onSignInNaver = () => {
     console.warn('Naver');
   };
@@ -26,7 +27,7 @@ const SocialSignInButtons = () => {
       />
       <CustomButton
         text="Sign In with Google"
-        onPress={Googlelogin}
+        onPress={() => navigation.navigate('GoogleSigninScreen')}
         bgColor="#e7eaf4"
         fgColor="#4765a9"
       />

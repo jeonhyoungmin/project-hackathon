@@ -12,13 +12,14 @@ const GoogleSigninScreen = () => {
 
   useEffect(() => {
     GoogleSignin.configure({
+      scopes: ['https://www.googleapis.com/auth/drive.readonly'],
       webClientId:
         '930626829523-c1bgr5rt0qkr0v7ra8jmgphu0bc22too.apps.googleusercontent.com',
       offlineAccess: true,
       forceCodeForRefreshToken: true,
     });
   });
-  const signIn = async () => {
+  signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
@@ -33,7 +34,7 @@ const GoogleSigninScreen = () => {
 
     const isSignedIn = async () => {
       const isSignedIn = await GoogleSignin.isSignedIn();
-      if (!!isSignedIn) {
+      if (!isSignedIn) {
         getCurrentUserInfo();
       } else {
         console.log('로그인을 하세요');

@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import React from 'react'
 
-const ModalTextInput = ({bgColor, placeholderText, containerWidth, containerHeight, textWidth, textHeight, pw}) => {
+const ModalTextInput = ({bgColor, placeholderText, containerWidth, containerHeight, textWidth, textHeight, pw, setting}) => {
   return (
     <View style={[styles.container, bgColor 
     && {backgroundColor: bgColor}, containerWidth 
@@ -9,13 +9,15 @@ const ModalTextInput = ({bgColor, placeholderText, containerWidth, containerHeig
     && {height: containerHeight}]}>
       <TextInput style={[styles.textInput, textWidth 
         && {width: textWidth}, textHeight 
-        && {height: textHeight}]} placeholder={placeholderText} secureTextEntry={pw}/>
+        && {height: textHeight}]} placeholder={placeholderText} secureTextEntry={pw}
+        onChangeText={setting}
+        />
     </View>
   )
 }
 
 const styles=StyleSheet.create({
-  container: {
+  textcontainer: {
     flex: 1,
     width: "95%",
     // height: "95%",
@@ -29,4 +31,4 @@ const styles=StyleSheet.create({
   }
 })
 
-export default ModalTextInput
+export { ModalTextInput, ModalTextInputTwo, ModalTextInputThree, ModalTextInputFour }

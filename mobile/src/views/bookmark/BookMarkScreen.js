@@ -1,14 +1,15 @@
 import { View, Text, SafeAreaView, ScrollView, StyleSheet, StatusBar, Pressable, Animated, Modal } from 'react-native'
 import React, { useRef, useState }  from 'react'
 import { RadioButton, TextInput } from 'react-native-paper'
-import CustomRadioButton from '../../components/radiobutton/CustomRadioButton'
+import {useNavigation} from '@react-navigation/native'
 // 벡터 아이콘 사용
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icons from 'react-native-vector-icons/Ionicons'
 
+import CustomRadioButton from '../../components/radiobutton/CustomRadioButton'
 import AddBoxButton from '../../components/addboxbutton/AddBoxButton'
 import RegistraionModal from '../../components/registraionmodal/RegistraionModal'
-import {useNavigation} from '@react-navigation/native'
+import AddAccountBox from '../../components/addaccountbox/AddAccountBox'
 
 const BookMarkScreen = () => {
 
@@ -72,6 +73,7 @@ const BookMarkScreen = () => {
       <View style={styles.scrollContainer}>
       <ScrollView style={styles.scroll}>
         {/* 추가된 계정 정보 */}
+        <AddAccountBox />
       </ScrollView>
       </View>
 

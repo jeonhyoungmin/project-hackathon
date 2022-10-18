@@ -1,6 +1,6 @@
-const express = require('express')
-const connection = require('./utils/database')
-const router = require('./routes/router')
+import express from 'express'
+import connection from './utils/database.js'
+import router from './routes/router.js'
 
 const app = express()
 const port = process.env.PORT || 5000;

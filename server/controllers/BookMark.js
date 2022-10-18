@@ -1,5 +1,5 @@
-const express = require('express');
-const connection = require('../utils/database');
+import express from 'express';
+import connection from '../utils/database.js';
 
 const bookmark = (req, res, next) => {
   // json 형식으로 온 데이터를 정리
@@ -20,4 +20,4 @@ const bookmark = (req, res, next) => {
 }
 
 
-module.exports =  bookmark 
+export default bookmark 

@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, ScrollView, StyleSheet, StatusBar, Pressable, Animated, Modal } from 'react-native'
-import React, { useRef, useState }  from 'react'
+import { View, Text, SafeAreaView, ScrollView, StyleSheet, StatusBar, Pressable, Animated, Modal, Alert } from 'react-native'
+import React, { useEffect, useRef, useState }  from 'react'
 import { RadioButton, TextInput } from 'react-native-paper'
 import {useNavigation} from '@react-navigation/native'
 // 벡터 아이콘 사용
@@ -10,6 +10,8 @@ import CustomRadioButton from '../../components/radiobutton/CustomRadioButton'
 import AddBoxButton from '../../components/addboxbutton/AddBoxButton'
 import RegistraionModal from '../../components/registraionmodal/RegistraionModal'
 import AddAccountBox from '../../components/addaccountbox/AddAccountBox'
+
+const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
 const BookMarkScreen = () => {
 
@@ -24,6 +26,38 @@ const BookMarkScreen = () => {
     setSearch(!search);
   }
 
+  // 등록한 계정 정보 업데이트
+  const [accountData, setAccountData] = useState([])
+
+  // 데이터 갱신
+  useEffect(() =>{
+    // console.warn('작동')
+    fetch(`${API_URL}/bookmark`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(async res => {
+      const jsonRes = await res.json();
+      // console.warn(jsonRes);
+      setAccountData(jsonRes)
+    }). catch (err => {
+      console.log(err);
+    })
+  })
+
+
+  // 데이터 delete
+  const deleteAccount = (regi_id) => {
+    fetch(`${API_URL}/bookmark/${regi_id}`, {
+      method: "DELETE",
+      body: regi_id
+    }). then((res) => {
+      console.log(res)
+    }). catch (err => {
+      console.log(err)
+    })
+  }
 
   return (
     <>
@@ -71,10 +105,22 @@ const BookMarkScreen = () => {
 
       {/* 가운데 서비스 등록 버튼 */}
       <View style={styles.scrollContainer}>
-      <ScrollView style={styles.scroll}>
-        {/* 추가된 계정 정보 */}
-        <AddAccountBox />
-      </ScrollView>
+        <ScrollView style={styles.scroll}>
+          {/* 추가된 계정 정보 */}
+          {accountData.map((value) => {
+            return (
+              <AddAccountBox key={value.index}
+              serviceName={value.regi_service} 
+              regi_id={value.regi_id} 
+              iconSize={25} 
+              iconColor='#333' 
+              deleteOnPress={() => Alert.alert('정보 삭제', '정말로 삭제하시겠습니까?', [
+                {text: "Yes", onPress: () => deleteAccount(value.regi_id)},
+                {text: "No", onPress: () => console.warn('보존')}
+              ])}/>
+            )
+          })}
+        </ScrollView>
       </View>
 
 
@@ -158,10 +204,12 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flex: 4,
     width: "90%",
-    borderWidth: 0.5,
-    marginTop: "3%",
+    // borderWidth: 0.5,
+    marginTop: "5%",
   },
   scroll: {
+    width: "100%",
+    height: "100%",
     // backgroundColor: 'red'
   },
 

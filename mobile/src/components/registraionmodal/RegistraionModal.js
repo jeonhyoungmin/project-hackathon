@@ -11,6 +11,7 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
       id,
       password,
       url,
+      service,
       memo,
     }
     fetch(`${API_URL}/bookmark`, {
@@ -42,6 +43,7 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
   const [password, setPassword] = useState('');
   const [url, setUrl] = useState('');
   const [memo, setMemo] = useState('');
+  const [service, setService] = useState('');
   
   // const [visible, setVisible] = useState(visible);
 
@@ -93,7 +95,10 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
                   <View style={styles.MemoContainer}>
                     {/* <ModalTextInputFour setting={setMemo} containerWidth={"95%"} textHeight={"100%"} textWidth={'100%'} placeholderText={'Memo'} /> */}
                     <View style={styles.textcontainer}>
-                      <TextInput onChangeText={setMemo} style={styles.textInput} placeholder='Memo'></TextInput>
+                      <TextInput onChangeText={setService} style={styles.textInput} placeholder='서비스 이름'></TextInput>
+                    </View>
+                    <View style={styles.textcontainer}>
+                      <TextInput onChangeText={setMemo} style={styles.textInput} placeholder='memo'></TextInput>
                     </View>
                   </View>
                   {/* BookMark가 true 시 즐겨찾기 토글 스위치 visible */}
@@ -153,8 +158,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '70%',
-    height: '70%',
+    width: '80%',
+    height: '85%',
     position: 'absolute',
   },
   centerContainer: {
@@ -164,7 +169,7 @@ const styles = StyleSheet.create({
   },
 
   modalTop: {
-    flex: 3,
+    flex: 2,
     // backgroundColor: 'blue',
   },
   accountContainer: {
@@ -191,7 +196,7 @@ const styles = StyleSheet.create({
     flex: 2,
     width: "100%",
     // backgroundColor: 'red',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   toggleContainer: {
     flex: 1,

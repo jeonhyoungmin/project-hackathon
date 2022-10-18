@@ -1,7 +1,9 @@
 import express from 'express';
 import connection from '../utils/database.js';
 
-const bookmark = (req, res, next) => {
+// 북마크 서비스 계정 등록
+const registrateaccount = (req, res, next) => {
+  // console.log(req)
   // json 형식으로 온 데이터를 정리
   const id = req.body.id
   const password = req.body.password
@@ -20,4 +22,23 @@ const bookmark = (req, res, next) => {
 }
 
 
-export default bookmark 
+// 북마크 등록된 서비스 계정 읽기
+const registeredaccount = (req, res, next) => {
+  connection.query('SELECT * FROM bookmark', (err, results) => {
+    if (err) throw err;
+    res.send(results)
+  })
+}
+
+
+// 북마크 등록된 서비스 계정 삭제
+const deleteaccount = (req, res, next) => {
+  console.log(req.params)
+  const regi_id = req.params.regi_id
+  connection.query("DELETE FROM bookmark WHERE regi_id = ?", regi_id, (err, results) => {
+    if (err) throw err;
+    res.send(results)
+  })
+}
+
+export { registrateaccount, registeredaccount, deleteaccount}

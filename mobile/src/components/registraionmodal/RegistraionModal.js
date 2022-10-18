@@ -118,7 +118,7 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
                   <View style={styles.registContainer}>
                     <Pressable 
                       style={styles.modalButton}
-                      onPress={() => serverTest()} 
+                      onPress={() => {serverTest(); setVisible(!visible)}} 
                       >
                       <Text style={styles.textStyle}>등록</Text>
                     </Pressable>

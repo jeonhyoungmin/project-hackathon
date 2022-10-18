@@ -1,8 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import CustomButton from '../CustomButton/CustomButton';
+import {useNavigation} from '@react-navigation/native';
+import NaverSignIn from '../NaverSignIn/NaverSignIn';
 
 const SocialSignInButtons = () => {
+  const navigation = useNavigation();
   const onSignInNaver = () => {
     console.warn('Naver');
   };
@@ -17,26 +20,21 @@ const SocialSignInButtons = () => {
 
   return (
     <>
+      <NaverSignIn />
       <CustomButton
-        text="Sign In with Naver"
-        onPress={onSignInNaver}
-        bgColor="#e7eaf4"
-        fgColor="#12dc61"
-        />
-        <CustomButton
         text="Sign In with Google"
-        onPress={onSignInGoogle}
+        onPress={() => navigation.navigate('GoogleSigninScreen')}
         bgColor="#e7eaf4"
         fgColor="#4765a9"
-        />
-        <CustomButton
+      />
+      <CustomButton
         text="Sign In with Kakao"
         onPress={onSignInKakao}
         bgColor="#e7eaf4"
         // #fff880
         fgColor="#391b1b"
         // #391b1b
-        />
+      />
     </>
   );
 };

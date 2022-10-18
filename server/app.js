@@ -1,6 +1,6 @@
 const express = require('express')
 const connection = require('./utils/database')
-const BookMarkRouter = require('./routes/BookMarkRouter')
+const router = require('./routes/router')
 
 const app = express()
 const port = process.env.PORT || 5000;
@@ -18,7 +18,7 @@ app.use((_, res, next) => {
 })
 
 // 라우터 작성, routes 폴더에 있는 각 파일의 router를 불러오기
-app.use(BookMarkRouter)
+app.use(router)
 
 connection.connect();
 

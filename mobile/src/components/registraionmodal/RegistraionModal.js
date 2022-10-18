@@ -118,7 +118,7 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
                   <View style={styles.registContainer}>
                     <Pressable 
                       style={styles.modalButton}
-                      onPress={() => serverTest()} 
+                      onPress={() => {serverTest(); setVisible(!visible)}} 
                       >
                       <Text style={styles.textStyle}>등록</Text>
                     </Pressable>
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '70%',
-    height: '50%',
+    height: '70%',
     position: 'absolute',
   },
   centerContainer: {

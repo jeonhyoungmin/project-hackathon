@@ -1,4 +1,4 @@
-import { View, Text, Alert, Modal, StyleSheet, Pressable, Button, TextInput, KeyboardAvoidingView, Switch, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, Alert, Modal, StyleSheet, Pressable, Button, TextInput, KeyboardAvoidingView, Switch, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import {ModalTextInput, ModalTextInputTwo, ModalTextInputThree, ModalTextInputFour}from '../modaltextinput/ModalTextInput';
 
@@ -26,9 +26,9 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
         const jsonRes = res;
         console.log(jsonRes)
         if(res.status !== 200){
-          console.warn('안됨');
+          // console.warn('안됨');
         } else {
-          console.warn('됨')
+          // console.warn('됨')
         }
       } catch (err) {
         console.log(err);
@@ -75,17 +75,17 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
                   <View style={styles.accountContainer}>
                     {/* <ModalTextInput setting={setId} placeholderText={'아이디를 입력해주세요'} /> */}
                     <View style={styles.textcontainer}>
-                      <TextInput onChangeText={setId} style={styles.textInput} placeholder='아이디를 입력해주세요'></TextInput>
+                      <TextInput maxLength={30} onChangeText={setId} style={styles.textInput} placeholder='아이디를 입력해주세요'></TextInput>
                     </View>
                     {/* <ModalTextInputTwo setting={setPassword} placeholderText={'비밀번호를 입력해주세요'}/> */}
                     <View style={styles.textcontainer}>
-                      <TextInput onChangeText={setPassword} style={styles.textInput} placeholder='비밀번호를 입력해주세요'></TextInput>
+                      <TextInput maxLength={30} onChangeText={setPassword} style={styles.textInput} placeholder='비밀번호를 입력해주세요'></TextInput>
                     </View>
                   </View>
                   <View style={styles.urlContainer}>
                     {/* <ModalTextInputThree setting={setUrl}  placeholderText={'url를 입력해주세요'} /> */}
                     <View style={styles.textcontainer}>
-                      <TextInput onChangeText={setUrl} style={styles.textInput} placeholder='url를 입력해주세요'></TextInput>
+                      <TextInput maxLength={30} onChangeText={setUrl} style={styles.textInput} placeholder='url를 입력해주세요'></TextInput>
                     </View>
                   </View>
                 </View>
@@ -95,11 +95,11 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
                   <View style={styles.MemoContainer}>
                     {/* <ModalTextInputFour setting={setMemo} containerWidth={"95%"} textHeight={"100%"} textWidth={'100%'} placeholderText={'Memo'} /> */}
                     <View style={styles.textcontainer}>
-                      <TextInput onChangeText={setService} style={styles.textInput} placeholder='서비스 이름'></TextInput>
+                      <TextInput maxLength={10} onChangeText={setService} style={styles.textInput} placeholder='서비스 이름'></TextInput>
                     </View>
-                    <View style={styles.textcontainer}>
-                      <TextInput onChangeText={setMemo} style={styles.textInput} placeholder='memo'></TextInput>
-                    </View>
+                    <ScrollView style={styles.textcontainer}>
+                      <TextInput numberOfLines={2} multiline={true} maxLength={100} onChangeText={setMemo} style={styles.textInput} placeholder='memo'></TextInput>
+                    </ScrollView>
                   </View>
                   {/* BookMark가 true 시 즐겨찾기 토글 스위치 visible */}
                   { BookMark && 

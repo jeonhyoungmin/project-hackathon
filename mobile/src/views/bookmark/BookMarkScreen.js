@@ -10,6 +10,7 @@ import CustomRadioButton from '../../components/radiobutton/CustomRadioButton'
 import AddBoxButton from '../../components/addboxbutton/AddBoxButton'
 import RegistraionModal from '../../components/registraionmodal/RegistraionModal'
 import AddAccountBox from '../../components/addaccountbox/AddAccountBox'
+import RegisteredModal from '../../components/registeredmodal/RegisteredModal'
 
 const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
@@ -17,8 +18,10 @@ const BookMarkScreen = () => {
 
   const navigation = useNavigation();
 
-  //modal 창 visible
+  //등록 modal 창 visible
   const [visible, setVisible] = useState(false)
+  //등록된 modal 창 visible
+  const [regiVisible, setRegiVisible] = useState(false)
 
   // 검색 창 visible
   const  [search, setSearch] = React.useState(false)
@@ -68,6 +71,8 @@ const BookMarkScreen = () => {
     {/* Modal 컴포넌트 */}
     <RegistraionModal visible={visible} setVisible={setVisible} BookMark={true}/>
 
+    <RegisteredModal regiVisible={regiVisible} setRegiVisible={setRegiVisible} BookMark={true}/>
+
       {/* 최상단 뒤로가기, 검색 , 카테고리 */}
       <View style={styles.viewTop}>
         {/* flex를 주기 위한 빈 공간 */}
@@ -111,15 +116,18 @@ const BookMarkScreen = () => {
           {/* map 함수를 사용하여 데이터 수 만큼 컴포넌트 렌더링. 주의! react(react-native)에서는 map 함수를 사용할 시, 데이터를 구분하기 위해 key 값을 지정해 줘야 한다. */}
           {accountData.map((value) => {
             return (
-              <AddAccountBox key={value.index}
-              serviceName={value.regi_service} 
-              regi_id={value.regi_id} 
-              iconSize={25} 
-              iconColor='#333' 
-              deleteOnPress={() => Alert.alert('정보 삭제', '정말로 삭제하시겠습니까?', [
-                {text: "Yes", onPress: () => deleteAccount(value.regi_id)},
-                {text: "No", onPress: () => console.warn('보존')}
-              ])}/>
+              <View key={value.index}>
+                <AddAccountBox
+                modalOnPress={() => setRegiVisible(!regiVisible)}
+                serviceName={value.regi_service} 
+                regi_id={value.regi_id} 
+                iconSize={25} 
+                iconColor='#333' 
+                deleteOnPress={() => Alert.alert('정보 삭제', '정말로 삭제하시겠습니까?', [
+                  {text: "Yes", onPress: () => deleteAccount(value.regi_id)},
+                  {text: "No"/* , onPress: () => console.warn('보존') */}
+                ])}/>
+              </View>
             )
           })}
         </ScrollView>

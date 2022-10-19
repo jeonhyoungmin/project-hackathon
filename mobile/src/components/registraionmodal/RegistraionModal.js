@@ -21,9 +21,9 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
       },
       body: JSON.stringify(test)
     })
-    .then(res => {
+    .then(async res => {
       try{
-        const jsonRes = res;
+        const jsonRes = await res.json();
         console.log(jsonRes)
         if(res.status !== 200){
           // console.warn('안됨');

@@ -17,7 +17,7 @@ const registrateaccount = (req, res, next) => {
   // 매개 변수 3: 콜백 함수(error, rows, fields)
   connection.query('INSERT INTO bookmark (regi_id, regi_password, regi_url, regi_service, regi_memo) VALUES (?,?,?,?,?)', [id, password, url, service, memo], function(err){
       if (err) throw err;
-      res.send('입력 완료')
+      res.status(200).json({message: 'success'})
     });
 }
 
@@ -37,7 +37,7 @@ const deleteaccount = (req, res, next) => {
   const regi_id = req.params.regi_id
   connection.query("DELETE FROM bookmark WHERE regi_id = ?", regi_id, (err, results) => {
     if (err) throw err;
-    res.send(results)
+    res.json(results)
   })
 }
 

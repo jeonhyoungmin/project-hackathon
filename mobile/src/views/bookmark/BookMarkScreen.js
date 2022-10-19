@@ -52,8 +52,9 @@ const BookMarkScreen = () => {
     fetch(`${API_URL}/bookmark/${regi_id}`, {
       method: "DELETE",
       body: regi_id
-    }). then((res) => {
-      console.log(res)
+    }). then(async (res) => {
+      const jsonRes = await res.json();
+      console.log(jsonRes)
     }). catch (err => {
       console.log(err)
     })

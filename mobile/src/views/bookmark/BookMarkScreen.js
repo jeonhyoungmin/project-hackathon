@@ -16,10 +16,9 @@ import CustomRadioButton from '../../components/radiobutton/CustomRadioButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icons from 'react-native-vector-icons/Ionicons';
 
-import CustomRadioButton from '../../components/radiobutton/CustomRadioButton'
-import AddBoxButton from '../../components/addboxbutton/AddBoxButton'
-import RegistraionModal from '../../components/registraionmodal/RegistraionModal'
-import AddAccountBox from '../../components/addaccountbox/AddAccountBox'
+import AddBoxButton from '../../components/addboxbutton/AddBoxButton';
+import RegistraionModal from '../../components/registraionmodal/RegistraionModal';
+import AddAccountBox from '../../components/addaccountbox/AddAccountBox';
 import {useNavigation} from '@react-navigation/native';
 import SearchBar from '../../components/main/SearchBar';
 
@@ -27,10 +26,10 @@ const BookMarkScreen = () => {
   const navigation = useNavigation();
 
   //modal 창 visible
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
 
   // 검색 창 visible
-  const  [search, setSearch] = React.useState(false)
+  const [search, setSearch] = React.useState(false);
   const searchButtonChange = () => {
     setSearch(!search);
   };
@@ -101,32 +100,24 @@ const BookMarkScreen = () => {
           </View>
         </View>
 
-
-
-
-
-      {/* 가운데 서비스 등록 버튼 */}
-      <View style={styles.scrollContainer}>
-      <ScrollView style={styles.scroll}>
-        {/* 추가된 계정 정보 */}
-        <AddAccountBox />
-      </ScrollView>
-      </View>
-
-
-
-
-
-      {/* 하단  유사성 검사 버튼과 위치 서비스 버튼*/}
-      <View style={styles.viewBottom}>
-        <View style={styles.similarButtonBox}>
-          <Icon name="account-search-outline" size={25} color="#333" />
+        {/* 가운데 서비스 등록 버튼 */}
+        <View style={styles.scrollContainer}>
+          <ScrollView style={styles.scroll}>
+            {/* 추가된 계정 정보 */}
+            <AddAccountBox />
+          </ScrollView>
         </View>
-        <View style={styles.locationButtonBox}>
-          <Icons name='location-outline' size={25} color="#333" />
+
+        {/* 하단  유사성 검사 버튼과 위치 서비스 버튼*/}
+        <View style={styles.viewBottom}>
+          <View style={styles.similarButtonBox}>
+            <Icon name="account-search-outline" size={25} color="#333" />
+          </View>
+          <View style={styles.locationButtonBox}>
+            <Icons name="location-outline" size={25} color="#333" />
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
     </>
   );
 };

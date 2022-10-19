@@ -3,6 +3,7 @@ const connection = require('./utils/database')
 const router = require('./routes/router')
 const app = express()
 const port = process.env.PORT || 5000;
+const bcrpyt = require('bcryptjs');
 // const cookie = require('cookie-parser');
 
 // 클라이언트로부터 받은 http 요청 메시지 형식에서 body 데이터를 해석하기 위해서 express.json()과 express.urlencoded()로 처리가 필요
@@ -22,8 +23,12 @@ app.use((_, res, next) => {
 // 라우터 작성, routes 폴더에 있는 각 파일의 router를 불러오기
 app.use(router)
 
-connection.connect();
-
 app.listen(port, () => {
   console.log(`${port}에서 서버 대기중`)
+  connection.connect(err => {
+    if(err) throw err;
+    else {
+      console.log('데이터 베이스 연결 성공');
+    }
+  });
 })

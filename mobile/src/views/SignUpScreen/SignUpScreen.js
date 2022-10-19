@@ -29,14 +29,13 @@ const SignUpScreen = () => {
       },
       body: JSON.stringify(user_info),
     })
-    .then(res => {
+    .then( async res => {
+      const jsonRes = await res.json();
       try{
-        const jsonRes = res;
-        console.log(jsonRes)
         if(res.status !== 200) {
-          console.log('fail');
+          console.log(jsonRes.message);
         } else {
-          console.log('success');
+          console.log(jsonRes.message);
         }
       } catch (err) {
         console.log(err);

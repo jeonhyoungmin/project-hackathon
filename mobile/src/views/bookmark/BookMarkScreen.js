@@ -108,6 +108,7 @@ const BookMarkScreen = () => {
       <View style={styles.scrollContainer}>
         <ScrollView style={styles.scroll}>
           {/* 추가된 계정 정보 */}
+          {/* map 함수를 사용하여 데이터 수 만큼 컴포넌트 렌더링. 주의! react(react-native)에서는 map 함수를 사용할 시, 데이터를 구분하기 위해 key 값을 지정해 줘야 한다. */}
           {accountData.map((value) => {
             return (
               <AddAccountBox key={value.index}

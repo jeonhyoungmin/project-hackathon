@@ -46,6 +46,13 @@ const deleteaccount = (req, res, next) => {
 // 북마크 등록된 서비스 계정 수정
 const updateaccount = (req, res, next) => {
   console.log(req.body)
+  const id = req.body.id
+  const password = req.body.password
+  const url = req.body.url
+  const service = req.body.service
+  const memo = req.body.memo
+
+  connection.query('UPDATE bookmark SET ')
 }
 
 export { registrateaccount, registeredaccount, deleteaccount, updateaccount }

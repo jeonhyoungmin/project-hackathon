@@ -78,7 +78,7 @@ const SignInScreen = () => {
         <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}
         />
 
-        <CustomButton text="Sign in" onPress={() => SignIn() } />
+        <CustomButton text="Sign in" onPress={() => {/* SignIn(); */ navigation.navigate('Main')} } />
 
         <CustomButton text="Forgot password?" onPress={() => navigation.navigate('ForgotPassword')} type="TERTIARY" />
 

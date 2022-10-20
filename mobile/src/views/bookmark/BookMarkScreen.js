@@ -70,8 +70,6 @@ const BookMarkScreen = () => {
     <>
       <StatusBar backgroundColor="white" />
       <SafeAreaView style={styles.container}>
-        {/* Modal 컴포넌트 */}
-        <RegistraionModal visible={visible} setVisible={setVisible} />
 
     {/* 등록창 Modal 컴포넌트 */}
       <RegistraionModal visible={visible} setVisible={setVisible} BookMark={true}/>

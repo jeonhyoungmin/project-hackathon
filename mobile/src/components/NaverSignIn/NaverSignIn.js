@@ -17,9 +17,9 @@ const API_URL =
     : 'http://10.0.2.2:5000';
 
 const NaverSignIn = () => {
-  const [naverData, setNaverData] = useState([]);
   const [naverToken, setNaverToken] = React.useState(null);
-  // useEffect(() => {
+
+  // const severTest = () => {
   //   fetch(`${API_URL}/thirdparty`, {
   //     method: 'POST',
   //     headers: {
@@ -41,30 +41,7 @@ const NaverSignIn = () => {
   //     .catch(err => {
   //       console.log(err);
   //     });
-  // }, [naverData]);
-  const severTest = () => {
-    fetch(`${API_URL}/thirdparty`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(naverData),
-    })
-      .then(res => {
-        try {
-          const jsonRes = res;
-          console.log(jsonRes);
-          if (res.status !== 200) {
-            console.warn('안됨');
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  // };
 
   const navigation = useNavigation();
 
@@ -89,36 +66,50 @@ const NaverSignIn = () => {
 
   const getUserProfile = async () => {
     const profileResult = await getProfile(naverToken.accessToken);
-    setNaverData(profileResult);
     if (profileResult.resultcode === '024') {
       Alert.alert('로그인 실패', profileResult.message);
       return;
     }
+    if (!!naverToken) {
+      fetch(`${API_URL}/thirdparty`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(profileResult),
+      })
+        .then(res => {
+          try {
+            const jsonRes = res;
+            console.log(jsonRes);
+            if (res.status !== 200) {
+              console.warn('안됨');
+            }
+          } catch (err) {
+            console.log(err);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+
+    if (!!naverToken) {
+      navigation.navigate('Main');
+    }
     console.log('profileResult', profileResult);
   };
+  // const login = () => {
+  //   if (!!naverToken) {
+  //     getUserProfile();
+  //   }
+  // };
+
   useEffect(() => {
-    fetch(`${API_URL}/thirdparty`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(naverData),
-    })
-      .then(res => {
-        try {
-          const jsonRes = res;
-          console.log(jsonRes);
-          if (res.status !== 200) {
-            console.warn('안됨');
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, [naverData]);
+    if (!!naverToken) {
+      getUserProfile();
+    }
+  }, [naverToken]);
   return (
     <>
       <CustomButton
@@ -129,19 +120,19 @@ const NaverSignIn = () => {
         bgColor="#e7eaf4"
         fgColor="#12dc61"
       />
+      {/* {!!naverToken && login} */}
 
-      {!!naverToken && <Button title="로그아웃하기" onPress={naverLogout} />}
+      {/* {!!naverToken && <Button title="로그아웃하기" onPress={naverLogout} />}
       {!!naverToken && (
         <Button
           title="회원정보 가져오기"
           onPress={() => {
             {
-              navigation.navigate('Main');
               getUserProfile();
             }
           }}
         />
-      )}
+      )} */}
       {/*로그인이 성공하여 naverToken(accessToken)값을 받아 조건이 참이(활성화) 되었을때 회원정보를 받아오는 것 */}
 
       {/* {!!naverToken && getProfile} */}

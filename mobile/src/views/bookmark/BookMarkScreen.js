@@ -51,7 +51,7 @@ const BookMarkScreen = () => {
       console.log(err);
     })
   }, [accountData])
-
+  
 
   // 데이터 delete
   const deleteAccount = (regi_id) => {

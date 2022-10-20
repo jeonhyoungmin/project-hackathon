@@ -1,0 +1,33 @@
+const express = require('express');
+const connection = require('../utils/database');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const SignIn = (req, res, next) => {
+  // console.log(req);
+  const param = [req.body.username, req.body.password]
+  if(!param[0] || !param[1]) {
+    return res.status(400).json({ message: "Please Enter your id and password" });
+  } else {
+    connection.query('SELECT user_id, user_password FROM user_info WHERE user_id=?', param[0], (err, row) => {
+      console.log(row)
+      if(!row[0]){
+        return res.status(404).json({ message: "user not found" });
+      } else {
+        // password hash
+        bcrypt.compare(param[1], row[0].user_password, (err, compareRes) => {
+          if (err) { // error while comparing
+              res.status(502).json({ message: "error while checking user password" });
+          } else if (compareRes) { // password match
+              const token = jwt.sign({ email: req.body.email }, 'secret', { expiresIn: '1h' });
+              res.status(200).json({ message: "user logged in", "token": token});
+          } else { // password doesnt match
+              res.status(401).json({ message: "invalid credentials" });
+          };
+        });
+      }
+    });
+  }
+};
+
+module.exports = SignIn;

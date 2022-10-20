@@ -20,4 +20,4 @@ const connection = mysql.createConnection({
 // connection.end();
 // 연결 종료
 
-module.exports = connection
+module.exports = connection;

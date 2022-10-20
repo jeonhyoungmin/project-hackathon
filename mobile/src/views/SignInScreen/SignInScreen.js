@@ -14,7 +14,39 @@ import {useNavigation} from '@react-navigation/native'
 // 아이디 찾기
 // 필수 입력 항목 구현 ( 미입력시 경고창 띄우기 )
 
+const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
+
 const SignInScreen = () => {
+
+  const SignIn = () => {
+    const user_info = {
+      username,
+      password
+    }
+    fetch(`${API_URL}/signin`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body : JSON.stringify(user_info),
+    })
+    .then( async res => {
+      const jsonRes = await res.json();
+      try {
+        if (res.status !== 200) {
+          console.log(jsonRes.message);
+        } else {
+          console.log(jsonRes.message);
+        }
+      }catch (err) {
+        console.log(err);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -46,7 +78,7 @@ const SignInScreen = () => {
         <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}
         />
 
-        <CustomButton text="Sign in" onPress={() => navigation.navigate('Main')} />
+        <CustomButton text="Sign in" onPress={() => SignIn() } />
 
         <CustomButton text="Forgot password?" onPress={() => navigation.navigate('ForgotPassword')} type="TERTIARY" />
 

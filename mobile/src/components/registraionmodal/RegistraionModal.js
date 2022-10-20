@@ -160,10 +160,15 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
                   <View style={styles.registContainer}>
                     <Pressable
                       style={styles.modalButton}
+<<<<<<< HEAD
                       onPress={() => {
                         serverTest();
                         setVisible(!visible);
                       }}>
+=======
+                      onPress={() => {serverTest(); setVisible(!visible)}} 
+                      >
+>>>>>>> origin/jyb-login
                       <Text style={styles.textStyle}>등록</Text>
                     </Pressable>
                   </View>

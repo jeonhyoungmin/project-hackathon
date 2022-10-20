@@ -60,14 +60,13 @@ const SignUpScreen = () => {
 
   // SignUpRegistration();
 
-  // const passwordMatch = () => {
-  //   if(password === passwordRepeat) {
-  //     console.log('비번 일치');
-  //     return true;
-  //   } else (password !== passwordRepeat)
-  //     console.log('비번 확인주세요');
-  //     return false;
-  // };
+  const passwordMatch = () => {
+    if(password === passwordRepeat) {
+      return true;
+    } else (password !== passwordRepeat)
+      Alert.alert('비번 확인주세요');
+      return false;
+  };
 
   const onTermsOfUsePressed = () => {
     navigation.navigate('onTermsOfUsePressed');
@@ -109,7 +108,7 @@ const SignUpScreen = () => {
         />
           
 
-        <CustomButton text="회원가입" onPress={() => { SignUpRegistration(); }} />
+        <CustomButton text="회원가입" onPress={() => { passwordMatch() && SignUpRegistration(); }} />
 
         <Text style={styles.text}>
           회원가입을 통해{' '}

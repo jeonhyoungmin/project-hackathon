@@ -4,15 +4,15 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 const SignIn = (req, res, next) => {
-  // console.log(req);
   const param = [req.body.username, req.body.password]
+  
   if(!param[0] || !param[1]) {
-    return res.status(400).json({ message: "Please Enter your id and password" });
+    return res.status(400).json({ message: "Please Enter your id or password" });
   } else {
     connection.query('SELECT user_id, user_password FROM user_info WHERE user_id=?', param[0], (err, row) => {
       console.log(row)
       if(!row[0]){
-        return res.status(404).json({ message: "user not found" });
+        return res.status(404).json({ message: "You have entered an incorrect ID or password. Please check again." });
       } else {
         // password hash
         bcrypt.compare(param[1], row[0].user_password, (err, compareRes) => {

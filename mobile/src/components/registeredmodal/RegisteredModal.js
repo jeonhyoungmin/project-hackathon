@@ -4,7 +4,7 @@ import {ModalTextInput, ModalTextInputTwo, ModalTextInputThree, ModalTextInputFo
 
 const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
-const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark }) => {
+const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_password, regi_url, regi_service, regi_memo }) => {
 
   const serverTest = () => {
     const test = {
@@ -51,8 +51,6 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark }) => {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState)
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-      <TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
         <Modal
           animationType="slide"
           transparent={true}
@@ -75,7 +73,7 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark }) => {
                   <View style={styles.accountContainer}>
                     {/* <ModalTextInput setting={setId} placeholderText={'아이디를 입력해주세요'} /> */}
                     <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setId} style={styles.textInput} placeholder='아이디를 입력해주세요'></TextInput>
+                      <TextInput maxLength={30} onChangeText={setId} style={styles.textInput} placeholder={regi_id}></TextInput>
                     </View>
                     {/* <ModalTextInputTwo setting={setPassword} placeholderText={'비밀번호를 입력해주세요'}/> */}
                     <View style={styles.textcontainer}>
@@ -140,8 +138,6 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark }) => {
             </View>
           </Pressable>
         </Modal>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
   );
 };
 

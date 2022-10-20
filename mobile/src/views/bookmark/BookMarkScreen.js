@@ -32,6 +32,9 @@ const BookMarkScreen = () => {
   // 등록한 계정 정보 업데이트
   const [accountData, setAccountData] = useState([])
 
+  // 수정창 Modal에 데이터 전달
+  const [clickData, setClickData] = useState([])
+
   // 데이터 갱신
   useEffect(() =>{
     // console.warn('작동')
@@ -47,7 +50,7 @@ const BookMarkScreen = () => {
     }). catch (err => {
       console.log(err);
     })
-  })
+  }, [accountData])
 
 
   // 데이터 delete
@@ -68,10 +71,11 @@ const BookMarkScreen = () => {
     <StatusBar backgroundColor='white' />
     <SafeAreaView style={styles.container}>
 
-    {/* Modal 컴포넌트 */}
-    <RegistraionModal visible={visible} setVisible={setVisible} BookMark={true}/>
+    {/* 등록창 Modal 컴포넌트 */}
+      <RegistraionModal visible={visible} setVisible={setVisible} BookMark={true}/>
 
-    <RegisteredModal regiVisible={regiVisible} setRegiVisible={setRegiVisible} BookMark={true}/>
+    {/* 수정창 Modal 컴포넌트 */}
+    <RegisteredModal regiVisible={regiVisible} setRegiVisible={setRegiVisible} BookMark={true} regi_id={clickData.regi_id}/>
 
       {/* 최상단 뒤로가기, 검색 , 카테고리 */}
       <View style={styles.viewTop}>
@@ -100,7 +104,7 @@ const BookMarkScreen = () => {
           {/* 카테고리 컨테이너 */}
           <View style={styles.categoryContainer}>
             {/* 카테고리 radio button 컴포넌트*/}
-            <CustomRadioButton />
+            {/* <CustomRadioButton /> */}
           </View>
         </View>
       </View>
@@ -118,7 +122,7 @@ const BookMarkScreen = () => {
             return (
               <View key={value.index}>
                 <AddAccountBox
-                modalOnPress={() => setRegiVisible(!regiVisible)}
+                modalOnPress={() => {setRegiVisible(!regiVisible); setClickData(value)}}
                 serviceName={value.regi_service} 
                 regi_id={value.regi_id} 
                 iconSize={25} 

@@ -51,8 +51,6 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState)
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-      <TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
         <Modal
           animationType="slide"
           transparent={true}
@@ -140,8 +138,6 @@ const RegistraionModal = ({ visible, setVisible, BookMark }) => {
             </View>
           </Pressable>
         </Modal>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
   );
 };
 

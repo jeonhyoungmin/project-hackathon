@@ -1,5 +1,5 @@
 import  express from "express"
-import  connection from "../utils/database"
+import  connection from "../utils/database.js"
 
 const thirdparty = (req, res, next) => {
   const sns_id = req.body.response.id;

@@ -1,5 +1,5 @@
 import  express from 'express'
-import  connection from '../utils/database'
+import  connection from '../utils/database.js'
 import  bcrypt from 'bcryptjs'
 // saltRounds 는 모듈화 필요
 const saltRounds = 12;

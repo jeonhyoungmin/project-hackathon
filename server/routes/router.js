@@ -1,8 +1,8 @@
 import express from 'express';
 import { registrateaccount, registeredaccount, deleteaccount} from '../controllers/BookMark.js'
-import thirdparty from "../controllers/Thirdparty"
-import SignUp from '../controllers/SignUp'
-import SignIn from '../controllers/SignIn'
+import thirdparty from "../controllers/Thirdparty.js"
+import SignUp from '../controllers/SignUp.js'
+import SignIn from '../controllers/SignIn.js'
 const router = express.Router();
 
 // (매개변수1: bookmark 주소로 요청 발생 시, 매개변수2: bookmark controllers 실행)

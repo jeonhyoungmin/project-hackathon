@@ -15,6 +15,7 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
       service,
       memo,
     }
+    console.log(test)
     fetch(`${API_URL}/bookmark`, {
       method: 'PUT',
       headers: {
@@ -85,7 +86,7 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
                     {/* <ModalTextInputThree setting={setUrl}  placeholderText={'url를 입력해주세요'} /> */}
                     <View style={styles.textcontainer}>
                       <Text>이동하기 :
-                        <Text onPress={() => Linking.openURL(`https://www.${regi_url}`)}>{` ${regi_url}`}</Text>
+                        <Text setUrl={regi_url} onPress={() => Linking.openURL(`https://www.${regi_url}`)}>{` ${regi_url}`}</Text>
                       </Text>
                     </View>
                   </View>
@@ -99,7 +100,7 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
                       <TextInput maxLength={10} onChangeText={setService} style={styles.textInput} placeholder={regi_service}></TextInput>
                     </View>
                     <ScrollView style={styles.textcontainer}>
-                      <TextInput numberOfLines={2} multiline={true} maxLength={100} onChangeText={setMemo} style={styles.textInput} placeholder='memo'></TextInput>
+                      <TextInput numberOfLines={2} multiline={true} maxLength={100} onChangeText={setMemo} style={styles.textInput} placeholder={regi_memo}></TextInput>
                     </ScrollView>
                   </View>
                   {/* BookMark가 true 시 즐겨찾기 토글 스위치 visible */}

@@ -1,5 +1,5 @@
 import express from 'express';
-import { registrateaccount, registeredaccount, deleteaccount} from '../controllers/BookMark.js'
+import { registrateaccount, registeredaccount, deleteaccount, updateaccount} from '../controllers/BookMark.js'
 import thirdparty from "../controllers/Thirdparty.js"
 import SignUp from '../controllers/SignUp.js'
 import SignIn from '../controllers/SignIn.js'
@@ -18,6 +18,8 @@ router.post('/bookmark', registrateaccount)
 // 북마크 등록된 서비스 계정 읽기
 router.get('/bookmark', registeredaccount)
 // 북마크 등록된 서비스 계정 삭제하기
-router.delete('/bookmark/:regi_id', deleteaccount)
+router.delete('/bookmark/:regi_id/:regi_url', deleteaccount)
+// 북마크 등록된 서비스 계정 수정하기
+router.put('/bookmark', updateaccount)
 
 export default router;

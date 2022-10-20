@@ -1,6 +1,7 @@
-import { View, Text, Alert, Modal, StyleSheet, Pressable, Button, TextInput, KeyboardAvoidingView, Switch, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
+import { View, Text, Alert, Modal, StyleSheet, Pressable, Button, TextInput, KeyboardAvoidingView, Switch, TouchableWithoutFeedback, Keyboard, ScrollView, Linking } from 'react-native';
 import React, { useState } from 'react';
 import {ModalTextInput, ModalTextInputTwo, ModalTextInputThree, ModalTextInputFour}from '../modaltextinput/ModalTextInput';
+import { Link } from '@react-navigation/native';
 
 const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
@@ -15,7 +16,7 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
       memo,
     }
     fetch(`${API_URL}/bookmark`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -39,11 +40,11 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
     })
   }
 
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-  const [url, setUrl] = useState('');
-  const [memo, setMemo] = useState('');
-  const [service, setService] = useState('');
+  const [id, setId] = useState(regi_id);
+  const [password, setPassword] = useState(regi_password);
+  const [url, setUrl] = useState(regi_url);
+  const [memo, setMemo] = useState(regi_memo);
+  const [service, setService] = useState(regi_service);
   
   // const [visible, setVisible] = useState(visible);
 
@@ -73,17 +74,19 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
                   <View style={styles.accountContainer}>
                     {/* <ModalTextInput setting={setId} placeholderText={'아이디를 입력해주세요'} /> */}
                     <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setId} style={styles.textInput} placeholder={regi_id}></TextInput>
+                      <TextInput maxLength={30} onChangeText={setId} style={styles.textInput} placeholder={`ID: ${regi_id}`}></TextInput>
                     </View>
                     {/* <ModalTextInputTwo setting={setPassword} placeholderText={'비밀번호를 입력해주세요'}/> */}
                     <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setPassword} style={styles.textInput} placeholder='비밀번호를 입력해주세요'></TextInput>
+                      <TextInput maxLength={30} onChangeText={setPassword} style={styles.textInput} placeholder={`PW: ${regi_password}`}></TextInput>
                     </View>
                   </View>
                   <View style={styles.urlContainer}>
                     {/* <ModalTextInputThree setting={setUrl}  placeholderText={'url를 입력해주세요'} /> */}
                     <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setUrl} style={styles.textInput} placeholder='url를 입력해주세요'></TextInput>
+                      <Text>이동하기 :
+                        <Text onPress={() => Linking.openURL(`https://www.${regi_url}`)}>{` ${regi_url}`}</Text>
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -93,7 +96,7 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
                   <View style={styles.MemoContainer}>
                     {/* <ModalTextInputFour setting={setMemo} containerWidth={"95%"} textHeight={"100%"} textWidth={'100%'} placeholderText={'Memo'} /> */}
                     <View style={styles.textcontainer}>
-                      <TextInput maxLength={10} onChangeText={setService} style={styles.textInput} placeholder='서비스 이름'></TextInput>
+                      <TextInput maxLength={10} onChangeText={setService} style={styles.textInput} placeholder={regi_service}></TextInput>
                     </View>
                     <ScrollView style={styles.textcontainer}>
                       <TextInput numberOfLines={2} multiline={true} maxLength={100} onChangeText={setMemo} style={styles.textInput} placeholder='memo'></TextInput>
@@ -155,7 +158,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '80%',
-    height: '85%',
+    height: '80%',
     position: 'absolute',
   },
   centerContainer: {
@@ -169,13 +172,13 @@ const styles = StyleSheet.create({
     // backgroundColor: 'blue',
   },
   accountContainer: {
-    flex: 2,
+    flex: 1,
     // backgroundColor: 'pink',
     justifyContent: 'center',
     alignItems: 'center',
   },
   urlContainer: {
-    flex: 1,
+    flex: 0.5,
     // backgroundColor: 'yellow',
     justifyContent: 'center',
     alignItems: 'center',

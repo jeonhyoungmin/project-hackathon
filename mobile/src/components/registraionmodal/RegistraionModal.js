@@ -26,9 +26,9 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
           const jsonRes = res;
           console.log(jsonRes);
           if (res.status !== 200) {
-            console.warn('안됨');
+            // console.warn('안됨');
           } else {
-            console.warn('됨');
+            // console.warn('됨');
           }
         } catch (err) {
           console.log(err);
@@ -121,7 +121,7 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
                   <View style={styles.registContainer}>
                     <Pressable
                       style={styles.modalButton}
-                      onPress={() => {serverTest(); setVisible(!visible)}} 
+                      onPress={() => { if(!id || !password || !url || !service){Alert.alert('id, password, url, service를 입력해주세요')} else{serverTest(); setVisible(!visible)}}} 
                       >
                       <Text style={styles.textStyle}>등록</Text>
                     </Pressable>

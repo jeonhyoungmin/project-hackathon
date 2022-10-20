@@ -33,12 +33,19 @@ const registeredaccount = (req, res, next) => {
 
 // 북마크 등록된 서비스 계정 삭제
 const deleteaccount = (req, res, next) => {
-  console.log(req.params)
+  console.log(req.params.regi_id)
   const regi_id = req.params.regi_id
-  connection.query("DELETE FROM bookmark WHERE regi_id = ?", regi_id, (err, results) => {
+  const regi_url = req.params.regi_url
+  connection.query("DELETE FROM bookmark WHERE regi_id = ? AND regi_url = ?", [regi_id, regi_url], (err, results) => {
     if (err) throw err;
     res.json(results)
   })
 }
 
-export { registrateaccount, registeredaccount, deleteaccount}
+
+// 북마크 등록된 서비스 계정 수정
+const updateaccount = (req, res, next) => {
+  console.log(req.body)
+}
+
+export { registrateaccount, registeredaccount, deleteaccount, updateaccount }

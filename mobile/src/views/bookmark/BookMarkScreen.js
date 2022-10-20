@@ -35,6 +35,9 @@ const BookMarkScreen = () => {
   // 수정창 Modal에 데이터 전달
   const [clickData, setClickData] = useState([])
 
+  // delete 새로고침
+  const [refresh, setRefresh] = useState(true)
+
   // 데이터 갱신
   useEffect(() =>{
     // console.warn('작동')
@@ -45,19 +48,17 @@ const BookMarkScreen = () => {
       }
     }).then(async res => {
       const jsonRes = await res.json();
-      // console.warn(jsonRes);
       setAccountData(jsonRes)
     }). catch (err => {
       console.log(err);
     })
-  }, [accountData])
+  }, [visible, regiVisible, refresh])
   
 
   // 데이터 delete
-  const deleteAccount = (regi_id) => {
-    fetch(`${API_URL}/bookmark/${regi_id}`, {
+  const deleteAccount = (regi_id, regi_url) => {
+    fetch(`${API_URL}/bookmark/${regi_id}/${regi_url}`, {
       method: "DELETE",
-      body: regi_id
     }). then(async (res) => {
       const jsonRes = await res.json();
       console.log(jsonRes)
@@ -75,7 +76,7 @@ const BookMarkScreen = () => {
       <RegistraionModal visible={visible} setVisible={setVisible} BookMark={true}/>
 
     {/* 수정창 Modal 컴포넌트 */}
-    <RegisteredModal regiVisible={regiVisible} setRegiVisible={setRegiVisible} BookMark={true} regi_id={clickData.regi_id}/>
+    <RegisteredModal regiVisible={regiVisible} setRegiVisible={setRegiVisible} BookMark={true} regi_id={clickData.regi_id} regi_password={clickData.regi_password} regi_url={clickData.regi_url} regi_service={clickData.regi_service} regi_memo={clickData.regi_memo}/>
 
       {/* 최상단 뒤로가기, 검색 , 카테고리 */}
       <View style={styles.viewTop}>
@@ -127,7 +128,7 @@ const BookMarkScreen = () => {
                 iconSize={25} 
                 iconColor='#333' 
                 deleteOnPress={() => Alert.alert('정보 삭제', '정말로 삭제하시겠습니까?', [
-                  {text: "Yes", onPress: () => deleteAccount(value.regi_id)},
+                  {text: "Yes", onPress: () => {setRefresh(!refresh); deleteAccount(value.regi_id, value.regi_url)}},
                   {text: "No"/* , onPress: () => console.warn('보존') */}
                 ])}/>
               </View>

@@ -1,16 +1,12 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, Image, StyleSheet, useWindowDimensions, ScrollView} from 'react-native';
+import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, Alert} from 'react-native';
 import Logo from '../../assets/Logo_1.png';
 import WelcomeDTG from '../../components/WelcomeDTG/WelcomeDTG';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
 
-// 네비게이션
 import {useNavigation} from '@react-navigation/native'
-
-// Validation
-import {useForm, Controller} from 'react-hook-form';
 
 /* 로그인 화면 */
 
@@ -39,8 +35,11 @@ const SignInScreen = () => {
       try {
         if (res.status !== 200) {
           console.log(jsonRes.message);
+          Alert.alert(jsonRes.message);
         } else {
           console.log(jsonRes.message);
+          Alert.alert(jsonRes.message);
+          navigation.navigate('Main');
         }
       }catch (err) {
         console.log(err);
@@ -51,20 +50,17 @@ const SignInScreen = () => {
     });
   }
 
-  // const [username, setUsername] = useState('');
-  // const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const {height} = useWindowDimensions();
   const navigation = useNavigation();
 
-  const {control, handleSubmit} = useForm();
-
-  const onSignInPressed = (data) => {
-    // validate user
-    console.log(data);
-    // SignIn();
-    // navigation.navigate('Main');
-  };
+  // const onSignInPressed = () => {
+  //   // validate user
+  //   navigation.navigate('HomeScreen');
+  //   // console.warn('Sign in');
+  // };
 
   // const onForgotPasswordPressed = () => {
   //   navigation.navigate('ForgotPassword');
@@ -81,26 +77,11 @@ const SignInScreen = () => {
       <View style={styles.container}>
         <Image source={Logo} style={[styles.logo, {height: height * 0.3}]} resizeMode="contain"/>
 
-        <CustomInput
-          name="username"
-          placeholder="Username"
-          control={control}
-          // value={username}
-          // setValue={setUsername}
-        />
-        <CustomInput
-        name="password"
-          placeholder="Password"
-          control={control}
-          secureTextEntry
-          // value={password}
-          // setValue={setPassword}
+        <CustomInput placeholder="Username" value={username} setValue={setUsername} />
+        <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}
         />
 
-        {/* onSignInpressd와 고민중 */}
-        {/* <CustomButton text="Sign in" onPress={() => { SignIn(); } } /> */}
-
-        <CustomButton text="Sign in" onPress={handleSubmit(onSignInPressed)} />
+        <CustomButton text="Sign in" onPress={() => SignIn() } />
 
         <CustomButton text="Forgot password?" onPress={() => navigation.navigate('ForgotPassword')} type="TERTIARY" />
 

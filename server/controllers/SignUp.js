@@ -1,6 +1,6 @@
-const express = require('express');
-const connection = require('../utils/database');
-const bcrypt = require('bcryptjs');
+import  express from 'express'
+import  connection from '../utils/database'
+import  bcrypt from 'bcryptjs'
 // saltRounds 는 모듈화 필요
 const saltRounds = 12;
 
@@ -47,4 +47,4 @@ const SignUp = (req, res, next) => {
   //   res.send('입력 완료')
   // });
 
-module.exports = SignUp;
+export default SignUp;

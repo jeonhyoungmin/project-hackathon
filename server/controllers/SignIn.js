@@ -1,7 +1,7 @@
-const express = require('express');
-const connection = require('../utils/database');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import express from 'express'
+import connection from '../utils/database'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 const SignIn = (req, res, next) => {
   // console.log(req);
@@ -30,4 +30,4 @@ const SignIn = (req, res, next) => {
   }
 };
 
-module.exports = SignIn;
+export default SignIn;

@@ -1,5 +1,5 @@
-const express = require("express");
-const connection = require("../utils/database");
+import  express from "express"
+import  connection from "../utils/database"
 
 const thirdparty = (req, res, next) => {
   const sns_id = req.body.response.id;
@@ -15,4 +15,4 @@ const thirdparty = (req, res, next) => {
   );
 };
 
-module.exports = thirdparty;
+export default thirdparty;

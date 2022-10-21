@@ -3,6 +3,7 @@ import {Alert, SafeAreaView, StyleSheet, Button, Platform} from 'react-native';
 import {NaverLogin, getProfile} from '@react-native-seoul/naver-login';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../CustomButton/CustomButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initials = {
   kConsumerKey: 'iVY3uBYq_jTZV7XH_Hm7',
@@ -12,12 +13,13 @@ const initials = {
 //네이버 로그인을 할때 필요한 Key값들
 
 const API_URL =
-  Platform.OS === 'ios'
-    ? 'https://openapi.naver.com/v1/nid/me'
-    : 'http://10.0.2.2:5000';
+  Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
 const NaverSignIn = () => {
+  // useState Hook을 이용하여 값이 바뀌는 것을 갱신 & 저장한다.
   const [naverToken, setNaverToken] = React.useState(null);
+  const [naverData, setNaverData] = useState();
+  // const [infoData, setInfoData] = useState();
 
   // const severTest = () => {
   //   fetch(`${API_URL}/thirdparty`, {
@@ -45,6 +47,7 @@ const NaverSignIn = () => {
 
   const navigation = useNavigation();
 
+  //네이버 로그인을 하기 위한 동작을 하는 함수 : 네이버로 부터 사용자인증 키(위에 initial에 있는 키)로 사용자 인증을 받고 Access TOKEN을 발급을 받는다.
   const naverLogin = props => {
     return new Promise((res, rej) => {
       NaverLogin.login(props, (err, token) => {
@@ -58,18 +61,29 @@ const NaverSignIn = () => {
       });
     });
   };
-  //네이버 로그인을 하기 위한 동작을 하는 함수
+
+  //로그아웃  로그아웃을 실행하고, AcceesTOKEN 값을 초기화 한다. 단, 네이버 사이트와의 연동은 해체되지 않았음
   const naverLogout = () => {
     NaverLogin.logout();
     setNaverToken('');
   };
-
+  // 로그인에 성공하여 Access 토큰을 발급받아 !! 삼항연산를 통하여 Boolean값이 참값이 되면, getUserProfile 함수를 실행한다.
+  useEffect(() => {
+    if (!!naverToken) {
+      getUserProfile();
+    }
+  }, [naverToken]);
+  // 프로필을 가져오는 함수 : AcceesToken을 발급 받으면 이 Access Token을 이용하여 네이버에서 사용자 프로필을 제공받는다. 이 제공 받은 프로필을 fetch를 이용하여
+  // POST 방식으로 서버에 프로필 데이터를 전송한다.
   const getUserProfile = async () => {
     const profileResult = await getProfile(naverToken.accessToken);
+    setNaverData(profileResult);
     if (profileResult.resultcode === '024') {
       Alert.alert('로그인 실패', profileResult.message);
       return;
     }
+
+    // Access 토큰을 발급받아 !! 삼항연산를 통하여 Boolean값이 참값이 되면, 서버로 프로필을 보내고, 메인화면으로 이동한다.
     if (!!naverToken) {
       fetch(`${API_URL}/thirdparty`, {
         method: 'POST',
@@ -95,23 +109,51 @@ const NaverSignIn = () => {
     }
 
     if (!!naverToken) {
+      snsinfoData();
+    }
+    if (!!naverToken) {
       navigation.navigate('Main');
+      getsnsinfoData();
     }
     console.log('profileResult', profileResult);
   };
-  // const login = () => {
-  //   if (!!naverToken) {
-  //     getUserProfile();
-  //   }
-  // };
-
-  useEffect(() => {
+  const login = () => {
     if (!!naverToken) {
       getUserProfile();
     }
-  }, [naverToken]);
+  };
+
+  const snsinfoData = async () => {
+    try {
+      await AsyncStorage.setItem('sns_info', JSON.stringify(naverData));
+    } catch (e) {
+      console.log('실패!');
+    }
+  };
+
+  const getsnsinfoData = async () => {
+    try {
+      const getInfo = await AsyncStorage.getItem('sns_info');
+      const snsinfo = JSON.parse(getInfo);
+
+      console.log(snsinfo);
+    } catch (e) {
+      clearAll();
+      console.log('불러오기실패!');
+    }
+  };
+
+  const clearAll = async () => {
+    try {
+      await AsyncStorage.clear();
+    } catch (e) {
+      console.log('클리어실패');
+    }
+  };
+
   return (
     <>
+      {/*버튼을 클릭하면 initials의 사용자 키를 통하여 네이버 사이트에 연결하여 로그인을 한다.*/}
       <CustomButton
         text="Sign In with Naver"
         onPress={() => {
@@ -122,8 +164,9 @@ const NaverSignIn = () => {
       />
       {/* {!!naverToken && login} */}
 
-      {/* {!!naverToken && <Button title="로그아웃하기" onPress={naverLogout} />}
-      {!!naverToken && (
+      {/* {!!naverToken && <Button title="로그아웃하기" onPress={clearAll} />} */}
+
+      {/* {!!naverToken && (
         <Button
           title="회원정보 가져오기"
           onPress={() => {
@@ -141,13 +184,5 @@ const NaverSignIn = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-});
 
 export default NaverSignIn;

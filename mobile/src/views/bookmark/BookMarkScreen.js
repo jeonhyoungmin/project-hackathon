@@ -1,48 +1,60 @@
-import { View, Text, SafeAreaView, ScrollView, StyleSheet, StatusBar, Pressable, Animated, Modal, Alert } from 'react-native'
-import React, { useEffect, useRef, useState }  from 'react'
-import { RadioButton, TextInput } from 'react-native-paper'
-import {useNavigation} from '@react-navigation/native'
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  StatusBar,
+  Pressable,
+  Animated,
+  Modal,
+  Alert,
+} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {RadioButton, TextInput} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 // 벡터 아이콘 사용
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icons from 'react-native-vector-icons/Ionicons';
 
 import SearchBar from '../../components/main/SearchBar';
-import CustomRadioButton from '../../components/radiobutton/CustomRadioButton'
-import AddBoxButton from '../../components/addboxbutton/AddBoxButton'
-import RegistraionModal from '../../components/registraionmodal/RegistraionModal'
-import AddAccountBox from '../../components/addaccountbox/AddAccountBox'
-import RegisteredModal from '../../components/registeredmodal/RegisteredModal'
+import CustomRadioButton from '../../components/radiobutton/CustomRadioButton';
+import AddBoxButton from '../../components/addboxbutton/AddBoxButton';
+import RegistraionModal from '../../components/registraionmodal/RegistraionModal';
+import AddAccountBox from '../../components/addaccountbox/AddAccountBox';
+import RegisteredModal from '../../components/registeredmodal/RegisteredModal';
 
-const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
+const API_URL =
+  Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
 const BookMarkScreen = () => {
   const navigation = useNavigation();
 
   //등록 modal 창 visible
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
   //등록된 modal 창 visible
-  const [regiVisible, setRegiVisible] = useState(false)
+  const [regiVisible, setRegiVisible] = useState(false);
 
   // 검색 창 visible
   const [search, setSearch] = React.useState(false);
   const searchButtonChange = () => {
     setSearch(!search);
-  }
+  };
 
   // 등록한 계정 정보 업데이트
-  const [accountData, setAccountData] = useState([])
+  const [accountData, setAccountData] = useState([]);
 
   // 수정창 Modal에 데이터 전달
-  const [clickData, setClickData] = useState([])
+  const [clickData, setClickData] = useState([]);
 
   // delete 새로고침
   const [refresh, setRefresh] = useState(true)
 
   // 데이터 갱신
-  useEffect(() =>{
+  useEffect(() => {
     // console.warn('작동')
     fetch(`${API_URL}/bookmark`, {
-      method: "GET",
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       }
@@ -65,15 +77,33 @@ const BookMarkScreen = () => {
     }). catch (err => {
       console.log(err)
     })
-  }
+      .then(async res => {
+        const jsonRes = await res.json();
+        console.log(jsonRes);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
       <StatusBar backgroundColor="white" />
       <SafeAreaView style={styles.container}>
+        {/* 등록창 Modal 컴포넌트 */}
+        <RegistraionModal
+          visible={visible}
+          setVisible={setVisible}
+          BookMark={true}
+        />
 
-    {/* 등록창 Modal 컴포넌트 */}
-      <RegistraionModal visible={visible} setVisible={setVisible} BookMark={true}/>
+        {/* 수정창 Modal 컴포넌트 */}
+        <RegisteredModal
+          regiVisible={regiVisible}
+          setRegiVisible={setRegiVisible}
+          BookMark={true}
+          regi_id={clickData.regi_id}
+        />
 
     {/* 수정창 Modal 컴포넌트 */}
     <RegisteredModal regiVisible={regiVisible} setRegiVisible={setRegiVisible} BookMark={true} regi_id={clickData.regi_id} regi_password={clickData.regi_password} regi_url={clickData.regi_url} regi_service={clickData.regi_service} regi_memo={clickData.regi_memo} regi_index={clickData.index_id}/>
@@ -99,14 +129,8 @@ const BookMarkScreen = () => {
               <AddBoxButton onPress={() => setVisible(!visible)} iconSize={31} iconColor='#333'/>
             </View>
           </View>
-          {/* 카테고리 컨테이너 */}
-          <View style={styles.categoryContainer}>
-            {/* 카테고리 radio button 컴포넌트*/}
-            {/* <CustomRadioButton /> */}
-          </View>
         </View>
       </View>
-
 
 
 
@@ -140,8 +164,15 @@ const BookMarkScreen = () => {
           <View style={styles.similarButtonBox}>
             <Icon name="account-search-outline" size={25} color="#333" />
           </View>
-          <View style={styles.locationButtonBox}>
-            <Icons name="location-outline" size={25} color="#333" />
+
+          {/* 하단  유사성 검사 버튼과 위치 서비스 버튼*/}
+          <View style={styles.viewBottom}>
+            <View style={styles.similarButtonBox}>
+              <Icon name="account-search-outline" size={25} color="#333" />
+            </View>
+            <View style={styles.locationButtonBox}>
+              <Icons name="location-outline" size={25} color="#333" />
+            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -198,13 +229,13 @@ const styles = StyleSheet.create({
   // 중간 스크롤 스타일
   scrollContainer: {
     flex: 4,
-    width: "90%",
+    width: '90%',
     // borderWidth: 0.5,
-    marginTop: "5%",
+    marginTop: '5%',
   },
   scroll: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     // backgroundColor: 'red'
   },
 

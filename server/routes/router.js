@@ -18,7 +18,7 @@ router.post('/bookmark', registrateaccount)
 // 북마크 등록된 서비스 계정 읽기
 router.get('/bookmark', registeredaccount)
 // 북마크 등록된 서비스 계정 삭제하기
-router.delete('/bookmark/:regi_id/:regi_url', deleteaccount)
+router.delete('/bookmark/:index_id', deleteaccount)
 // 북마크 등록된 서비스 계정 수정하기
 router.put('/bookmark', updateaccount)
 

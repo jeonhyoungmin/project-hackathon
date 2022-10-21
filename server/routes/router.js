@@ -1,13 +1,13 @@
-import express from "express";
-import {
+const express = require("express")
+const {
   registrateaccount,
   registeredaccount,
   deleteaccount,
   updateaccount
-} from "../controllers/BookMark.js";
-import { thirdparty, thirdpartyaccount } from "../controllers/Thirdparty.js";
-import SignUp from "../controllers/SignUp.js";
-import SignIn from "../controllers/SignIn.js";
+} = require("../controllers/BookMark.js")
+const { thirdparty, thirdpartyaccount } = require("../controllers/Thirdparty.js")
+const SignUp = require("../controllers/SignUp.js")
+const SignIn = require("../controllers/SignIn.js")
 const router = express.Router();
 
 // (매개변수1: bookmark 주소로 요청 발생 시, 매개변수2: bookmark controllers 실행)
@@ -29,4 +29,4 @@ router.delete('/bookmark/:index_id', deleteaccount)
 // 북마크 등록된 서비스 계정 수정하기
 router.put('/bookmark', updateaccount)
 
-export default router;
+module.exports = router;

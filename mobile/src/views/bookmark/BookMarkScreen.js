@@ -97,14 +97,6 @@ const BookMarkScreen = () => {
           BookMark={true}
         />
 
-        {/* 수정창 Modal 컴포넌트 */}
-        <RegisteredModal
-          regiVisible={regiVisible}
-          setRegiVisible={setRegiVisible}
-          BookMark={true}
-          regi_id={clickData.regi_id}
-        />
-
     {/* 수정창 Modal 컴포넌트 */}
     <RegisteredModal regiVisible={regiVisible} setRegiVisible={setRegiVisible} BookMark={true} regi_id={clickData.regi_id} regi_password={clickData.regi_password} regi_url={clickData.regi_url} regi_service={clickData.regi_service} regi_memo={clickData.regi_memo} regi_index={clickData.index_id}/>
 

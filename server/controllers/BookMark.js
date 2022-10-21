@@ -1,5 +1,5 @@
-import express from "express";
-import connection from "../utils/database.js";
+const express = require("express")
+const connection = require("../utils/database.js")
 
 // 북마크 서비스 계정 등록
 const registrateaccount = (req, res, next) => {
@@ -60,4 +60,4 @@ const updateaccount = (req, res, next) => {
   })
 }
 
-export { registrateaccount, registeredaccount, deleteaccount, updateaccount }
+module.exports = { registrateaccount, registeredaccount, deleteaccount, updateaccount }

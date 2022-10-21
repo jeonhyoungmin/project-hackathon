@@ -1,7 +1,7 @@
-import express from 'express'
-import connection from '../utils/database.js'
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+const express = require('express')
+const connection = require('../utils/database.js')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const SignIn = (req, res, next) => {
   const param = [req.body.username, req.body.password]
@@ -38,4 +38,4 @@ const SignIn = (req, res, next) => {
   }
 };
 
-export default SignIn;
+module.exports = SignIn;

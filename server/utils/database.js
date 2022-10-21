@@ -1,4 +1,4 @@
-import mysql from 'mysql';
+const mysql = require('mysql')
 const connection = mysql.createConnection({
   host: '127.0.0.1',
   user: 'root',
@@ -20,4 +20,4 @@ const connection = mysql.createConnection({
 // connection.end();
 // 연결 종료
 
-export default connection
+module.exports = connection

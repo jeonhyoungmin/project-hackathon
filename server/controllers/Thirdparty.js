@@ -1,5 +1,5 @@
-import express from "express";
-import connection from "../utils/database.js";
+const express = require("express")
+const connection = require("../utils/database.js")
 
 // 서드파티 로그인에서 사용자 프로필을 가져와 서버로 전송한다.
 const thirdparty = (req, res, next) => {
@@ -24,4 +24,4 @@ const thirdpartyaccount = (req, res, next) => {
   });
 };
 
-export { thirdparty, thirdpartyaccount };
+module.exports = { thirdparty, thirdpartyaccount };

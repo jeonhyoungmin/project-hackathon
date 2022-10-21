@@ -21,7 +21,7 @@ const ConfirmEmailScreen = () => {
 
   const onConfirmPressed = () => {
     // navigation.push('SignIn');
-    Alert.alert('인증이 완료되었습니다. 로그인 화면으로 이동합니다.');
+    Alert.alert('인증이 완료되었습니다.');
   };
 
   const onSignInPress = () => {

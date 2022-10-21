@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { View, Text, StyleSheet, ScrollView, Alert} from 'react-native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import ConfirmEmailScreen from '../ComfirmEmailScreen/ConfirmEmailScreen';
+/* 이메일 인증 기능 (추후에 구현 예정)
+import ConfirmEmailScreen from '../ComfirmEmailScreen/ConfirmEmailScreen'; */
 
 import {useNavigation} from '@react-navigation/native';
 import { text } from 'express';
@@ -26,7 +27,7 @@ const SignUpScreen = () => {
 
   const [elementVisible, setElementVisible] = useState(false);
 
-  const [textChange, setTextChange] = useState('Confirm email');
+  // const [textChange, setTextChange] = useState('Confirm email');
 
   const navigation = useNavigation();
 
@@ -49,12 +50,12 @@ const SignUpScreen = () => {
         if(res.status !== 200) {
           console.log(jsonRes.message);
           Alert.alert(jsonRes.message);
-          
         } else {
           console.log(jsonRes.message);
           Alert.alert(jsonRes.message);
           setElementVisible(!elementVisible);
-          setTextChange('회원가입');
+          navigation.navigate('SignIn');
+          /* 이메일 인증 기능 구현 시 필요한 버튼 setTextChange('회원가입'); */
         };
       } catch (err) {
         console.log(err);
@@ -111,9 +112,17 @@ const SignUpScreen = () => {
         secureTextEntry
         />
 
-        { elementVisible && <ConfirmEmailScreen />  }
+        {/* { elementVisible && <ConfirmEmailScreen />  }
 
-        <CustomButton text={ textChange } onPress={() => { passwordMatch() && SignUpRegistration(); }} />
+        <CustomButton text={ textChange } onPress={
+          () => { passwordMatch() && SignUpRegistration(); }
+          }
+        /> */}
+
+        <CustomButton text="회원가입" onPress={
+          () => { passwordMatch() && SignUpRegistration(); }
+          }
+        />
 
         <Text style={styles.text}>
           회원가입을 통해{' '}

@@ -5,6 +5,7 @@ import WelcomeDTG from '../../components/WelcomeDTG/WelcomeDTG';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
+import ConfirmEmailScreen from '../ComfirmEmailScreen/ConfirmEmailScreen';
 
 import {useNavigation} from '@react-navigation/native'
 
@@ -81,7 +82,7 @@ const SignInScreen = () => {
         <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}
         />
 
-        <CustomButton text="Sign in" onPress={() => /* SignIn() */ navigation.navigate('Main')} />
+        <CustomButton text="Sign in" onPress={() => /* SignIn() */ navigation.navigate('Main') } />
 
         <CustomButton text="Forgot password?" onPress={() => navigation.navigate('ForgotPassword')} type="TERTIARY" />
 

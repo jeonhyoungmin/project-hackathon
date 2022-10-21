@@ -17,14 +17,15 @@ const SignUp = (req, res, next) => {
           param[1] = hash
           connection.query('INSERT INTO user_info (user_id, user_password, user_email) VALUES (?,?,?)', param, function(err) {
             if (err) throw err;
-            res.status(200).json({ message: 'User has been registered'});
+            res.status(200).json({ message: 'User has been registered' });
           });
           console.log(param);
-        })
-      }
+        });
+      };
     });
-  }
-}
+  };
+};
+
   // bcrypt.hash(param[1], saltRounds, (error, hash) => {
   //   param[1] = hash
   //   connection.query('INSERT INTO user_info (user_id, user_password, user_email) VALUES (?,?,?)', param, function(err){

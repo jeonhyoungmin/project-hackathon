@@ -1,9 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { View, Text, StyleSheet, ScrollView, Alert} from 'react-native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
+/* 이메일 인증 기능 (추후에 구현 예정)
+import ConfirmEmailScreen from '../ComfirmEmailScreen/ConfirmEmailScreen'; */
+
 import {useNavigation} from '@react-navigation/native';
+import { text } from 'express';
 
 
 /* 회원가입 화면 */
@@ -21,6 +24,10 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
+
+  const [elementVisible, setElementVisible] = useState(false);
+
+  // const [textChange, setTextChange] = useState('Confirm email');
 
   const navigation = useNavigation();
 
@@ -46,7 +53,9 @@ const SignUpScreen = () => {
         } else {
           console.log(jsonRes.message);
           Alert.alert(jsonRes.message);
-          navigation.navigate('ConfirmEmail');
+          setElementVisible(!elementVisible);
+          navigation.navigate('SignIn');
+          /* 이메일 인증 기능 구현 시 필요한 버튼 setTextChange('회원가입'); */
         };
       } catch (err) {
         console.log(err);
@@ -56,15 +65,12 @@ const SignUpScreen = () => {
       console.log(err);
     });
   };
-  
-
-  // SignUpRegistration();
 
   const passwordMatch = () => {
-    if(password === passwordRepeat) {
+    if(password === passwordRepeat ) {
       return true;
     } else (password !== passwordRepeat)
-      Alert.alert('비번 확인주세요');
+      Alert.alert('입력한 비밀번호를 확인주세요.');
       return false;
   };
 
@@ -82,7 +88,6 @@ const SignUpScreen = () => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         <Text style={styles.title}>회원가입</Text>
-        {/* Create an account */}
 
         <CustomInput
         placeholder="아이디"
@@ -106,9 +111,18 @@ const SignUpScreen = () => {
         setValue={setPasswordRepeat}
         secureTextEntry
         />
-          
 
-        <CustomButton text="회원가입" onPress={() => { passwordMatch() && SignUpRegistration(); }} />
+        {/* { elementVisible && <ConfirmEmailScreen />  }
+
+        <CustomButton text={ textChange } onPress={
+          () => { passwordMatch() && SignUpRegistration(); }
+          }
+        /> */}
+
+        <CustomButton text="회원가입" onPress={
+          () => { passwordMatch() && SignUpRegistration(); }
+          }
+        />
 
         <Text style={styles.text}>
           회원가입을 통해{' '}
@@ -119,12 +133,14 @@ const SignUpScreen = () => {
         </Text>
 
         <CustomButton
-        text="회원신가요?   로그인"
+        text="회원이신가요?   로그인"
         // "Don't have an account? Create one"
         onPress={() => navigation.navigate('SignIn')}
         type="TERTIARY"
         />
       </View>
+
+
     </ScrollView>
   );
 };

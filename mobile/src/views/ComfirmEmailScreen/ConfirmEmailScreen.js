@@ -1,5 +1,5 @@
-import React, {useState, useTransition} from 'react';
-import { View, Text, StyleSheet, ScrollView} from 'react-native';
+import React, {useState} from 'react';
+import { View, Text, StyleSheet, Alert} from 'react-native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 
@@ -20,8 +20,8 @@ const ConfirmEmailScreen = () => {
   const navigation = useNavigation();
 
   const onConfirmPressed = () => {
-    navigation.push('SignIn');
-    alert('인증이 완료되었습니다. 로그인 화면으로 이동합니다.');
+    // navigation.push('SignIn');
+    Alert.alert('인증이 완료되었습니다. 로그인 화면으로 이동합니다.');
   };
 
   const onSignInPress = () => {
@@ -29,7 +29,7 @@ const ConfirmEmailScreen = () => {
   }
 
   const onResendPress = () => {
-    alert('이메일로 인증 코드를 다시 전송했습니다. 확인해주세요.');
+    Alert.alert('이메일로 인증 코드를 다시 전송했습니다. 확인해주세요.');
   }
 
   return (
@@ -61,10 +61,11 @@ const ConfirmEmailScreen = () => {
 
 const styles = StyleSheet.create({
   root: {
+    width: '100%',
     flex: 1,
     justifyContent:'center',
     alignItems: 'center',
-    padding: 20,
+    padding: 5,
   },
   title: {
     fontSize: 24,

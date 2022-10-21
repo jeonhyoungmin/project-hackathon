@@ -5,6 +5,7 @@ import WelcomeDTG from '../../components/WelcomeDTG/WelcomeDTG';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
+import ConfirmEmailScreen from '../ComfirmEmailScreen/ConfirmEmailScreen';
 
 import {useNavigation} from '@react-navigation/native'
 

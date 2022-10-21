@@ -70,7 +70,7 @@ const MainScreen = ({title, style, navigation}) => {
           <TouchableOpacity
             onPress={() => setVisible(!visible)}
             style={[styles.display, style]}>
-            <Text style={styles.mainbox}>{title}</Text>
+            <Text style={styles.mainbox}>{DATA[0].title}</Text>
             <PlusButton></PlusButton>
           </TouchableOpacity>
         )}></FlatList>

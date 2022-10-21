@@ -3,6 +3,7 @@ import {Alert, SafeAreaView, StyleSheet, Button, Platform} from 'react-native';
 import {NaverLogin, getProfile} from '@react-native-seoul/naver-login';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../CustomButton/CustomButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initials = {
   kConsumerKey: 'iVY3uBYq_jTZV7XH_Hm7',
@@ -17,6 +18,8 @@ const API_URL =
 const NaverSignIn = () => {
   // useState Hook을 이용하여 값이 바뀌는 것을 갱신 & 저장한다.
   const [naverToken, setNaverToken] = React.useState(null);
+  const [naverData, setNaverData] = useState();
+  // const [infoData, setInfoData] = useState();
 
   // const severTest = () => {
   //   fetch(`${API_URL}/thirdparty`, {
@@ -74,10 +77,12 @@ const NaverSignIn = () => {
   // POST 방식으로 서버에 프로필 데이터를 전송한다.
   const getUserProfile = async () => {
     const profileResult = await getProfile(naverToken.accessToken);
+    setNaverData(profileResult);
     if (profileResult.resultcode === '024') {
       Alert.alert('로그인 실패', profileResult.message);
       return;
     }
+
     // Access 토큰을 발급받아 !! 삼항연산를 통하여 Boolean값이 참값이 되면, 서버로 프로필을 보내고, 메인화면으로 이동한다.
     if (!!naverToken) {
       fetch(`${API_URL}/thirdparty`, {
@@ -102,16 +107,49 @@ const NaverSignIn = () => {
           console.log(err);
         });
     }
+
+    if (!!naverToken) {
+      snsinfoData();
+    }
     if (!!naverToken) {
       navigation.navigate('Main');
+      getsnsinfoData();
     }
     console.log('profileResult', profileResult);
   };
-  // const login = () => {
-  //   if (!!naverToken) {
-  //     getUserProfile();
-  //   }
-  // };
+  const login = () => {
+    if (!!naverToken) {
+      getUserProfile();
+    }
+  };
+
+  const snsinfoData = async () => {
+    try {
+      await AsyncStorage.setItem('sns_info', JSON.stringify(naverData));
+    } catch (e) {
+      console.log('실패!');
+    }
+  };
+
+  const getsnsinfoData = async () => {
+    try {
+      const getInfo = await AsyncStorage.getItem('sns_info');
+      const snsinfo = JSON.parse(getInfo);
+
+      console.log(snsinfo);
+    } catch (e) {
+      clearAll();
+      console.log('불러오기실패!');
+    }
+  };
+
+  const clearAll = async () => {
+    try {
+      await AsyncStorage.clear();
+    } catch (e) {
+      console.log('클리어실패');
+    }
+  };
 
   return (
     <>
@@ -126,8 +164,9 @@ const NaverSignIn = () => {
       />
       {/* {!!naverToken && login} */}
 
-      {/* {!!naverToken && <Button title="로그아웃하기" onPress={naverLogout} />}
-      {!!naverToken && (
+      {/* {!!naverToken && <Button title="로그아웃하기" onPress={clearAll} />} */}
+
+      {/* {!!naverToken && (
         <Button
           title="회원정보 가져오기"
           onPress={() => {

@@ -56,8 +56,8 @@ const BookMarkScreen = () => {
   
 
   // 데이터 delete
-  const deleteAccount = (regi_id, regi_url) => {
-    fetch(`${API_URL}/bookmark/${regi_id}/${regi_url}`, {
+  const deleteAccount = (index_id) => {
+    fetch(`${API_URL}/bookmark/${index_id}`, {
       method: "DELETE",
     }). then(async (res) => {
       const jsonRes = await res.json();
@@ -76,7 +76,7 @@ const BookMarkScreen = () => {
       <RegistraionModal visible={visible} setVisible={setVisible} BookMark={true}/>
 
     {/* 수정창 Modal 컴포넌트 */}
-    <RegisteredModal regiVisible={regiVisible} setRegiVisible={setRegiVisible} BookMark={true} regi_id={clickData.regi_id} regi_password={clickData.regi_password} regi_url={clickData.regi_url} regi_service={clickData.regi_service} regi_memo={clickData.regi_memo}/>
+    <RegisteredModal regiVisible={regiVisible} setRegiVisible={setRegiVisible} BookMark={true} regi_id={clickData.regi_id} regi_password={clickData.regi_password} regi_url={clickData.regi_url} regi_service={clickData.regi_service} regi_memo={clickData.regi_memo} regi_index={clickData.index_id}/>
 
       {/* 최상단 뒤로가기, 검색 , 카테고리 */}
       <View style={styles.viewTop}>
@@ -91,10 +91,7 @@ const BookMarkScreen = () => {
           {/* 검색 창 및 돋보기 컨테이너 */}
           <View style={styles.searchButton}>
             {/* 검색 창 visible */}
-            {search && 
-            <View style={styles.searchBar} >
-              <TextInput style={styles.searchBarTextInput} placeholder={'검색 내용을 입력해주세요'}/>
-            </View>}
+            {search && <SearchBar visible={search} setSearch={setSearch} />}
             <Pressable onPress={searchButtonChange}  >
               <Icons name="md-search-circle-outline" size={32} color="#333" />
             </Pressable>
@@ -120,15 +117,15 @@ const BookMarkScreen = () => {
           {/* map 함수를 사용하여 데이터 수 만큼 컴포넌트 렌더링. 주의! react(react-native)에서는 map 함수를 사용할 시, 데이터를 구분하기 위해 key 값을 지정해 줘야 한다. */}
           {accountData.map((value) => {
             return (
-              <View key={value.index}>
+              <View key={value.index_id}>
                 <AddAccountBox
-                modalOnPress={() => {setRegiVisible(!regiVisible); setClickData(value)}}
+                modalOnPress={() => {/* console.log(value) */ ;setRegiVisible(!regiVisible); setClickData(value)}}
                 serviceName={value.regi_service} 
                 regi_id={value.regi_id} 
                 iconSize={25} 
                 iconColor='#333' 
                 deleteOnPress={() => Alert.alert('정보 삭제', '정말로 삭제하시겠습니까?', [
-                  {text: "Yes", onPress: () => {setRefresh(!refresh); deleteAccount(value.regi_id, value.regi_url)}},
+                  {text: "Yes", onPress: () => {setRefresh(!refresh); deleteAccount(value.index_id)}},
                   {text: "No"/* , onPress: () => console.warn('보존') */}
                 ])}/>
               </View>
@@ -137,15 +134,6 @@ const BookMarkScreen = () => {
         </ScrollView>
       </View>
 
-
-
-
-
-      {/* 하단  유사성 검사 버튼과 위치 서비스 버튼*/}
-      <View style={styles.viewBottom}>
-        <View style={styles.similarButtonBox}>
-          <Icon name="account-search-outline" size={25} color="#333" />
-        </View>
 
         {/* 하단  유사성 검사 버튼과 위치 서비스 버튼*/}
         <View style={styles.viewBottom}>
@@ -156,7 +144,6 @@ const BookMarkScreen = () => {
             <Icons name="location-outline" size={25} color="#333" />
           </View>
         </View>
-      </View>
       </SafeAreaView>
     </>
   );

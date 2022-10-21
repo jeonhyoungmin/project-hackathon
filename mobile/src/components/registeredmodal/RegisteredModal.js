@@ -1,11 +1,30 @@
-import { View, Text, Alert, Modal, StyleSheet, Pressable, Button, TextInput, KeyboardAvoidingView, Switch, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, Alert, Modal, StyleSheet, Pressable, Button, TextInput, KeyboardAvoidingView, Switch, TouchableWithoutFeedback, Keyboard, ScrollView, Linking } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import {ModalTextInput, ModalTextInputTwo, ModalTextInputThree, ModalTextInputFour}from '../modaltextinput/ModalTextInput';
+import { Link } from '@react-navigation/native';
 
 const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
-const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_password, regi_url, regi_service, regi_memo }) => {
+const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_password, regi_url, regi_service, regi_memo, regi_index }) => {
+  
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [url, setUrl] = useState('');
+  const [memo, setMemo] = useState('');
+  const [service, setService] = useState('');
+  const [index, setIndex] = useState('')
 
+  const [refresh, setRefresh] = useState(true)
+  
+  useEffect(() => {
+    setId(regi_id)
+    setPassword(regi_password)
+    setUrl(regi_url)
+    setMemo(regi_memo)
+    setService(regi_service)
+    setIndex(regi_index)
+  }, [regiVisible])
+  
   const serverTest = () => {
     const test = {
       id,
@@ -13,9 +32,13 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
       url,
       service,
       memo,
+      index
     }
+    console.log(regi_id)
+    console.log(id)
+    // console.log(test)
     fetch(`${API_URL}/bookmark`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -38,15 +61,7 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
       console.log(err)
     })
   }
-
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-  const [url, setUrl] = useState('');
-  const [memo, setMemo] = useState('');
-  const [service, setService] = useState('');
   
-  // const [visible, setVisible] = useState(visible);
-
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState)
 
@@ -73,19 +88,21 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
                   <View style={styles.accountContainer}>
                     {/* <ModalTextInput setting={setId} placeholderText={'아이디를 입력해주세요'} /> */}
                     <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setId} style={styles.textInput} placeholder={regi_id}></TextInput>
+                      <TextInput maxLength={30} onChangeText={setId} style={styles.textInput} placeholder={`ID: ${id}`}></TextInput>
                     </View>
                     {/* <ModalTextInputTwo setting={setPassword} placeholderText={'비밀번호를 입력해주세요'}/> */}
                     <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setPassword} style={styles.textInput} placeholder='비밀번호를 입력해주세요'></TextInput>
+                      <TextInput maxLength={30} onChangeText={setPassword} style={styles.textInput} placeholder={`PW: ${regi_password}`}></TextInput>
                     </View>
                   </View>
-                  <View style={styles.urlContainer}>
+                  {/* <View style={styles.urlContainer}> */}
                     {/* <ModalTextInputThree setting={setUrl}  placeholderText={'url를 입력해주세요'} /> */}
-                    <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setUrl} style={styles.textInput} placeholder='url를 입력해주세요'></TextInput>
-                    </View>
-                  </View>
+                    {/* <View style={styles.textcontainer}>
+                      <Text>이동하기 :
+                        <Text setUrl={regi_url} onPress={() => Linking.openURL(`https://www.${regi_url}`)}>{` ${regi_url}`}</Text>
+                      </Text>
+                    </View> */}
+                  {/* </View> */}
                 </View>
 
                 {/* 중단: 메모, 즐겨찾기 컨테이너 */}
@@ -93,11 +110,16 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
                   <View style={styles.MemoContainer}>
                     {/* <ModalTextInputFour setting={setMemo} containerWidth={"95%"} textHeight={"100%"} textWidth={'100%'} placeholderText={'Memo'} /> */}
                     <View style={styles.textcontainer}>
-                      <TextInput maxLength={10} onChangeText={setService} style={styles.textInput} placeholder='서비스 이름'></TextInput>
+                      <TextInput maxLength={10} onChangeText={setService} style={styles.textInput} placeholder={`서비스: ${regi_service}`}></TextInput>
                     </View>
                     <ScrollView style={styles.textcontainer}>
-                      <TextInput numberOfLines={2} multiline={true} maxLength={100} onChangeText={setMemo} style={styles.textInput} placeholder='memo'></TextInput>
+                      <TextInput numberOfLines={2} multiline={true} maxLength={100} onChangeText={setMemo} style={styles.textInput} placeholder={`메모: ${regi_memo}`}></TextInput>
                     </ScrollView>
+                    <View style={styles.textcontainer}>
+                      <Text>이동하기 :
+                        <Text setUrl={regi_url} onPress={() => Linking.openURL(`https://www.${regi_url}`)}>{` ${regi_url}`}</Text>
+                      </Text>
+                    </View>
                   </View>
                   {/* BookMark가 true 시 즐겨찾기 토글 스위치 visible */}
                   { BookMark && 
@@ -155,7 +177,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '80%',
-    height: '85%',
+    height: '80%',
     position: 'absolute',
   },
   centerContainer: {
@@ -165,21 +187,21 @@ const styles = StyleSheet.create({
   },
 
   modalTop: {
-    flex: 2,
+    flex: 1,
     // backgroundColor: 'blue',
   },
   accountContainer: {
-    flex: 2,
+    flex: 1,
     // backgroundColor: 'pink',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  urlContainer: {
-    flex: 1,
-    // backgroundColor: 'yellow',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  // urlContainer: {
+  //   flex: 0.5,
+  //   // backgroundColor: 'yellow',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
 
   modalMiddle: {
     flex: 2,
@@ -189,7 +211,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   MemoContainer: {
-    flex: 2,
+    flex: 5,
     width: "100%",
     // backgroundColor: 'red',
     alignItems: 'center',
@@ -242,6 +264,7 @@ const styles = StyleSheet.create({
   textcontainer: {
     flex: 1,
     width: "95%",
+    marginTop: "2%",
     // height: "95%",
   },
   textInput: {

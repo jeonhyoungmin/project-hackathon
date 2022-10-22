@@ -7,6 +7,9 @@ import CustomButton from '../../components/CustomButton/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
 
 import {useNavigation} from '@react-navigation/native'
+import { response } from 'express';
+
+const API_URL = 'http://localhost:5000/signin'
 
 /* 로그인 화면 */
 
@@ -20,6 +23,35 @@ const SignInScreen = () => {
 
   const {height} = useWindowDimensions();
   const navigation = useNavigation();
+
+  const example = {
+    email : 'example@example.com',
+    name: 'exampleID',
+    password: 'examplePW'
+  }
+
+  fetch(`${API_URL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type' : 'application/json',
+    },
+    body: JSON.stringify(example),
+  })
+  .then(async response => {
+    try {
+      const jsonRes = await response.json();
+      if(response.status !== 200){
+        console.warn('프로블럼')
+      } else {
+        console.warn('노프라플럼')
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  })
+  .catch(err => {
+    console.warn('then의 catch error', err)
+  })
 
   // const onSignInPressed = () => {
   //   // validate user

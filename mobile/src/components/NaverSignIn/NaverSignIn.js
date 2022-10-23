@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, SafeAreaView, StyleSheet, Button, Platform} from 'react-native';
+import {Alert, Platform} from 'react-native';
 import {NaverLogin, getProfile} from '@react-native-seoul/naver-login';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../CustomButton/CustomButton';
@@ -13,38 +13,15 @@ const initials = {
 //네이버 로그인을 할때 필요한 Key값들
 
 const API_URL =
-  Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
+  Platform.OS === 'ios'
+    ? 'https://openapi.naver.com/v1/nid/me'
+    : 'http://10.0.2.2:5000';
 
 const NaverSignIn = () => {
   // useState Hook을 이용하여 값이 바뀌는 것을 갱신 & 저장한다.
   const [naverToken, setNaverToken] = React.useState(null);
   const [naverData, setNaverData] = useState();
-  // const [infoData, setInfoData] = useState();
-
-  // const severTest = () => {
-  //   fetch(`${API_URL}/thirdparty`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(naverData),
-  //   })
-  //     .then(res => {
-  //       try {
-  //         const jsonRes = res;
-  //         console.log(jsonRes);
-  //         if (res.status !== 200) {
-  //           console.warn('안됨');
-  //         }
-  //       } catch (err) {
-  //         console.log(err);
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
+  const [storage, setStorage] = useState();
   const navigation = useNavigation();
 
   //네이버 로그인을 하기 위한 동작을 하는 함수 : 네이버로 부터 사용자인증 키(위에 initial에 있는 키)로 사용자 인증을 받고 Access TOKEN을 발급을 받는다.
@@ -67,12 +44,21 @@ const NaverSignIn = () => {
     NaverLogin.logout();
     setNaverToken('');
   };
-  // 로그인에 성공하여 Access 토큰을 발급받아 !! 삼항연산를 통하여 Boolean값이 참값이 되면, getUserProfile 함수를 실행한다.
+
+  {
+    /*!! = 논리연산자 boolean값을 부여해주기위해 사용 위에서는 naverToken의 데이터 타입을 boolean값으로 변경해주려고 사용하는 것
+      위에 토큰값이 String타입이고 참일때 !!를 쓰면 String값이 boolean true로 바뀌는 것!*/
+  }
+
+  {
+    /* 로그인에 성공하여 Access 토큰을 발급받아 !! 삼항연산를 통하여 Boolean값이 참값이 되면, getUserProfile 함수를 실행한다. */
+  }
   useEffect(() => {
     if (!!naverToken) {
       getUserProfile();
     }
   }, [naverToken]);
+
   // 프로필을 가져오는 함수 : AcceesToken을 발급 받으면 이 Access Token을 이용하여 네이버에서 사용자 프로필을 제공받는다. 이 제공 받은 프로필을 fetch를 이용하여
   // POST 방식으로 서버에 프로필 데이터를 전송한다.
   const getUserProfile = async () => {
@@ -108,49 +94,27 @@ const NaverSignIn = () => {
         });
     }
 
+    // 스토리지에 데이터를 저장하는 함수
     if (!!naverToken) {
-      snsinfoData();
+      AsyncStorage.setItem('sns_info', JSON.stringify(profileResult));
     }
+
+    // 메인화면으로 넘어가는 함수
     if (!!naverToken) {
       navigation.navigate('Main');
-      getsnsinfoData();
     }
     console.log('profileResult', profileResult);
   };
-  const login = () => {
-    if (!!naverToken) {
-      getUserProfile();
-    }
-  };
 
-  const snsinfoData = async () => {
-    try {
-      await AsyncStorage.setItem('sns_info', JSON.stringify(naverData));
-    } catch (e) {
-      console.log('실패!');
-    }
-  };
-
-  const getsnsinfoData = async () => {
-    try {
-      const getInfo = await AsyncStorage.getItem('sns_info');
-      const snsinfo = JSON.parse(getInfo);
-
-      console.log(snsinfo);
-    } catch (e) {
-      clearAll();
-      console.log('불러오기실패!');
-    }
-  };
-
+  // AsyncStorage에 있는 데이터를 초기화 하는 함수
   const clearAll = async () => {
     try {
       await AsyncStorage.clear();
+      console.log('클리어성공!');
     } catch (e) {
       console.log('클리어실패');
     }
   };
-
   return (
     <>
       {/*버튼을 클릭하면 initials의 사용자 키를 통하여 네이버 사이트에 연결하여 로그인을 한다.*/}
@@ -162,25 +126,8 @@ const NaverSignIn = () => {
         bgColor="#e7eaf4"
         fgColor="#12dc61"
       />
-      {/* {!!naverToken && login} */}
 
       {/* {!!naverToken && <Button title="로그아웃하기" onPress={clearAll} />} */}
-
-      {/* {!!naverToken && (
-        <Button
-          title="회원정보 가져오기"
-          onPress={() => {
-            {
-              getUserProfile();
-            }
-          }}
-        />
-      )} */}
-      {/*로그인이 성공하여 naverToken(accessToken)값을 받아 조건이 참이(활성화) 되었을때 회원정보를 받아오는 것 */}
-
-      {/* {!!naverToken && getProfile} */}
-      {/*!! = 논리연산자 boolean값을 부여해주기위해 사용 위에서는 naverToken의 데이터 타입을 boolean값으로 변경해주려고 사용하는 것
-      위에 토큰값이 String타입이고 참일때 !!를 쓰면 String값이 boolean true로 바뀌는 것!*/}
     </>
   );
 };

@@ -1,6 +1,26 @@
-import { View, Text, Alert, Modal, StyleSheet, Pressable, Button, TextInput, KeyboardAvoidingView, Switch, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
-import React, { useState } from 'react';
-import {ModalTextInput, ModalTextInputTwo, ModalTextInputThree, ModalTextInputFour}from '../modaltextinput/ModalTextInput';
+import {
+  View,
+  Text,
+  Alert,
+  Modal,
+  StyleSheet,
+  Pressable,
+  Button,
+  TextInput,
+  KeyboardAvoidingView,
+  Switch,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ScrollView,
+} from 'react-native';
+import React, {useState} from 'react';
+import {
+  ModalTextInput,
+  ModalTextInputTwo,
+  ModalTextInputThree,
+  ModalTextInputFour,
+} from '../modaltextinput/ModalTextInput';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API_URL =
   Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
@@ -13,6 +33,7 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
       url,
       service,
       memo,
+      storage,
     };
     fetch(`${API_URL}/bookmark`, {
       method: 'POST',
@@ -39,6 +60,14 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
       });
   };
 
+  // 세션스토리지에 저장한 데이터를 불러오는 함수
+  AsyncStorage.getItem('sns_info', (err, result) => {
+    const sns_id = JSON.parse(result);
+    const snsInfo = sns_id.response.id;
+    setStorage(snsInfo);
+  });
+
+  const [storage, setStorage] = useState('');
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [url, setUrl] = useState('');
@@ -51,93 +80,121 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={visible}
-          onBackdropPress={() => setVisible(!visible)}
-          onRequestClose={() => {
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={visible}
+      onBackdropPress={() => setVisible(!visible)}
+      onRequestClose={() => {
+        setVisible(!visible);
+      }}>
+      <Pressable
+        style={styles.outside}
+        onPress={event => {
+          if (event.target === event.currentTarget) {
             setVisible(!visible);
-          }}>
-          <Pressable
-            style={styles.outside}
-            onPress={event => {
-              if (event.target === event.currentTarget) {
-                setVisible(!visible);
-              }
-            }}>
-            <View style={styles.modalStyle}>
-              <View style={styles.centerContainer}>
-                {/* 상단: 아이디, 비밀번호, url 컨테이너 */}
-                <View style={styles.modalTop}>
-                  <View style={styles.accountContainer}>
-                    {/* <ModalTextInput setting={setId} placeholderText={'아이디를 입력해주세요'} /> */}
-                    <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setId} style={styles.textInput} placeholder='아이디를 입력해주세요'></TextInput>
-                    </View>
-                    {/* <ModalTextInputTwo setting={setPassword} placeholderText={'비밀번호를 입력해주세요'}/> */}
-                    <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setPassword} style={styles.textInput} placeholder='비밀번호를 입력해주세요'></TextInput>
-                    </View>
-                  </View>
-                  <View style={styles.urlContainer}>
-                    {/* <ModalTextInputThree setting={setUrl}  placeholderText={'url를 입력해주세요'} /> */}
-                    <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setUrl} style={styles.textInput} placeholder='url를 입력해주세요'></TextInput>
-                    </View>
-                  </View>
+          }
+        }}>
+        <View style={styles.modalStyle}>
+          <View style={styles.centerContainer}>
+            {/* 상단: 아이디, 비밀번호, url 컨테이너 */}
+            <View style={styles.modalTop}>
+              <View style={styles.accountContainer}>
+                {/* <ModalTextInput setting={setId} placeholderText={'아이디를 입력해주세요'} /> */}
+                <View style={styles.textcontainer}>
+                  <TextInput
+                    maxLength={30}
+                    onChangeText={setId}
+                    style={styles.textInput}
+                    placeholder="아이디를 입력해주세요"></TextInput>
                 </View>
-
-                {/* 중단: 메모, 즐겨찾기 컨테이너 */}
-                <View style={styles.modalMiddle}>
-                  <View style={styles.MemoContainer}>
-                    {/* <ModalTextInputFour setting={setMemo} containerWidth={"95%"} textHeight={"100%"} textWidth={'100%'} placeholderText={'Memo'} /> */}
-                    <View style={styles.textcontainer}>
-                      <TextInput maxLength={10} onChangeText={setService} style={styles.textInput} placeholder='서비스 이름'></TextInput>
-                    </View>
-                    <ScrollView style={styles.textcontainer}>
-                      <TextInput numberOfLines={2} multiline={true} maxLength={100} onChangeText={setMemo} style={styles.textInput} placeholder='memo'></TextInput>
-                    </ScrollView>
-                  </View>
-                  {/* BookMark가 true 시 즐겨찾기 토글 스위치 visible */}
-                  {BookMark && (
-                    <View style={styles.toggleContainer}>
-                      <Text>즐겨찾기</Text>
-                      <Switch
-                        trackColor={{false: '#767577', true: '#81b0ff'}}
-                        // switch bar color
-                        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                        // switch 동그라미 색깔
-                        // ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleSwitch}
-                        value={isEnabled}
-                      />
-                    </View>
-                  )}
+                {/* <ModalTextInputTwo setting={setPassword} placeholderText={'비밀번호를 입력해주세요'}/> */}
+                <View style={styles.textcontainer}>
+                  <TextInput
+                    maxLength={30}
+                    onChangeText={setPassword}
+                    style={styles.textInput}
+                    placeholder="비밀번호를 입력해주세요"></TextInput>
                 </View>
-
-                {/* 하단: 등록, 닫기 컨테이너 */}
-                <View style={styles.modalBottom}>
-                  <View style={styles.registContainer}>
-                    <Pressable
-                      style={styles.modalButton}
-                      onPress={() => { if(!id || !password || !url || !service){Alert.alert('id, password, url, service를 입력해주세요')} else{serverTest(); setVisible(!visible)}}} 
-                      >
-                      <Text style={styles.textStyle}>등록</Text>
-                    </Pressable>
-                  </View>
-                  <View style={styles.closeContainer}>
-                    <Pressable
-                      style={styles.modalButton}
-                      onPress={() => setVisible(!visible)}>
-                      <Text style={styles.textStyle}>닫기</Text>
-                    </Pressable>
-                  </View>
+              </View>
+              <View style={styles.urlContainer}>
+                {/* <ModalTextInputThree setting={setUrl}  placeholderText={'url를 입력해주세요'} /> */}
+                <View style={styles.textcontainer}>
+                  <TextInput
+                    maxLength={30}
+                    onChangeText={setUrl}
+                    style={styles.textInput}
+                    placeholder="url를 입력해주세요"></TextInput>
                 </View>
               </View>
             </View>
-          </Pressable>
-        </Modal>
+
+            {/* 중단: 메모, 즐겨찾기 컨테이너 */}
+            <View style={styles.modalMiddle}>
+              <View style={styles.MemoContainer}>
+                {/* <ModalTextInputFour setting={setMemo} containerWidth={"95%"} textHeight={"100%"} textWidth={'100%'} placeholderText={'Memo'} /> */}
+                <View style={styles.textcontainer}>
+                  <TextInput
+                    maxLength={10}
+                    onChangeText={setService}
+                    style={styles.textInput}
+                    placeholder="서비스 이름"></TextInput>
+                </View>
+                <ScrollView style={styles.textcontainer}>
+                  <TextInput
+                    numberOfLines={2}
+                    multiline={true}
+                    maxLength={100}
+                    onChangeText={setMemo}
+                    style={styles.textInput}
+                    placeholder="memo"></TextInput>
+                </ScrollView>
+              </View>
+              {/* BookMark가 true 시 즐겨찾기 토글 스위치 visible */}
+              {BookMark && (
+                <View style={styles.toggleContainer}>
+                  <Text>즐겨찾기</Text>
+                  <Switch
+                    trackColor={{false: '#767577', true: '#81b0ff'}}
+                    // switch bar color
+                    thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                    // switch 동그라미 색깔
+                    // ios_backgroundColor="#3e3e3e"
+                    onValueChange={toggleSwitch}
+                    value={isEnabled}
+                  />
+                </View>
+              )}
+            </View>
+
+            {/* 하단: 등록, 닫기 컨테이너 */}
+            <View style={styles.modalBottom}>
+              <View style={styles.registContainer}>
+                <Pressable
+                  style={styles.modalButton}
+                  onPress={() => {
+                    if (!id || !password || !url || !service) {
+                      Alert.alert('id, password, url, service를 입력해주세요');
+                    } else {
+                      serverTest();
+                      setVisible(!visible);
+                    }
+                  }}>
+                  <Text style={styles.textStyle}>등록</Text>
+                </Pressable>
+              </View>
+              <View style={styles.closeContainer}>
+                <Pressable
+                  style={styles.modalButton}
+                  onPress={() => setVisible(!visible)}>
+                  <Text style={styles.textStyle}>닫기</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </View>
+      </Pressable>
+    </Modal>
   );
 };
 

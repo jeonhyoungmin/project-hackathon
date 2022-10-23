@@ -22,6 +22,7 @@ router.post('/signin', SignIn);
 
 router.get('/signin', function(request, response) {
   request.session.destroy(function(err){
+    
      })
 });
 

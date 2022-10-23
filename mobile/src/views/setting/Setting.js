@@ -6,10 +6,26 @@ import CustomButton from '../../components/CustomButton/CustomButton';
 import {useNavigation} from '@react-navigation/native';
 
 
+const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
+
 // Setting 스크린
 const Setting = () => {
 
   const navigation = useNavigation();
+
+  const SignOut = () => {
+
+    fetch(`${API_URL}/signin`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
 
   // 나중에 필요한 경우를 대비해 버튼 함수를 주석으로 처리
   // const onApplicationInfoPressed = () => {
@@ -56,7 +72,7 @@ const Setting = () => {
         <CustomButton text="C'lock 정보" onPress={() => navigation.navigate('ApplicationInfo')} type="SECONDARY" />
         <CustomButton text="개인정보 처리방침" onPress={() => navigation.navigate('PrivacyPolicy')} type="SECONDARY" />
         <CustomButton text="건의/문의" onPress={() => navigation.navigate('SuggestionQuestion')} type="SECONDARY" />
-        <CustomButton text="로그아웃" type="SECONDARY" />
+        <CustomButton text="로그아웃" onPress={() => SignOut() } type="SECONDARY" />
       </View>
     </ScrollView>
   );

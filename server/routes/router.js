@@ -6,15 +6,25 @@ const {
   updateaccount
 } = require("../controllers/BookMark.js")
 const { thirdparty, thirdpartyaccount } = require("../controllers/Thirdparty.js")
-const SignUp = require("../controllers/SignUp.js")
-const SignIn = require("../controllers/SignIn.js")
+const SignUp = require("../controllers/SignUp.js");
+const SignIn = require("../controllers/SignIn.js");
+const SignOut = require("../controllers/SignOut.js");
 const router = express.Router();
+const session = require('express-session');
+const { request } = require('express');
+const FileStore = require('session-file-store')(session);
 
 // (매개변수1: bookmark 주소로 요청 발생 시, 매개변수2: bookmark controllers 실행)
 
 router.post("/signup", SignUp);
 
-router.post("/signin", SignIn);
+router.post('/signin', SignIn);
+
+router.get('/signin', function(request, response) {
+  request.session.destroy(function(err){
+    
+  })
+});
 
 //서드파티
 router.post("/thirdparty", thirdparty);
@@ -28,5 +38,6 @@ router.get("/bookmark", registeredaccount);
 router.delete('/bookmark/:index_id', deleteaccount)
 // 북마크 등록된 서비스 계정 수정하기
 router.put('/bookmark', updateaccount)
+
 
 module.exports = router;

@@ -1,16 +1,22 @@
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 
 // 컴포넌트 파일 불러오기
 import CustomButton from '../../components/CustomButton/CustomButton';
 import {useNavigation} from '@react-navigation/native';
-
+import {NaverLogin} from '@react-native-seoul/naver-login';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Setting 스크린
 const Setting = () => {
-
+  const [naverToken, setNaverToken] = React.useState(null);
   const navigation = useNavigation();
 
+  const naverLogout = () => {
+    NaverLogin.logout();
+    AsyncStorage.clear();
+    setNaverToken('');
+  };
   // 나중에 필요한 경우를 대비해 버튼 함수를 주석으로 처리
   // const onApplicationInfoPressed = () => {
   //   navigation.navigate('ApplicationInfo');
@@ -45,18 +51,61 @@ const Setting = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
-        <CustomButton text="내 정보" onPress={() => navigation.navigate('MyInfo')} type="SECONDARY" />
-        <CustomButton text="인증 수단" onPress={() => navigation.navigate('Authentication')} type="SECONDARY" />
-        <CustomButton text="권한" onPress={() => navigation.navigate('Authority')} type="SECONDARY" />
-        <CustomButton text="데이터 관리" onPress={() => navigation.navigate('DataManagement')} type="SECONDARY" />
+        <CustomButton
+          text="내 정보"
+          onPress={() => navigation.navigate('MyInfo')}
+          type="SECONDARY"
+        />
+        <CustomButton
+          text="인증 수단"
+          onPress={() => navigation.navigate('Authentication')}
+          type="SECONDARY"
+        />
+        <CustomButton
+          text="권한"
+          onPress={() => navigation.navigate('Authority')}
+          type="SECONDARY"
+        />
+        <CustomButton
+          text="데이터 관리"
+          onPress={() => navigation.navigate('DataManagement')}
+          type="SECONDARY"
+        />
       </View>
       <View style={styles.container}>
-        <CustomButton text="인터페이스 설정" onPress={() => navigation.navigate('InterfaceSetting')} type="SECONDARY" />
-        <CustomButton text="알림" onPress={() => navigation.navigate('Notification')} type="SECONDARY" />
-        <CustomButton text="C'lock 정보" onPress={() => navigation.navigate('ApplicationInfo')} type="SECONDARY" />
-        <CustomButton text="개인정보 처리방침" onPress={() => navigation.navigate('PrivacyPolicy')} type="SECONDARY" />
-        <CustomButton text="건의/문의" onPress={() => navigation.navigate('SuggestionQuestion')} type="SECONDARY" />
-        <CustomButton text="로그아웃" type="SECONDARY" />
+        <CustomButton
+          text="인터페이스 설정"
+          onPress={() => navigation.navigate('InterfaceSetting')}
+          type="SECONDARY"
+        />
+        <CustomButton
+          text="알림"
+          onPress={() => navigation.navigate('Notification')}
+          type="SECONDARY"
+        />
+        <CustomButton
+          text="C'lock 정보"
+          onPress={() => navigation.navigate('ApplicationInfo')}
+          type="SECONDARY"
+        />
+        <CustomButton
+          text="개인정보 처리방침"
+          onPress={() => navigation.navigate('PrivacyPolicy')}
+          type="SECONDARY"
+        />
+        <CustomButton
+          text="건의/문의"
+          onPress={() => navigation.navigate('SuggestionQuestion')}
+          type="SECONDARY"
+        />
+        <CustomButton
+          text="로그아웃"
+          onPress={() => {
+            naverLogout();
+            navigation.navigate('SignIn');
+          }}
+          type="SECONDARY"
+        />
       </View>
     </ScrollView>
   );
@@ -68,12 +117,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    
   },
-  text: {
-    
-  },
+  text: {},
 });
-
 
 export default Setting;

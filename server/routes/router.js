@@ -4,7 +4,7 @@ const {
   registeredaccount,
   deleteaccount,
   updateaccount,
-  registrateaccountsns,
+  /* registrateaccountsns, */
 } = require("../controllers/BookMark.js");
 const {
   thirdparty,
@@ -33,12 +33,12 @@ router.get('/signin', function(req, res) {
 //서드파티
 router.post("/thirdparty", thirdparty);
 router.get("/thirdparty", thirdpartyaccount);
-router.post("/bookmarksns", registrateaccountsns)
+// router.post("/bookmarksns", registrateaccountsns)
 
 // 북마크 서비스 계정 등록
 router.post("/bookmark", registrateaccount);
 // 북마크 등록된 서비스 계정 읽기
-router.get("/bookmark", registeredaccount);
+router.post("/bookmarkread", registeredaccount);
 // 북마크 등록된 서비스 계정 삭제하기
 router.delete('/bookmark/:index_bm', deleteaccount)
 // 북마크 등록된 서비스 계정 수정하기

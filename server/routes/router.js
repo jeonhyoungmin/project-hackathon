@@ -11,7 +11,6 @@ const SignIn = require("../controllers/SignIn.js");
 const SignOut = require("../controllers/SignOut.js");
 const router = express.Router();
 const session = require('express-session');
-const { request } = require('express');
 const FileStore = require('session-file-store')(session);
 
 // (매개변수1: bookmark 주소로 요청 발생 시, 매개변수2: bookmark controllers 실행)
@@ -20,9 +19,12 @@ router.post("/signup", SignUp);
 
 router.post('/signin', SignIn);
 
-router.get('/signin', function(request, response) {
-  request.session.destroy(function(err){
+router.get('/signin', function(req, res) {
+  req.session.destroy(function(err){
 
+    // console.log(req.session); 세션이 사라진 것 확인
+    if(err) throw err
+    res.status(200).json({message: 'logout'});
   });
 });
 
@@ -35,7 +37,7 @@ router.post("/bookmark", registrateaccount);
 // 북마크 등록된 서비스 계정 읽기
 router.get("/bookmark", registeredaccount);
 // 북마크 등록된 서비스 계정 삭제하기
-router.delete('/bookmark/:index_id', deleteaccount)
+router.delete('/bookmark/:index_bm', deleteaccount)
 // 북마크 등록된 서비스 계정 수정하기
 router.put('/bookmark', updateaccount)
 

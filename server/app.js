@@ -3,10 +3,10 @@ const router = require('./routes/router.js')
 const app = express()
 const port = process.env.PORT || 5000;
 const session = require('express-session');
-const { request } = require('express');
 const FileStore = require('session-file-store')(session);
 
 app.use(session({
+  key: 'loginData',
   secret: '*#&$^@g@u7^%f',
   resave: false,
 

@@ -68,8 +68,8 @@ const BookMarkScreen = () => {
   
 
   // 데이터 delete
-  const deleteAccount = (index_id) => {
-    fetch(`${API_URL}/bookmark/${index_id}`, {
+  const deleteAccount = (index_bm) => {
+    fetch(`${API_URL}/bookmark/${index_bm}`, {
       method: "DELETE",
     }). then(async (res) => {
       const jsonRes = await res.json();
@@ -98,7 +98,7 @@ const BookMarkScreen = () => {
         />
 
     {/* 수정창 Modal 컴포넌트 */}
-    <RegisteredModal regiVisible={regiVisible} setRegiVisible={setRegiVisible} BookMark={true} regi_id={clickData.regi_id} regi_password={clickData.regi_password} regi_url={clickData.regi_url} regi_service={clickData.regi_service} regi_memo={clickData.regi_memo} regi_index={clickData.index_id}/>
+    <RegisteredModal regiVisible={regiVisible} setRegiVisible={setRegiVisible} BookMark={true} regi_id={clickData.regi_id} regi_password={clickData.regi_password} regi_url={clickData.regi_url} regi_service={clickData.regi_service} regi_memo={clickData.regi_memo} regi_index={clickData.index_bm}/>
 
       {/* 최상단 뒤로가기, 검색 , 카테고리 */}
       <View style={styles.viewTop}>
@@ -133,7 +133,7 @@ const BookMarkScreen = () => {
           {/* map 함수를 사용하여 데이터 수 만큼 컴포넌트 렌더링. 주의! react(react-native)에서는 map 함수를 사용할 시, 데이터를 구분하기 위해 key 값을 지정해 줘야 한다. */}
           {accountData.map((value) => {
             return (
-              <View key={value.index_id}>
+              <View key={value.index_bm}>
                 <AddAccountBox
                 modalOnPress={() => {/* console.log(value) */ ;setRegiVisible(!regiVisible); setClickData(value)}}
                 serviceName={value.regi_service} 
@@ -141,7 +141,7 @@ const BookMarkScreen = () => {
                 iconSize={25} 
                 iconColor='#333' 
                 deleteOnPress={() => Alert.alert('정보 삭제', '정말로 삭제하시겠습니까?', [
-                  {text: "Yes", onPress: () => {setRefresh(!refresh); deleteAccount(value.index_id)}},
+                  {text: "Yes", onPress: () => {setRefresh(!refresh); deleteAccount(value.index_bm)}},
                   {text: "No"/* , onPress: () => console.warn('보존') */}
                 ])}/>
               </View>

@@ -10,6 +10,7 @@ const registrateaccount = (req, res, next) => {
   const url = req.body.url;
   const service = req.body.service;
   const memo = req.body.memo;
+  const username = req.body.username;
 
   // SQL query문 작성
   // 매개 변수 1: 쿼리문
@@ -35,9 +36,9 @@ const registeredaccount = (req, res, next) => {
 
 // 북마크 등록된 서비스 계정 삭제
 const deleteaccount = (req, res, next) => {
-  console.log(req.params.index_id)
-  const index_id = req.params.index_id
-  connection.query("DELETE FROM bookmark WHERE index_id = ?", index_id , (err, results) => {
+  console.log(req.params.index_bm)
+  const index_bm = req.params.index_bm
+  connection.query("DELETE FROM bookmark WHERE index_bm = ?", index_bm, (err, results) => {
     if (err) throw err;
     res.json(results)
   })
@@ -54,7 +55,7 @@ const updateaccount = (req, res, next) => {
   const memo = req.body.memo
   const index = req.body.index
 
-  connection.query('UPDATE bookmark SET regi_id = ?, regi_password = ?, regi_service = ?, regi_memo = ? WHERE index_id = ?', [id, password, service, memo, index], (err, results) => {
+  connection.query('UPDATE bookmark SET regi_id = ?, regi_password = ?, regi_service = ?, regi_memo = ? WHERE index_bm = ?', [id, password, service, memo, index], (err, results) => {
     if (err) throw err;
     res.json(results)
   })

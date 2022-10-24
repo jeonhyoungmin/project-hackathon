@@ -5,7 +5,7 @@ import { Link } from '@react-navigation/native';
 
 const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
-const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_password, regi_url, regi_service, regi_memo, regi_index }) => {
+const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_password, regi_url, regi_service, regi_memo, regi_index_bm }) => {
   
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +22,7 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
     setUrl(regi_url)
     setMemo(regi_memo)
     setService(regi_service)
-    setIndex(regi_index)
+    setIndex(regi_index_bm)
   }, [regiVisible])
   
   const serverTest = () => {

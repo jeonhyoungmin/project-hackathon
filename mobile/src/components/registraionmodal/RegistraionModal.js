@@ -35,7 +35,7 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
       memo,
       storage,
     };
-    fetch(`${API_URL}/bookmark`, {
+    fetch(`${API_URL}/bookmark${storage='' ? '':sns}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

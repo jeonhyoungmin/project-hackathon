@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken')
 
 const SignIn = (req, res, next) => {
   const param = [req.body.username, req.body.password]
-  
   // 로그인 유효성 검사
 
   // 로그인 페이지에서 id 나 password 가 공백일 경우
@@ -26,6 +25,12 @@ const SignIn = (req, res, next) => {
             // 비교 결과가 동일한 경우 로그인 성공과 함께 토큰 권한 부여
           } else if (compareRes) { // password match
             /* 추후에 토큰 기능 구현 예정 */
+            console.log(req.session);
+            req.session.isLogined = true;
+            req.session.username = req.body.username;
+            
+            console.log(req.body);
+
             const token = jwt.sign({ email: req.body.email }, 'secret', { expiresIn: '1h' }); 
             res.status(200).json({ message: "user logged in", "token": token});
             // 비교 결과가 동일하지 않은 경우

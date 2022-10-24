@@ -7,6 +7,8 @@ import {useNavigation} from '@react-navigation/native';
 import {NaverLogin} from '@react-native-seoul/naver-login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
+
 // Setting 스크린
 const Setting = () => {
   const [naverToken, setNaverToken] = React.useState(null);
@@ -16,7 +18,29 @@ const Setting = () => {
     NaverLogin.logout();
     AsyncStorage.clear();
     setNaverToken('');
+    navigation.navigate('SignIn');
   };
+  const SignOut = () => {
+
+    fetch(`${API_URL}/signin`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(async (res) => {
+      const jsonRes = await res.json()
+      console.log(res.status)
+      console.log(jsonRes.message)
+      if(res.status === 200){
+        navigation.navigate('SignIn')
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
   // 나중에 필요한 경우를 대비해 버튼 함수를 주석으로 처리
   // const onApplicationInfoPressed = () => {
   //   navigation.navigate('ApplicationInfo');
@@ -101,8 +125,10 @@ const Setting = () => {
         <CustomButton
           text="로그아웃"
           onPress={() => {
-            naverLogout();
-            navigation.navigate('SignIn');
+            {
+              SignOut();
+              naverLogout()
+            }
           }}
           type="SECONDARY"
         />

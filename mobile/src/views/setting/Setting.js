@@ -20,7 +20,14 @@ const Setting = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      
+    })
+    .then(async (res) => {
+      const jsonRes = await res.json()
+      console.log(res.status)
+      console.log(jsonRes.message)
+      if(res.status === 200){
+        navigation.navigate('SignIn')
+      }
     })
     .catch(err => {
       console.log(err);

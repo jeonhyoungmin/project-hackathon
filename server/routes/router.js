@@ -20,9 +20,10 @@ router.post("/signup", SignUp);
 
 router.post('/signin', SignIn);
 
-router.get('/signin', function(request, response) {
-  request.session.destroy(function(err){
-
+router.get('/signin', function(req, res) {
+  req.session.destroy(function(err){
+    if(err) throw err
+    res.status(200).json({message: 'logout'})
   });
 });
 
@@ -35,7 +36,7 @@ router.post("/bookmark", registrateaccount);
 // 북마크 등록된 서비스 계정 읽기
 router.get("/bookmark", registeredaccount);
 // 북마크 등록된 서비스 계정 삭제하기
-router.delete('/bookmark/:index_id', deleteaccount)
+router.delete('/bookmark/:index_bm', deleteaccount)
 // 북마크 등록된 서비스 계정 수정하기
 router.put('/bookmark', updateaccount)
 

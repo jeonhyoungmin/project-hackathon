@@ -8,7 +8,7 @@ const thirdparty = (req, res, next) => {
 
   // 등록할때 IGNORE를 주어 중복등록을 방지한다.
   connection.query(
-    `INSERT IGNORE INTO user_info (sns_id,sns_email) VALUES('${sns_id}','${sns_email}')`,
+    `INSERT INTO user_info(sns_id,sns_email) SELECT '${sns_id}','${sns_email}'FROM DUAL WHERE NOT EXISTS (SELECT *  FROM user_info WHERE sns_id='${sns_id}')`,
     function (err) {
       if (err) throw err;
       res.send("입력완료");

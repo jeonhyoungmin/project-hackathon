@@ -1,30 +1,60 @@
-import { View, Text, Alert, Modal, StyleSheet, Pressable, Button, TextInput, KeyboardAvoidingView, Switch, TouchableWithoutFeedback, Keyboard, ScrollView, Linking } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import {ModalTextInput, ModalTextInputTwo, ModalTextInputThree, ModalTextInputFour}from '../modaltextinput/ModalTextInput';
-import { Link } from '@react-navigation/native';
+import {
+  View,
+  Text,
+  Alert,
+  Modal,
+  StyleSheet,
+  Pressable,
+  Button,
+  TextInput,
+  KeyboardAvoidingView,
+  Switch,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ScrollView,
+  Linking,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  ModalTextInput,
+  ModalTextInputTwo,
+  ModalTextInputThree,
+  ModalTextInputFour,
+} from '../modaltextinput/ModalTextInput';
+import {Link} from '@react-navigation/native';
 
-const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
+const API_URL =
+  Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
-const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_password, regi_url, regi_service, regi_memo, regi_index_bm }) => {
-  
+const RegisteredModal = ({
+  regiVisible,
+  setRegiVisible,
+  BookMark,
+  regi_id,
+  regi_password,
+  regi_url,
+  regi_service,
+  regi_memo,
+  regi_index_bm,
+}) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [url, setUrl] = useState('');
   const [memo, setMemo] = useState('');
   const [service, setService] = useState('');
-  const [index, setIndex] = useState('')
+  const [index, setIndex] = useState('');
 
-  const [refresh, setRefresh] = useState(true)
-  
+  const [refresh, setRefresh] = useState(true);
+
   useEffect(() => {
-    setId(regi_id)
-    setPassword(regi_password)
-    setUrl(regi_url)
-    setMemo(regi_memo)
-    setService(regi_service)
-    setIndex(regi_index_bm)
-  }, [regiVisible])
-  
+    setId(regi_id);
+    setPassword(regi_password);
+    setUrl(regi_url);
+    setMemo(regi_memo);
+    setService(regi_service);
+    setIndex(regi_index_bm);
+  }, [regiVisible]);
+
   const serverTest = () => {
     const test = {
       id,
@@ -32,134 +62,159 @@ const RegisteredModal = ({ regiVisible, setRegiVisible, BookMark, regi_id, regi_
       url,
       service,
       memo,
-      index
-    }
-    console.log(regi_id)
-    console.log(id)
+      index,
+    };
+    console.log(regi_id);
+    console.log(id);
     // console.log(test)
     fetch(`${API_URL}/bookmark`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(test)
+      body: JSON.stringify(test),
     })
-    .then(async res => {
-      try{
-        const jsonRes = await res.json();
-        console.log(jsonRes)
-        if(res.status !== 200){
-          // console.warn('안됨');
-        } else {
-          // console.warn('됨')
+      .then(async res => {
+        try {
+          const jsonRes = await res.json();
+          console.log(jsonRes);
+          if (res.status !== 200) {
+            // console.warn('안됨');
+          } else {
+            // console.warn('됨')
+          }
+        } catch (err) {
+          console.log(err);
         }
-      } catch (err) {
+      })
+      .catch(err => {
         console.log(err);
-      }
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
-  
+      });
+  };
+
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState)
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={regiVisible}
-          onBackdropPress={() => setRegiVisible(!regiVisible)}
-          onRequestClose={() => {
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={regiVisible}
+      onBackdropPress={() => setRegiVisible(!regiVisible)}
+      onRequestClose={() => {
+        setRegiVisible(!regiVisible);
+      }}>
+      <Pressable
+        style={styles.outside}
+        onPress={event => {
+          if (event.target === event.currentTarget) {
             setRegiVisible(!regiVisible);
-          }}>
-          <Pressable
-            style={styles.outside}
-            onPress={event => {
-              if (event.target === event.currentTarget) {
-                setRegiVisible(!regiVisible);
-              }
-            }}>
-            <View style={styles.modalStyle}>
-              <View style={styles.centerContainer}>
-                {/* 상단: 아이디, 비밀번호, url 컨테이너 */}
-                <View style={styles.modalTop}>
-                  <View style={styles.accountContainer}>
-                    {/* <ModalTextInput setting={setId} placeholderText={'아이디를 입력해주세요'} /> */}
-                    <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setId} style={styles.textInput} placeholder={`ID: ${id}`}></TextInput>
-                    </View>
-                    {/* <ModalTextInputTwo setting={setPassword} placeholderText={'비밀번호를 입력해주세요'}/> */}
-                    <View style={styles.textcontainer}>
-                      <TextInput maxLength={30} onChangeText={setPassword} style={styles.textInput} placeholder={`PW: ${regi_password}`}></TextInput>
-                    </View>
-                  </View>
-                  {/* <View style={styles.urlContainer}> */}
-                    {/* <ModalTextInputThree setting={setUrl}  placeholderText={'url를 입력해주세요'} /> */}
-                    {/* <View style={styles.textcontainer}>
+          }
+        }}>
+        <View style={styles.modalStyle}>
+          <View style={styles.centerContainer}>
+            {/* 상단: 아이디, 비밀번호, url 컨테이너 */}
+            <View style={styles.modalTop}>
+              <View style={styles.accountContainer}>
+                {/* <ModalTextInput setting={setId} placeholderText={'아이디를 입력해주세요'} /> */}
+                <View style={styles.textcontainer}>
+                  <TextInput
+                    maxLength={30}
+                    onChangeText={setId}
+                    style={styles.textInput}
+                    placeholder={`ID: ${id}`}></TextInput>
+                </View>
+                {/* <ModalTextInputTwo setting={setPassword} placeholderText={'비밀번호를 입력해주세요'}/> */}
+                <View style={styles.textcontainer}>
+                  <TextInput
+                    maxLength={30}
+                    onChangeText={setPassword}
+                    style={styles.textInput}
+                    placeholder={`PW: ${regi_password}`}></TextInput>
+                </View>
+              </View>
+              {/* <View style={styles.urlContainer}> */}
+              {/* <ModalTextInputThree setting={setUrl}  placeholderText={'url를 입력해주세요'} /> */}
+              {/* <View style={styles.textcontainer}>
                       <Text>이동하기 :
                         <Text setUrl={regi_url} onPress={() => Linking.openURL(`https://www.${regi_url}`)}>{` ${regi_url}`}</Text>
                       </Text>
                     </View> */}
-                  {/* </View> */}
-                </View>
+              {/* </View> */}
+            </View>
 
-                {/* 중단: 메모, 즐겨찾기 컨테이너 */}
-                <View style={styles.modalMiddle}>
-                  <View style={styles.MemoContainer}>
-                    {/* <ModalTextInputFour setting={setMemo} containerWidth={"95%"} textHeight={"100%"} textWidth={'100%'} placeholderText={'Memo'} /> */}
-                    <View style={styles.textcontainer}>
-                      <TextInput maxLength={10} onChangeText={setService} style={styles.textInput} placeholder={`서비스: ${regi_service}`}></TextInput>
-                    </View>
-                    <ScrollView style={styles.textcontainer}>
-                      <TextInput numberOfLines={2} multiline={true} maxLength={100} onChangeText={setMemo} style={styles.textInput} placeholder={`메모: ${regi_memo}`}></TextInput>
-                    </ScrollView>
-                    <View style={styles.textcontainer}>
-                      <Text>이동하기 :
-                        <Text setUrl={regi_url} onPress={() => Linking.openURL(`https://www.${regi_url}`)}>{` ${regi_url}`}</Text>
-                      </Text>
-                    </View>
-                  </View>
-                  {/* BookMark가 true 시 즐겨찾기 토글 스위치 visible */}
-                  { BookMark && 
-                  <View style={styles.toggleContainer}>
-                    <Text>즐겨찾기</Text> 
-                    <Switch
-                      trackColor={{ false: '#767577', true: '#81b0ff' }}
-                      // switch bar color
-                      thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                      // switch 동그라미 색깔
-                      // ios_backgroundColor="#3e3e3e"
-                      onValueChange={toggleSwitch}
-                      value={isEnabled}
-                    />
-                  </View>
-                  }
+            {/* 중단: 메모, 즐겨찾기 컨테이너 */}
+            <View style={styles.modalMiddle}>
+              <View style={styles.MemoContainer}>
+                {/* <ModalTextInputFour setting={setMemo} containerWidth={"95%"} textHeight={"100%"} textWidth={'100%'} placeholderText={'Memo'} /> */}
+                <View style={styles.textcontainer}>
+                  <TextInput
+                    maxLength={10}
+                    onChangeText={setService}
+                    style={styles.textInput}
+                    placeholder={`서비스: ${regi_service}`}></TextInput>
                 </View>
-
-                {/* 하단: 등록, 닫기 컨테이너 */}
-                <View style={styles.modalBottom}>
-                  <View style={styles.registContainer}>
-                    <Pressable 
-                      style={styles.modalButton}
-                      onPress={() => {serverTest(); setRegiVisible(!regiVisible)}} 
-                      >
-                      <Text style={styles.textStyle}>수정</Text>
-                    </Pressable>
-                  </View>
-                  <View style={styles.closeContainer}>
-                    <Pressable
-                      style={styles.modalButton}
-                      onPress={() => setRegiVisible(!regiVisible)}>
-                      <Text style={styles.textStyle}>닫기</Text>
-                    </Pressable>
-                  </View>
+                <ScrollView style={styles.textcontainer}>
+                  <TextInput
+                    numberOfLines={2}
+                    multiline={true}
+                    maxLength={100}
+                    onChangeText={setMemo}
+                    style={styles.textInput}
+                    placeholder={`메모: ${regi_memo}`}></TextInput>
+                </ScrollView>
+                <View style={styles.textcontainer}>
+                  <Text>
+                    이동하기 :
+                    <Text
+                      setUrl={regi_url}
+                      onPress={() =>
+                        Linking.openURL(`https://www.${regi_url}`)
+                      }>{` ${regi_url}`}</Text>
+                  </Text>
                 </View>
               </View>
+              {/* BookMark가 true 시 즐겨찾기 토글 스위치 visible */}
+              {BookMark && (
+                <View style={styles.toggleContainer}>
+                  <Text>즐겨찾기</Text>
+                  <Switch
+                    trackColor={{false: '#767577', true: '#81b0ff'}}
+                    // switch bar color
+                    thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                    // switch 동그라미 색깔
+                    // ios_backgroundColor="#3e3e3e"
+                    onValueChange={toggleSwitch}
+                    value={isEnabled}
+                  />
+                </View>
+              )}
             </View>
-          </Pressable>
-        </Modal>
+
+            {/* 하단: 등록, 닫기 컨테이너 */}
+            <View style={styles.modalBottom}>
+              <View style={styles.registContainer}>
+                <Pressable
+                  style={styles.modalButton}
+                  onPress={() => {
+                    serverTest();
+                    setRegiVisible(!regiVisible);
+                  }}>
+                  <Text style={styles.textStyle}>수정</Text>
+                </Pressable>
+              </View>
+              <View style={styles.closeContainer}>
+                <Pressable
+                  style={styles.modalButton}
+                  onPress={() => setRegiVisible(!regiVisible)}>
+                  <Text style={styles.textStyle}>닫기</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </View>
+      </Pressable>
+    </Modal>
   );
 };
 
@@ -212,7 +267,7 @@ const styles = StyleSheet.create({
   },
   MemoContainer: {
     flex: 5,
-    width: "100%",
+    width: '100%',
     // backgroundColor: 'red',
     alignItems: 'center',
   },
@@ -221,7 +276,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    width: "95%",
+    width: '95%',
     // backgroundColor: 'red'
   },
 
@@ -257,14 +312,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
-
-
 
   textcontainer: {
     flex: 1,
-    width: "95%",
-    marginTop: "2%",
+    width: '95%',
+    marginTop: '2%',
     // height: "95%",
   },
   textInput: {
@@ -272,8 +324,8 @@ const styles = StyleSheet.create({
     // height: "80%",
     backgroundColor: 'white',
     borderWidth: 1,
-    borderRadius: 5
-  }
+    borderRadius: 5,
+  },
 });
 
 export default RegisteredModal;

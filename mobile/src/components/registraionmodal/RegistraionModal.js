@@ -35,7 +35,7 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
       memo,
       storage,
     };
-    fetch(`${API_URL}/bookmark${storage='' ? '':sns}`, {
+    fetch(`${API_URL}/bookmark`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -65,6 +65,7 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
     const sns_id = JSON.parse(result);
     const snsInfo = sns_id.response.id;
     setStorage(snsInfo);
+    console.log('Asyncstorage Data:' + snsInfo);
   });
 
   const [storage, setStorage] = useState('');

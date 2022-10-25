@@ -11,6 +11,7 @@ const thirdparty = (req, res, next) => {
     `INSERT INTO user_info(sns_id,sns_email) SELECT '${sns_id}','${sns_email}'FROM DUAL WHERE NOT EXISTS (SELECT *  FROM user_info WHERE sns_id='${sns_id}')`,
     function (err) {
       if (err) throw err;
+      req.session.username = sns_id
       res.send("입력완료");
     }
   );

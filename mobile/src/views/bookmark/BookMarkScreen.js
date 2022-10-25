@@ -51,34 +51,28 @@ const BookMarkScreen = () => {
   // delete 새로고침
   const [refresh, setRefresh] = useState(true)
 
-  const [storage, setStorage] = useState({});
 
   // 세션스토리지에 저장한 데이터를 불러오는 함수
-  const asyncStorageExcute = () => {
-    AsyncStorage.getItem('sns_info', (err, result) => {
-      if (err) throw err;
-      const sns_id = JSON.parse(result);
-      const snsInfo = sns_id.response.id;
-      setStorage(snsInfo);
-    });
-  }
+  // const asyncStorageExcute = () => {
+    
+  // }
 
   // 데이터 갱신
   useEffect(() => {
+    
     fetch(`${API_URL}/bookmarkread`, {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(storage)
     }).then(async res => {
       const jsonRes = await res.json();
       console.log(jsonRes)
       setAccountData(jsonRes)
     }).catch(err => {
-      console.log(err);
+      console.log('북마크스크린 에러 1: '+err);
     })
-  }, [visible, regiVisible, refresh, storage])
+  }, [visible, regiVisible, refresh])
 
 
   // 데이터 delete

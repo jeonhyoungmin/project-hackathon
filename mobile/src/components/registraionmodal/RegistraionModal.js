@@ -33,9 +33,7 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
       url,
       service,
       memo,
-      storage,
     };
-    console.log('storage data'+ storage)
     fetch(`${API_URL}/bookmark`, {
       method: 'POST',
       headers: {
@@ -53,25 +51,19 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
             // console.warn('됨');
           }
         } catch (err) {
-          console.log(err);
+          console.log('등록 모달 창 에러 1 : '+err);
         }
       })
       .catch(err => {
-        console.log(err);
+        console.log('등록 모달 창 에러 2 : '+err);
       });
   };
 
   // 세션스토리지에 저장한 데이터를 불러오는 함수
-      const asyncStorageExcute = () => {
-        AsyncStorage.getItem('sns_info', (err, result) => {
-          if (err) throw err;
-          const sns_id = JSON.parse(result);
-          const snsInfo = sns_id.response.id;
-          setStorage(snsInfo);
-        });
-      }
+      // const asyncStorageExcute = () => {
+        
+      // }
 
-  const [storage, setStorage] = useState('');
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [url, setUrl] = useState('');

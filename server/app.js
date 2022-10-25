@@ -16,7 +16,8 @@ app.use(session({
   saveUninitialized: true,
   store:new FileStore(),
   cookie: {
-    maxAge: 1000*60*60
+    maxAge: 1000*60*60,
+    username: ''
   }
 }))
 

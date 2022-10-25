@@ -38,7 +38,7 @@ router.get("/thirdparty", thirdpartyaccount);
 // 북마크 서비스 계정 등록
 router.post("/bookmark", registrateaccount);
 // 북마크 등록된 서비스 계정 읽기
-router.post("/bookmarkread", registeredaccount);
+router.get("/bookmarkread", registeredaccount);
 // 북마크 등록된 서비스 계정 삭제하기
 router.delete("/bookmark/:index_bm", deleteaccount);
 // 북마크 등록된 서비스 계정 수정하기

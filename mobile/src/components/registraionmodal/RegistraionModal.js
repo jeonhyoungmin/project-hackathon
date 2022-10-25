@@ -13,7 +13,7 @@ import {
   Keyboard,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ModalTextInput,
   ModalTextInputTwo,
@@ -27,6 +27,7 @@ const API_URL =
 
 const RegistraionModal = ({visible, setVisible, BookMark}) => {
   const serverTest = () => {
+    asyncStorageExcute()
     const test = {
       id,
       password,
@@ -35,6 +36,10 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
       memo,
       storage,
     };
+<<<<<<< HEAD
+=======
+    console.log('storage data'+ storage)
+>>>>>>> jhm-toggle
     fetch(`${API_URL}/bookmark`, {
       method: 'POST',
       headers: {
@@ -42,9 +47,9 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
       },
       body: JSON.stringify(test),
     })
-      .then(res => {
+      .then(async res => {
         try {
-          const jsonRes = res;
+          const jsonRes = await res.json();
           console.log(jsonRes);
           if (res.status !== 200) {
             // console.warn('안됨');
@@ -61,12 +66,23 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
   };
 
   // 세션스토리지에 저장한 데이터를 불러오는 함수
+<<<<<<< HEAD
   AsyncStorage.getItem('sns_info', (err, result) => {
     const sns_id = JSON.parse(result);
     const snsInfo = sns_id.response.id;
     setStorage(snsInfo);
     console.log('Asyncstorage Data:' + snsInfo);
   });
+=======
+      const asyncStorageExcute = () => {
+        AsyncStorage.getItem('sns_info', (err, result) => {
+          if (err) throw err;
+          const sns_id = JSON.parse(result);
+          const snsInfo = sns_id.response.id;
+          setStorage(snsInfo);
+        });
+      }
+>>>>>>> jhm-toggle
 
   const [storage, setStorage] = useState('');
   const [id, setId] = useState('');

@@ -27,7 +27,6 @@ const API_URL =
 
 const RegistraionModal = ({visible, setVisible, BookMark}) => {
   const serverTest = () => {
-    asyncStorageExcute()
     const test = {
       id,
       password,

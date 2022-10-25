@@ -65,7 +65,6 @@ const BookMarkScreen = () => {
 
   // 데이터 갱신
   useEffect(() => {
-    asyncStorageExcute()
     fetch(`${API_URL}/bookmarkread`, {
       method: 'POST',
       headers: {

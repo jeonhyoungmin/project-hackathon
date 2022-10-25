@@ -53,6 +53,7 @@ const BookMarkScreen = ({naverToken}) => {
 
   const [storage, setStorage] = useState({});
 
+  // 세션스토리지에 저장한 데이터를 불러오는 함수
   useEffect(() => {
     AsyncStorage.getItem('sns_info', (err, result) => {
       if (err) throw err;
@@ -62,7 +63,6 @@ const BookMarkScreen = ({naverToken}) => {
     });
   }, [naverToken]);
 
-  // 세션스토리지에 저장한 데이터를 불러오는 함수
 
   // 데이터 갱신
   useEffect(() => {

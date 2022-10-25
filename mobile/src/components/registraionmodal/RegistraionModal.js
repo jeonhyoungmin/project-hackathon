@@ -58,9 +58,9 @@ const RegistraionModal = ({visible, setVisible, BookMark, naverToken}) => {
           const jsonRes = await res.json();
           console.log(jsonRes);
           if (res.status !== 200) {
-            // console.warn('안됨');
+            
           } else {
-            // console.warn('됨');
+
           }
         } catch (err) {
           console.log(err);
@@ -71,25 +71,12 @@ const RegistraionModal = ({visible, setVisible, BookMark, naverToken}) => {
       });
   };
 
-  // 세션스토리지에 저장한 데이터를 불러오는 함수
-  const asyncStorageExcute = () => {
-    AsyncStorage.getItem('sns_info', (err, result) => {
-      if (err) throw err;
-      const sns_id = JSON.parse(result);
-      const snsInfo = sns_id.response.id;
-      setStorage(snsInfo);
-      console.log('storage :' + snsInfo);
-    });
-  };
-  // const [naverToken, setNaverToken] = React.useState(null);
   const [storage, setStorage] = useState('');
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [url, setUrl] = useState('');
   const [memo, setMemo] = useState('');
   const [service, setService] = useState('');
-
-  // const [visible, setVisible] = useState(visible);
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);

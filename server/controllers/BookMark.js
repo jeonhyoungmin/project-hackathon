@@ -5,7 +5,7 @@ const connection = require("../utils/database.js");
 // 북마크 서비스 계정 등록
 const registrateaccount = (req, res, next) => {
   if (req.session.username) {
-    console.log(req)
+    console.log(req);
     // console.log(req)
     // json 형식으로 온 데이터를 정리
     const id = req.body.id;
@@ -13,10 +13,10 @@ const registrateaccount = (req, res, next) => {
     const url = req.body.url;
     const service = req.body.service;
     const memo = req.body.memo;
-    const username = req.session.username
+    const username = req.session.username;
 
-    console.log(req.session)
-    console.log(req.session.username)
+    console.log(req.session);
+    console.log(req.session.username);
     // SQL query문 작성
     // 매개 변수 1: 쿼리문
     // 매개 변수 2: VALUES의 ?에 들어갈 데이터 배열
@@ -62,24 +62,30 @@ const registrateaccount = (req, res, next) => {
 //   });
 // }
 
-
 // 북마크 등록된 서비스 계정 읽기
 const registeredaccount = (req, res, next) => {
   if (req.session.username) {
-    const username = req.session.username
-    connection.query("SELECT * FROM bookmark WHERE index_user = (SELECT index_user FROM user_info WHERE user_id=?)", username, (err, results) => {
-      if (err) throw err;
-      res.send(results);
-    });
-  } else if(!req.session.username){
-    console.log(req.body)
-    const sns_id = req.body.storage
-    connection.query("SELECT * FROM bookmark WHERE index_user = (SELECT index_user FROM user_info WHERE sns_id=?)", sns_id, (err, results) => {
-      if (err) throw err;
-      res.send(results);
-    });
+    const username = req.session.username;
+    connection.query(
+      "SELECT * FROM bookmark WHERE index_user = (SELECT index_user FROM user_info WHERE user_id=?)",
+      username,
+      (err, results) => {
+        if (err) throw err;
+        res.send(results);
+      }
+    );
+  } else if (!req.session.username) {
+    console.log(req.body);
+    const sns_id = req.body.storage;
+    connection.query(
+      `SELECT * FROM bookmark WHERE index_user = (SELECT index_user FROM user_info WHERE sns_id='${sns_id}')`,
+      (err, results) => {
+        if (err) throw err;
+        res.send(results);
+      }
+    );
   } else {
-    console.log('warning')
+    console.log("warning");
   }
 };
 

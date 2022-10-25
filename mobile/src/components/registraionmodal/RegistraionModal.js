@@ -21,11 +21,21 @@ import {
   ModalTextInputFour,
 } from '../modaltextinput/ModalTextInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {NaverLogin} from '@react-native-seoul/naver-login';
 
 const API_URL =
   Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
-const RegistraionModal = ({visible, setVisible, BookMark}) => {
+const RegistraionModal = ({visible, setVisible, BookMark, naverToken}) => {
+  useEffect(() => {
+    AsyncStorage.getItem('sns_info', (err, result) => {
+      if (err) throw err;
+      const sns_id = JSON.parse(result);
+      setStorage(sns_id);
+      console.log('storage :' + sns_id);
+    });
+  }, [naverToken]);
+
   const serverTest = () => {
     const test = {
       id,
@@ -35,7 +45,7 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
       memo,
       storage,
     };
-    console.log('storage data'+ storage)
+    console.log('storage data' + storage);
     fetch(`${API_URL}/bookmark`, {
       method: 'POST',
       headers: {
@@ -62,15 +72,16 @@ const RegistraionModal = ({visible, setVisible, BookMark}) => {
   };
 
   // 세션스토리지에 저장한 데이터를 불러오는 함수
-      const asyncStorageExcute = () => {
-        AsyncStorage.getItem('sns_info', (err, result) => {
-          if (err) throw err;
-          const sns_id = JSON.parse(result);
-          const snsInfo = sns_id.response.id;
-          setStorage(snsInfo);
-        });
-      }
-
+  const asyncStorageExcute = () => {
+    AsyncStorage.getItem('sns_info', (err, result) => {
+      if (err) throw err;
+      const sns_id = JSON.parse(result);
+      const snsInfo = sns_id.response.id;
+      setStorage(snsInfo);
+      console.log('storage :' + snsInfo);
+    });
+  };
+  // const [naverToken, setNaverToken] = React.useState(null);
   const [storage, setStorage] = useState('');
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');

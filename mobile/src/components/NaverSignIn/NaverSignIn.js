@@ -96,7 +96,10 @@ const NaverSignIn = () => {
 
     // 스토리지에 데이터를 저장하는 함수
     if (!!naverToken) {
-      AsyncStorage.setItem('sns_info', JSON.stringify(profileResult));
+      AsyncStorage.setItem(
+        'sns_info',
+        JSON.stringify(profileResult.response.id),
+      );
     }
 
     // 메인화면으로 넘어가는 함수

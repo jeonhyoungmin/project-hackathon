@@ -26,6 +26,7 @@ import {Link} from '@react-navigation/native';
 const API_URL =
   Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
+//DB에서 데이터를 호출
 const RegisteredModal = ({
   regiVisible,
   setRegiVisible,
@@ -35,6 +36,7 @@ const RegisteredModal = ({
   regi_url,
   regi_service,
   regi_memo,
+  regi_toggle,
   regi_index_bm,
 }) => {
   const [id, setId] = useState('');
@@ -43,6 +45,11 @@ const RegisteredModal = ({
   const [memo, setMemo] = useState('');
   const [service, setService] = useState('');
   const [index, setIndex] = useState('');
+  const [toggle, setToggle] = useState(false);
+
+  // const toggleValue = () => {
+  //   setToggle(!toggle);
+  // };
 
   const [refresh, setRefresh] = useState(true);
 
@@ -53,8 +60,16 @@ const RegisteredModal = ({
     setMemo(regi_memo);
     setService(regi_service);
     setIndex(regi_index_bm);
+    setIsEnabled(Boolean(regi_toggle));
   }, [regiVisible]);
 
+  // 호출한 toggle의 data type이 string이라 toggle이 원하는 대로 활성화되지 않아서
+  // 이를 활성화 하기 위해 data type을 boolean값으로 바꾸는 작업
+  if (regi_toggle === 'true') {
+    regi_toggle = true;
+  } else if (regi_toggle === 'false') {
+    regi_toggle = false;
+  }
   const serverTest = () => {
     const test = {
       id,
@@ -63,9 +78,10 @@ const RegisteredModal = ({
       service,
       memo,
       index,
+      toggle,
     };
-    console.log(regi_id);
-    console.log(id);
+    // console.log(regi_id);
+    // console.log(id);
     // console.log(test)
     fetch(`${API_URL}/bookmark`, {
       method: 'PUT',
@@ -93,7 +109,12 @@ const RegisteredModal = ({
   };
 
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = () =>
+    setIsEnabled(
+      previousState => !previousState,
+      setToggle(toggle => !toggle),
+      console.log(toggle),
+    );
 
   return (
     <Modal

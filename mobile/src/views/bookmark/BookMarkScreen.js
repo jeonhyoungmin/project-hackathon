@@ -129,6 +129,7 @@ const BookMarkScreen = ({naverToken}) => {
           regi_service={clickData.regi_service}
           regi_memo={clickData.regi_memo}
           regi_index_bm={clickData.index_bm}
+          regi_toggle={clickData.regi_toggle}
         />
 
         {/* 최상단 뒤로가기, 검색 , 카테고리 */}

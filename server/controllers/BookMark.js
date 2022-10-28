@@ -13,6 +13,7 @@ const registrateaccount = (req, res, next) => {
     const url = req.body.url;
     const service = req.body.service;
     const memo = req.body.memo;
+    const toggle = req.body.toggle;
     const username = req.session.username;
 
     console.log(req.session);
@@ -23,8 +24,7 @@ const registrateaccount = (req, res, next) => {
     // 매개 변수 3: 콜백 함수(error, rows, fields)
     // 북마크 등록할때 사용하는 SQL문
     connection.query(
-      "INSERT INTO bookmark (index_user, regi_id, regi_password, regi_url, regi_service, regi_memo) VALUES ( (SELECT index_user FROM user_info WHERE user_id = ?), ?,?,?,?,?)",
-      [username, id, password, url, service, memo],
+      `INSERT INTO bookmark (index_user, regi_id, regi_password, regi_url, regi_service, regi_memo,regi_toggle) VALUES ( (SELECT index_user FROM user_info WHERE user_id = '${username}'), '${id}','${password}','${url}','${service}','${memo}','${toggle}')`,
       function (err) {
         if (err) throw err;
         res.status(200).json({ message: "success" });
@@ -36,9 +36,10 @@ const registrateaccount = (req, res, next) => {
     const url = req.body.url;
     const service = req.body.service;
     const memo = req.body.memo;
+    const toggle = req.body.toggle;
     const sns_id = req.body.storage;
     // const sns_id = req.body.response.id;
-    const bookmarkSql = `INSERT INTO bookmark (regi_id,regi_password, regi_url, regi_service, regi_memo, index_user) SELECT '${id}','${password}','${url}','${service}','${memo}', index_user FROM user_info WHERE sns_id="${sns_id}"`;
+    const bookmarkSql = `INSERT INTO bookmark (regi_id,regi_password, regi_url, regi_service, regi_memo, regi_toggle, index_user) SELECT '${id}','${password}','${url}','${service}','${memo}','${toggle}', index_user FROM user_info WHERE sns_id="${sns_id}"`;
     connection.query(bookmarkSql, function (err) {
       if (err) throw err;
       res.status(200).json({ message: "success" });
@@ -112,10 +113,11 @@ const updateaccount = (req, res, next) => {
   const service = req.body.service;
   const memo = req.body.memo;
   const index = req.body.index;
+  const toggle = req.body.toggle;
 
   connection.query(
-    "UPDATE bookmark SET regi_id = ?, regi_password = ?, regi_service = ?, regi_memo = ? WHERE index_bm = ?",
-    [id, password, service, memo, index],
+    `UPDATE bookmark SET regi_id = '${id}', regi_password = '${password}', regi_service = '${service}', regi_memo = '${memo}', regi_toggle = '${toggle}' WHERE index_bm = '${index}'`,
+
     (err, results) => {
       if (err) throw err;
       res.json(results);

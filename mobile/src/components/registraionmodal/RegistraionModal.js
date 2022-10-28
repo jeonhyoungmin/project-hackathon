@@ -26,6 +26,7 @@ import {NaverLogin} from '@react-native-seoul/naver-login';
 const API_URL =
   Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
+// NaverSignIn.js 에서 사용했던 naverToken을 RegistaionModal에서 매개변수로 사용하여 useEffect가 NaverToken에 이벤트가 발생되었을때  AsyncStorge.getItem이 실행되도록 설정
 const RegistraionModal = ({visible, setVisible, BookMark, naverToken}) => {
   useEffect(() => {
     AsyncStorage.getItem('sns_info', (err, result) => {
@@ -44,6 +45,7 @@ const RegistraionModal = ({visible, setVisible, BookMark, naverToken}) => {
       service,
       memo,
       storage,
+      toggle,
     };
     console.log('storage data' + storage);
     fetch(`${API_URL}/bookmark`, {
@@ -71,28 +73,24 @@ const RegistraionModal = ({visible, setVisible, BookMark, naverToken}) => {
       });
   };
 
-  // 세션스토리지에 저장한 데이터를 불러오는 함수
-  const asyncStorageExcute = () => {
-    AsyncStorage.getItem('sns_info', (err, result) => {
-      if (err) throw err;
-      const sns_id = JSON.parse(result);
-      const snsInfo = sns_id.response.id;
-      setStorage(snsInfo);
-      console.log('storage :' + snsInfo);
-    });
-  };
-  // const [naverToken, setNaverToken] = React.useState(null);
+  useEffect(() => {
+    setIsEnabled(false);
+  }, [visible]);
   const [storage, setStorage] = useState('');
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [url, setUrl] = useState('');
   const [memo, setMemo] = useState('');
   const [service, setService] = useState('');
-
-  // const [visible, setVisible] = useState(visible);
+  const [toggle, setToggle] = useState(false);
 
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = () =>
+    setIsEnabled(
+      previousState => !previousState,
+      setToggle(toggle => !toggle),
+      console.log(toggle),
+    );
 
   return (
     <Modal

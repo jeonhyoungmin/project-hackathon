@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Alert, Platform} from 'react-native';
 import {NaverLogin, getProfile} from '@react-native-seoul/naver-login';
 import {useNavigation} from '@react-navigation/native';
-import CustomButton from '../CustomButton/CustomButton';
+import CustomButton from '../button/CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initials = {

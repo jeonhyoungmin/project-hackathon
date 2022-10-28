@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-
-// 컴포넌트 파일 불러오기
-import CustomButton from '../../components/CustomButton/CustomButton';
-import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import {NaverLogin} from '@react-native-seoul/naver-login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+
+// 컴포넌트 파일 불러오기
+import CustomButton from '../../components/button/CustomButton';
 
 const API_URL =
   Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
@@ -34,7 +34,7 @@ const Setting = () => {
     navigation.navigate('SignIn');
   };
   const SignOut = () => {
-    fetch(`${API_URL}/signin`, {
+    fetch(`${API_URL}/signout`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

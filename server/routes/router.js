@@ -23,7 +23,7 @@ router.post("/signup", SignUp);
 
 router.post("/signin", SignIn);
 
-router.get("/signin", function (req, res) {
+router.get("/signout", function (req, res) {
   req.session.destroy(function (err) {
     if (err) throw err;
     res.status(200).json({ message: "logout" });

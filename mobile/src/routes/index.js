@@ -6,33 +6,33 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 /* 네비게이션을 적용할 스크린들을 불러온다. */
 import Setting from '../views/setting/Setting';
-import ApplicationInfoScreen from '../views/setting/ApplicationInfoScreen/ApplicationInfoScreen';
-import AuthenticationScreen from '../views/setting/AuthenticationScreen/AuthenticationScreen';
-import AuthorityScreen from '../views/setting/AuthorityScreen/AuthorityScreen';
-import DataManagementScreen from '../views/setting/DataManagementScreen/DataManagementScreen';
-import InterfaceSettingScreen from '../views/setting/InterfaceSettingScreen/InterfaceSettingScreen';
-import MyInfoScreen from '../views/setting/MyInfoScreen/MyInfoScreen';
-import NotificationScreen from '../views/setting/NotificationScreen/NotificationScreen';
-import PrivacyPolicyScreen from '../views/setting/PrivacyPolicyScreen/PrivacyPolicyScreen';
-import SuggestionQuestionScreen from '../views/setting/SuggestionQuestionScreen/SuggestionQuestionScreen';
+import ApplicationInfoScreen from '../views/setting/zip/ApplicationInfoScreen'
+import AuthenticationScreen from '../views/setting/zip/AuthenticationScreen'
+import AuthorityScreen from '../views/setting/zip/AuthorityScreen';
+import DataManagementScreen from '../views/setting/zip/DataManagementScreen';
+import InterfaceSettingScreen from '../views/setting/zip/InterfaceSettingScreen';
+import MyInfoScreen from '../views/setting/zip/MyInfoScreen';
+import NotificationScreen from '../views/setting/zip/NotificationScreen';
+import PrivacyPolicyScreen from '../views/setting/zip/PrivacyPolicyScreen';
+import SuggestionQuestionScreen from '../views/setting/zip/SuggestionQuestionScreen';
 // import SignInScreen from '../views/SignInScreen/SignInScreen';
 
 //Main
-import MainScreen from '../views/main/MainScreen';
-import {SearchContextProvider} from '../components/main/SearchContext';
+import MainScreen from '../views/MainScreen'
+import {SearchContextProvider} from '../components/searchcontext/SearchContextProvider';
 
 // 로그인
-import SignInScreen from '../views/SignInScreen/SignInScreen';
-import SignUpScreen from '../views/SignUpScreen/SignUpScreen';
-import ConfirmEmailScreen from '../views/ComfirmEmailScreen/ConfirmEmailScreen';
-import ForgotPasswordScreen from '../views/ForgotPasswordScreen/ForgotPasswordScreen';
-import NewPasswordScreen from '../views/NewPasswordScreen/NewPasswordScreen';
+import SignInScreen from '../views/SignInScreen';
+import SignUpScreen from '../views/SignUpScreen';
+import ConfirmEmailScreen from '../views/ConfirmEmailScreen';
+import ForgotPasswordScreen from '../views/ForgotPasswordScreen';
+import NewPasswordScreen from '../views/NewPasswordScreen';
 
 // 북마크
-import BookMarkScreen from '../views/bookmark/BookMarkScreen';
+import BookMarkScreen from '../views/BookMarkScreen';
 
 //구글로그인페이지
-import GoogleSigninScreen from '../views/GoogleSigninScreen/GoogleSigninScreen';
+import GoogleSigninScreen from '../views/GoogleSigninScreen';
 
 const Stack = createNativeStackNavigator();
 

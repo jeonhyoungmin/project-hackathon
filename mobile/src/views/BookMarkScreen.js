@@ -17,11 +17,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
 
 import SearchBarModal from '../components/modal/SearchBarModal';
 import CustomRadioButton from '../components/button/CustomRadioButton';
-<<<<<<< HEAD
 import AddBoxButton from '../components/button/AddBoxButton'
-=======
-import AddBoxButton from '../components/button/AddBoxButton';
->>>>>>> c3e234d0e4d5397b70baee0cd7f89e86475d31ad
 import RegistraionModal from '../components/modal/RegistraionModal';
 import AddAccountBox from '../components/box/AddAccountBox';
 import RegisteredModal from '../components/modal/RegisteredModal';

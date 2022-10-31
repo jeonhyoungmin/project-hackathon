@@ -11,4 +11,4 @@ export function SearchContextProvider({children}) {
   );
 }
 
-export default SearchContextProvider;
+export default SearchContext;

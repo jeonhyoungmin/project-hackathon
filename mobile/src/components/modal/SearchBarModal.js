@@ -11,8 +11,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import SearchContext from '../searchcontext/SearchContextProvider';
 import {Modal} from 'react-native';
 
-const {width} = Dimensions.get('window');
-
 const SearchBarModal = ({search, setSearch}) => {
   const searchModal = () => {
     setSearch(!search);

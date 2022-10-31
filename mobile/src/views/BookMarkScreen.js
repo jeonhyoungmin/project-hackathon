@@ -17,7 +17,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
 
 import SearchBarModal from '../components/modal/SearchBarModal';
 import CustomRadioButton from '../components/button/CustomRadioButton';
-import AddBoxButton from '../components/box/AddAccountBox'
+import AddBoxButton from '../components/button/AddBoxButton';
 import RegistraionModal from '../components/modal/RegistraionModal';
 import AddAccountBox from '../components/box/AddAccountBox';
 import RegisteredModal from '../components/modal/RegisteredModal';
@@ -59,7 +59,6 @@ const BookMarkScreen = ({naverToken}) => {
       console.log('storage :' + sns_id);
     });
   }, [naverToken]);
-
 
   // 데이터 갱신
   useEffect(() => {
@@ -147,7 +146,9 @@ const BookMarkScreen = ({naverToken}) => {
             {/* 검색 창 및 돋보기 컨테이너 */}
             <View style={styles.searchButton}>
               {/* 검색 창 visible */}
-              {search && <SearchBarModal visible={search} setSearch={setSearch} />}
+              {search && (
+                <SearchBarModal visible={search} setSearch={setSearch} />
+              )}
               <Pressable onPress={searchButtonChange}>
                 <Icons name="md-search-circle-outline" size={32} color="#333" />
               </Pressable>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import NaverSignIn from '../naverSignIn/NaverSignIn.js';
+import NaverSignIn from '../naversignin/NaverSignIn.js';
 import CustomButton from './CustomButton';
 
 const SocialSignInButtons = () => {

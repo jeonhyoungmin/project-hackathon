@@ -14,24 +14,11 @@ const API_URL =
 const Setting = () => {
   const [naverToken, setNaverToken] = React.useState(null);
   const navigation = useNavigation();
-  // const [storage, setStorage] = useState('');
 
-  // const asyncStorageExcute = () => {
-  //   AsyncStorage.getItem('sns_info', (err, result) => {
-  //     if (err) throw err;
-  //     const sns_id = JSON.parse(result);
-  //     const snsInfo = sns_id.response.id;
-  //     setStorage(snsInfo);
-  //     console.log(snsInfo);
-  //   });
-  // };
   const naverLogout = () => {
     NaverLogin.logout();
     setNaverToken('');
-    console.log();
     AsyncStorage.clear();
-    // asyncStorageExcute();
-    navigation.navigate('SignIn');
   };
   const SignOut = () => {
     fetch(`${API_URL}/signout`, {

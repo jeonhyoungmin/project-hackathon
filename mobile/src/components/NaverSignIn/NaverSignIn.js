@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Platform} from 'react-native';
+import {
+  Alert,
+  Platform,
+  Touchable,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import {NaverLogin, getProfile} from '@react-native-seoul/naver-login';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../button/CustomButton';
@@ -21,7 +27,6 @@ const NaverSignIn = () => {
   // useState Hook을 이용하여 값이 바뀌는 것을 갱신 & 저장한다.
   const [naverToken, setNaverToken] = React.useState(null);
   const [naverData, setNaverData] = useState();
-  const [storage, setStorage] = useState();
   const navigation = useNavigation();
 
   //네이버 로그인을 하기 위한 동작을 하는 함수 : 네이버로 부터 사용자인증 키(위에 initial에 있는 키)로 사용자 인증을 받고 Access TOKEN을 발급을 받는다.
@@ -38,13 +43,6 @@ const NaverSignIn = () => {
       });
     });
   };
-
-  //로그아웃  로그아웃을 실행하고, AcceesTOKEN 값을 초기화 한다. 단, 네이버 사이트와의 연동은 해체되지 않았음
-  const naverLogout = () => {
-    NaverLogin.logout();
-    setNaverToken('');
-  };
-
   {
     /*!! = 논리연산자 boolean값을 부여해주기위해 사용 위에서는 naverToken의 데이터 타입을 boolean값으로 변경해주려고 사용하는 것
       위에 토큰값이 String타입이고 참일때 !!를 쓰면 String값이 boolean true로 바뀌는 것!*/
@@ -68,7 +66,6 @@ const NaverSignIn = () => {
       Alert.alert('로그인 실패', profileResult.message);
       return;
     }
-
     // Access 토큰을 발급받아 !! 삼항연산를 통하여 Boolean값이 참값이 되면, 서버로 프로필을 보내고, 메인화면으로 이동한다.
     if (!!naverToken) {
       fetch(`${API_URL}/thirdparty`, {
@@ -92,45 +89,28 @@ const NaverSignIn = () => {
         .catch(err => {
           console.log(err);
         });
+      //AsyncStorage에 데이터 추가
     }
-
-    // 스토리지에 데이터를 저장하는 함수
     if (!!naverToken) {
       AsyncStorage.setItem(
         'sns_info',
         JSON.stringify(profileResult.response.id),
       );
+      //페이지 이동
     }
-
-    // 메인화면으로 넘어가는 함수
     if (!!naverToken) {
       navigation.navigate('Main');
-    }
-    console.log('profileResult', profileResult);
-  };
-
-  // AsyncStorage에 있는 데이터를 초기화 하는 함수
-  const clearAll = async () => {
-    try {
-      await AsyncStorage.clear();
-      console.log('클리어성공!');
-    } catch (e) {
-      console.log('클리어실패');
     }
   };
   return (
     <>
       {/*버튼을 클릭하면 initials의 사용자 키를 통하여 네이버 사이트에 연결하여 로그인을 한다.*/}
-      <CustomButton
-        text="Sign In with Naver"
-        onPress={() => {
-          naverLogin(initials);
-        }}
-        bgColor="#e7eaf4"
-        fgColor="#12dc61"
-      />
-
-      {/* {!!naverToken && <Button title="로그아웃하기" onPress={clearAll} />} */}
+      <TouchableOpacity>
+        <Image
+          style={{width: 380, height: 48}}
+          source={require('../../../assets/naverlogo.png')}
+        />
+      </TouchableOpacity>
     </>
   );
 };

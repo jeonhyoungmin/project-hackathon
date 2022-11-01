@@ -6,9 +6,9 @@ import {
   StatusBar,
   Pressable,
   Alert,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {RadioButton, TextInput} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // 벡터 아이콘 사용
@@ -16,8 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icons from 'react-native-vector-icons/Ionicons';
 
 import SearchBarModal from '../components/modal/SearchBarModal';
-import CustomRadioButton from '../components/button/CustomRadioButton';
-import AddBoxButton from '../components/button/AddBoxButton'
+import AddBoxButton from '../components/button/AddBoxButton';
 import RegistraionModal from '../components/modal/RegistraionModal';
 import AddAccountBox from '../components/box/AddAccountBox';
 import RegisteredModal from '../components/modal/RegisteredModal';
@@ -109,6 +108,7 @@ const BookMarkScreen = ({naverToken}) => {
       <SafeAreaView style={styles.container}>
         {/* 등록창 Modal 컴포넌트 */}
         <RegistraionModal
+          style={styles.modalheight}
           visible={visible}
           setVisible={setVisible}
           BookMark={true}

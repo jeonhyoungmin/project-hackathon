@@ -12,18 +12,19 @@ const GoogleSigninScreen = () => {
 
   useEffect(() => {
     GoogleSignin.configure({
-      scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+      scopes: ['https://www.googleapis.com/auth/drive.photos.readonly'],
       webClientId:
-        '930626829523-c1bgr5rt0qkr0v7ra8jmgphu0bc22too.apps.googleusercontent.com',
+        '930626829523-0035bi0b7o901c9vo77mlvrqfgds6d5t.apps.googleusercontent.com',
       offlineAccess: true,
       forceCodeForRefreshToken: true,
     });
-  });
-  signIn = async () => {
+    isSignedIn();
+  }, []);
+  const signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      setUser(userInfo);
+      setUser({userInfo});
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -31,53 +32,47 @@ const GoogleSigninScreen = () => {
       } else {
       }
     }
-
-    const isSignedIn = async () => {
-      const isSignedIn = await GoogleSignin.isSignedIn();
-      if (!isSignedIn) {
-        getCurrentUserInfo();
-      } else {
-        console.log('로그인을 하세요');
-      }
-    };
-
-    const getCurrentUserInfo = async () => {
-      try {
-        const userInfo = await GoogleSignin.signInSilently();
-        setUser(userInfo);
-      } catch (error) {
-        if (error.code === statusCodes.SIGN_IN_REQUIRED) {
-        } else {
-        }
-      }
-    };
-    const signOut = async () => {
-      try {
-        await GoogleSignin.revokeAccess();
-        await GoogleSignin.signOut();
-        setUser({});
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    return (
-      <View style={{flex: 1, margin: 50}}>
-        <View style={styles.main}>
-          <CustomButton
-            text="Sign In with Google"
-            onPress={signIn}
-            bgColor="#e7eaf4"
-            fgColor="#4765a9"
-          />
-
-          <TouchableOpacity onPress={signOut}>
-            <Text>Sign Out</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
   };
+
+  const isSignedIn = async () => {
+    const isSignedIn = await GoogleSignin.isSignedIn();
+    if (!!isSignedIn) {
+      getCurrentUserInfo();
+    } else {
+      console.log('로그인을 하세요');
+    }
+  };
+
+  const getCurrentUserInfo = async () => {
+    try {
+      const userInfo = await GoogleSignin.signInSilently();
+      setUser({userInfo});
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_REQUIRED) {
+      } else {
+      }
+    }
+  };
+  const signOut = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      setUser({});
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <>
+      <GoogleSigninButton
+        style={{width: 380, height: 48}}
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={signIn}
+      />
+    </>
+  );
 };
 
 const styles = StyleSheet.create({

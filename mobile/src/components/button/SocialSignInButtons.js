@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import NaverSignIn from '../naversignin/NaverSignIn.js';
 import CustomButton from './CustomButton';
-
+import GoogleSigninScreen from '../../views/GoogleSigninScreen.js';
 const SocialSignInButtons = () => {
   const navigation = useNavigation();
   const onSignInNaver = () => {
@@ -20,12 +20,7 @@ const SocialSignInButtons = () => {
   return (
     <>
       <NaverSignIn />
-      <CustomButton
-        text="Sign In with Google"
-        onPress={() => navigation.navigate('GoogleSigninScreen')}
-        bgColor="#e7eaf4"
-        fgColor="#4765a9"
-      />
+      <GoogleSigninScreen />
       <CustomButton
         text="Sign In with Kakao"
         onPress={onSignInKakao}

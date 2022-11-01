@@ -1,22 +1,11 @@
 import React, {useContext} from 'react';
-import {
-  TextInput,
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  Dimensions,
-} from 'react-native';
+import {TextInput, StyleSheet, Text, View, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SearchContext from '../searchcontext/SearchContextProvider';
 import {Modal} from 'react-native';
 
 const SearchBarModal = ({search, setSearch}) => {
-  const searchModal = () => {
-    setSearch(!search);
-  };
   const {keyword, onChangeText} = useContext(SearchContext);
-
   return (
     <View style={styles.container}>
       <Modal
@@ -74,7 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     width: '70%',
-    height: '50%',
+    height: 360,
     position: 'absolute',
   },
   input: {

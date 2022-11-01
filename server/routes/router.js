@@ -4,7 +4,6 @@ const {
   registeredaccount,
   deleteaccount,
   updateaccount,
-  // registrateaccountsns,
 } = require("../controllers/BookMark.js");
 const {
   thirdparty,

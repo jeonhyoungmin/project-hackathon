@@ -47,22 +47,6 @@ const registrateaccount = (req, res, next) => {
   }
 };
 
-// 소셜 로그인 사용자의 북마크 서비스 계정 등록
-// const registrateaccountsns = (req, res, next) => {
-//   const id = req.body.id;
-//   const password = req.body.password;
-//   const url = req.body.url;
-//   const service = req.body.service;
-//   const memo = req.body.memo;
-//   const sns_id = req.body.storage;
-//   // const sns_id = req.body.response.id;
-//   const bookmarkSql = `INSERT INTO bookmark (regi_id,regi_password, regi_url, regi_service, regi_memo, index_user) SELECT '${id}','${password}','${url}','${service}','${memo}', index_user FROM user_info WHERE sns_id="${sns_id}"`;
-//   connection.query(bookmarkSql, function (err) {
-//     if (err) throw err;
-//     res.status(200).json({ message: "success" });
-//   });
-// }
-
 // 북마크 등록된 서비스 계정 읽기
 const registeredaccount = (req, res, next) => {
   if (req.session.username) {
@@ -127,7 +111,6 @@ const updateaccount = (req, res, next) => {
 
 module.exports = {
   registrateaccount,
-  // registrateaccountsns,
   registeredaccount,
   deleteaccount,
   updateaccount,

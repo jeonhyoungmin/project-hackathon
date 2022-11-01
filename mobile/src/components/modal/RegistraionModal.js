@@ -10,7 +10,6 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import { ModalTextInput } from '../textinput/ModalTextInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API_URL =
@@ -50,9 +49,7 @@ const RegistraionModal = ({visible, setVisible, BookMark, naverToken}) => {
           const jsonRes = await res.json();
           console.log(jsonRes);
           if (res.status !== 200) {
-            
           } else {
-
           }
         } catch (err) {
           console.log(err);
@@ -81,7 +78,6 @@ const RegistraionModal = ({visible, setVisible, BookMark, naverToken}) => {
       setToggle(toggle => !toggle),
       console.log(toggle),
     );
-
   return (
     <Modal
       animationType="slide"
@@ -215,7 +211,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '70%',
-    height: '70%',
+    height: 400,
     position: 'absolute',
   },
   centerContainer: {
@@ -223,7 +219,6 @@ const styles = StyleSheet.create({
     height: '95%',
     // backgroundColor: 'yellow',
   },
-
   modalTop: {
     flex: 2,
     // backgroundColor: 'blue',
@@ -243,9 +238,6 @@ const styles = StyleSheet.create({
 
   modalMiddle: {
     flex: 2,
-    // backgroundColor: 'green',
-    // flexDirection: 'column',
-    // justifyContent: 'center',
     alignItems: 'center',
   },
   MemoContainer: {
@@ -265,7 +257,6 @@ const styles = StyleSheet.create({
 
   modalBottom: {
     flex: 1,
-    // backgroundColor: 'pink',
     flexDirection: 'row',
   },
   registContainer: {
@@ -299,6 +290,7 @@ const styles = StyleSheet.create({
   textcontainer: {
     flex: 1,
     width: '95%',
+    margin: 3,
     // height: "95%",
   },
   textInput: {

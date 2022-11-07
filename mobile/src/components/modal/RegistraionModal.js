@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '70%',
-    height: '70%',
+    height: 500,
     position: 'absolute',
   },
   centerContainer: {

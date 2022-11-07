@@ -238,8 +238,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '80%',
-    height: '80%',
+    width: '70%',
+    height: 500,
     position: 'absolute',
   },
   centerContainer: {
